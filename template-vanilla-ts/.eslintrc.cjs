@@ -1,12 +1,12 @@
 module.exports = {
-  root: true,
   env: { browser: true, es2020: true },
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
+  root: true,
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   ignorePatterns: ['dist', 'dist-zip', 'backups', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  plugins: ['@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     '@typescript-eslint/naming-convention': [
       'error',
       {
@@ -14,7 +14,7 @@ module.exports = {
         format: ['PascalCase'],
         custom: {
           regex: '^I[A-Z]',
-          match: false,
+          match: true,
         },
       },
     ],

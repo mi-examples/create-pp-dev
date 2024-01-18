@@ -1,0 +1,19 @@
+{
+  "name": "pp-dev-vanilla-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pp-dev",
+    "build": "pp-dev build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@metricinsights/pp-dev": "^0.4.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.2",
+    "typescript": "^5.3.3"
+  }
+}

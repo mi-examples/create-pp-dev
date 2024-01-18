@@ -1,0 +1,30 @@
+{
+  "name": "pp-dev-nextjs-starter",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pp-dev next",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@metricinsights/pp-dev": "^0.4.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.4",
+    "prettier": "^3.2.2",
+    "typescript": "^5"
+  }
+}
