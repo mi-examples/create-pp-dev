@@ -1,7 +1,39 @@
-import { setupCounter } from './assets/js/counter.js';
+class PP {
+  /**
+   * @type {JQuery}
+   */
+  $countButton;
+  /**
+   * @type {JQuery}
+   */
+  $countValue;
 
-setupCounter(document.querySelector('#counter'));
+  count = 0;
 
-const test = 'test';
+  constructor(props) {
+    const { countButtonSelector, countValueSelector } = props;
 
-console.log(test);
+    this.$countButton = $(countButtonSelector);
+    this.$countValue = $(countValueSelector);
+  }
+
+  initEvents() {
+    this.$countButton.on('click', () => {
+      this.count++;
+      this.$countValue.text(this.count);
+    });
+  }
+
+  async init() {
+    this.initEvents();
+  }
+}
+
+const pp = new PP({
+  countButtonSelector: '#count-button',
+  countValueSelector: '#count-value',
+});
+
+pp.init().catch((err) => {
+  console.error(err);
+});

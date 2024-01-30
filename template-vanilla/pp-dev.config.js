@@ -5,11 +5,11 @@ export default {
   /**
    * Backend base URL
    */
-  // backendBaseURL: 'https://example.metricinsights.com',
+  backendBaseURL: 'https://640.metricinsights.com',
   /**
    * Portal page ID
    */
-  // portalPageId: 1,
+  portalPageId: 1,
   /**
    * Disable MI top bar
    */

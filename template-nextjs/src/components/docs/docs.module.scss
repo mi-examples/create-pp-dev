@@ -1,0 +1,74 @@
+.docs {
+  padding: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+
+  &__item {
+    flex: 1;
+    padding: 1rem;
+    margin: 0.5rem;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    transition: border-color 0.25s;
+    background-color: #f9f9f9;
+
+    &:hover {
+      border-color: #646cff;
+    }
+
+    &__logo {
+      height: 4em;
+      will-change: filter;
+      transition: filter 300ms;
+    }
+
+    &__title {
+      font-size: 1.2em;
+      font-weight: 500;
+      color: #213547;
+    }
+
+    &__description {
+      color: #888;
+      font-size: 0.9em;
+    }
+  }
+}
+
+.invert {
+  filter: invert(1);
+
+  &__dark {
+    filter: invert(0);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .docs {
+    &__item {
+      background-color: #1a1a1a;
+      border-color: #292929;
+
+      &__title {
+        color: rgba(255, 255, 255, 0.87);
+      }
+
+      &__logo {
+        &__invert {
+          filter: invert(0);
+        }
+      }
+    }
+  }
+
+  .invert {
+    filter: invert(0);
+
+    &__dark {
+      filter: invert(1);
+    }
+  }
+}

@@ -14,7 +14,7 @@ module.exports = {
         format: ['PascalCase'],
         custom: {
           regex: '^I[A-Z]',
-          match: true,
+          match: false,
         },
       },
     ],

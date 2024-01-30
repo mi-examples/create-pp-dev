@@ -1,0 +1,55 @@
+{
+  "name": "@metricinsights/create-pp-dev",
+  "version": "0.4.0",
+  "type": "module",
+  "description": "Portal Page Templates repository",
+  "bin": {
+    "create-pp-dev": "index.js"
+  },
+  "keywords": [
+    "portal",
+    "page",
+    "pp",
+    "metricinsights",
+    "MI",
+    "templates",
+    "create",
+    "dev"
+  ],
+  "files": [
+    "index.js",
+    "template-*",
+    "dist"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  },
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "Serhii Shpak",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mi-examples/pp-dev-js.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@metricinsights/pp-dev": "^0.4.0",
+    "@types/cross-spawn": "^6.0.6",
+    "@types/minimist": "^1.2.5",
+    "@types/prompts": "^2.4.9",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "prettier": "^3.2.2",
+    "unbuild": "^2.0.0"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.3",
+    "kolorist": "^1.8.0",
+    "minimist": "^1.2.8",
+    "prompts": "^2.4.2"
+  }
+}

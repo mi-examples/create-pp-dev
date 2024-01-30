@@ -1,6 +1,53 @@
 <link rel="stylesheet" href="./src/assets/style/main.scss" />
 <div id="root">
-  <button id="counter" type="button"></button>
+  <div>
+    <a href="https://www.npmjs.com/package/@metricinsights/pp-dev" target="_blank" rel="noopener noreferrer">
+      <img src="/pp-dev.svg" class="logo" alt="PP-Dev logo" />
+    </a>
+    <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">
+      <img src="/vitejs.svg" class="logo vite" alt="Vite.js logo" />
+    </a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
+      <img src="/javascript.svg" class="logo" alt="JavaScript logo" />
+    </a>
+  </div>
+  <h1>PP Dev + Vite.js + JavaScript</h1>
+  <div class="card">
+    <button id="count-button">count is <span id="count-value">0</span></button>
+    <p>Edit <code>src/main.js</code> and save to test HMR</p>
+  </div>
+  <p class="read-the-docs">Click on the PP Dev, Vite.js and JavaScript logos to learn more</p>
+
+  <div class="docs">
+    <a
+      class="docs__item"
+      href="https://www.npmjs.com/package/@metricinsights/pp-dev"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img class="docs__item__logo" src="/pp-dev.svg" width="150" height="50" alt="PP Dev" />
+      <div class="docs__item__title">PP Dev</div>
+      <div class="docs__item__description">PP Dev docs</div>
+    </a>
+
+    <a class="docs__item" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer">
+      <img class="docs__item__logo" src="/javascript.svg" width="150" height="50" alt="JavaScript" />
+      <div class="docs__item__title">JavaScript</div>
+      <div class="docs__item__description">JavaScript docs</div>
+    </a>
+
+    <a class="docs__item" href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">
+      <img class="docs__item__logo" src="/vitejs.svg" width="150" height="50" alt="Vite.js" />
+      <div class="docs__item__title">Vite.js</div>
+      <div class="docs__item__description">Vite.js docs</div>
+    </a>
+
+    <a class="docs__item" href="https://help.metricinsights.com/" target="_blank" rel="noopener noreferrer">
+      <img class="docs__item__logo invert" src="/metricinsights.svg" width="150" height="50" alt="MetricInsights" />
+      <div class="docs__item__title">MetricInsights</div>
+      <div class="docs__item__description">Help & Documentation</div>
+    </a>
+  </div>
 </div>
 
 <script>
@@ -11,4 +58,4 @@
   };
 </script>
 
-<script type="module" src="/main.js"></script>
+<script type="module" src="/src/main.js"></script>
