@@ -1,4 +1,4 @@
-# @merticinsights/create-pp-dev <a href="https://npmjs.com/package/@merticinsights/create-pp-dev"><img src="https://img.shields.io/npm/v/@merticinsights/create-pp-dev" alt="npm package"></a>
+# @metricinsights/create-pp-dev <a href="https://npmjs.com/package/@metricinsights/create-pp-dev"><img src="https://img.shields.io/npm/v/@metricinsights/create-pp-dev" alt="npm package"></a>
 
 ## Scaffolding Your First Portal Page
 
@@ -8,19 +8,19 @@
 ith NPM:
 
 ```bash
-$ npm create @merticinsights/pp-dev
+$ npm create @metricinsights/pp-dev@latest
 ```
 
 With Yarn:
 
 ```bash
-$ yarn create @merticinsights/pp-dev
+$ yarn create @metricinsights/pp-dev
 ```
 
 With PNPM:
 
 ```bash
-$ pnpm create @merticinsights/pp-dev
+$ pnpm create @metricinsights/pp-dev
 ```
 
 Then follow the prompts!
@@ -29,13 +29,13 @@ You can also directly specify the project name and the template you want to use 
 
 ```bash
 # npm 7+, extra double-dash is needed:
-npm create @merticinsights/pp-dev@latest my-pp -- --template react
+npm create @metricinsights/pp-dev@latest my-pp -- --template react
 
 # yarn
-yarn create @merticinsights/pp-dev my-pp --template react
+yarn create @metricinsights/pp-dev my-pp --template react
 
 # pnpm
-pnpm create @merticinsights/pp-dev my-pp --template react
+pnpm create @metricinsights/pp-dev my-pp --template react
 ```
 
 Currently supported template presets include:

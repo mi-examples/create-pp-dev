@@ -1,6 +1,6 @@
 {
   "name": "@metricinsights/create-pp-dev",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "description": "Portal Page Templates repository",
   "bin": {
@@ -18,7 +18,7 @@
   ],
   "files": [
     "index.js",
-    "template-*",
+    "template-*/**",
     "dist"
   ],
   "main": "index.js",
@@ -29,7 +29,8 @@
     "dev": "unbuild --stub",
     "build": "unbuild",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "version": "npm version --commit-hooks false --git-tag-version false"
   },
   "author": "Serhii Shpak",
   "repository": {
