@@ -1,6 +1,6 @@
-# Next.js + PP Dev
+# TypeScript + PP Dev
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`@metricinsights/create-pp-dev`](https://github.com/mi-examples/pp-dev-js/tree/main/packages/create-pp-dev).
+This template provides a minimal setup to get Portal Page working in PP Dev with HMR and some ESLint rules.
 
 ## Getting Started
 
@@ -16,16 +16,13 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `src/pages/index.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can start editing the page by modifying `src/main.ts` and `index.html`. The page auto-updates as you edit the file.
 
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [TypeScript Docs](https://www.typescriptlang.org/) - learn about TypeScript features and API.
 - [PP Dev Documentation](https://www.npmjs.com/package/@metricinsights/pp-dev) - learn about PP Dev features and API.
 - [Metric Insights Docs](https://help.metricinsights.com/) - learn about Metric Insights features and API.
 
