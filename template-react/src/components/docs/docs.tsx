@@ -44,7 +44,7 @@ export default function Docs() {
 
         <a
           className={styles.docs__item}
-          href="https://www.typescriptlang.org/"
+          href="https://vitejs.dev/"
           target="_blank"
           rel="noopener noreferrer"
         >
