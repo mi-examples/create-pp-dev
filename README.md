@@ -1,31 +1,36 @@
-# @metricinsights/create-pp-dev <a href="https://npmjs.com/package/@metricinsights/create-pp-dev"><img src="https://img.shields.io/npm/v/@metricinsights/create-pp-dev" alt="npm package"></a>
+# @metricinsights/create-pp-dev
 
-## Scaffolding Your First Portal Page
+<a href="https://npmjs.com/package/@metricinsights/create-pp-dev"><img src="https://img.shields.io/npm/v/@metricinsights/create-pp-dev" alt="npm package"></a>
 
-> **Compatibility Note:**
-> Vite requires [Node.js](https://nodejs.org/en/) version 18+, 20+. However, some templates require a higher Node.js version to work, please upgrade if your package manager warns about it.
+## Overview
 
-ith NPM:
+`@metricinsights/create-pp-dev` is a CLI tool for scaffolding new MetricInsights Portal Page projects. It provides various templates to help you get started quickly with Portal Page development.
 
-```bash
-$ npm create @metricinsights/pp-dev@latest
-```
+## Requirements
 
-With Yarn:
+- [Node.js](https://nodejs.org/en/) version 18+, 20+
+- npm, yarn, or pnpm package manager
 
-```bash
-$ yarn create @metricinsights/pp-dev
-```
+> **Note:** Some templates may require a higher Node.js version. Please upgrade if your package manager warns about compatibility issues.
 
-With PNPM:
+## Usage
+
+### Basic Usage
 
 ```bash
-$ pnpm create @metricinsights/pp-dev
+# Using npm
+npm create @metricinsights/pp-dev@latest
+
+# Using yarn
+yarn create @metricinsights/pp-dev
+
+# Using pnpm
+pnpm create @metricinsights/pp-dev
 ```
 
-Then follow the prompts!
+### Advanced Usage
 
-You can also directly specify the project name and the template you want to use via additional command line options. For example, to scaffold a Vite + Vue project, run:
+You can directly specify the project name and template via command line options:
 
 ```bash
 # npm 7+, extra double-dash is needed:
@@ -38,11 +43,26 @@ yarn create @metricinsights/pp-dev my-pp --template react
 pnpm create @metricinsights/pp-dev my-pp --template react
 ```
 
-Currently supported template presets include:
+To scaffold in the current directory, use `.` as the project name:
 
-- `vanilla`
-- `vanilla-ts`
-- `react`
-- `nextjs`
+```bash
+npm create @metricinsights/pp-dev@latest . -- --template react
+```
 
-You can use `.` for the project name to scaffold in the current directory.
+## Available Templates
+
+- `vanilla` - Basic Portal Page with vanilla JavaScript
+- `vanilla-ts` - Basic Portal Page with TypeScript
+- `react` - Portal Page with React
+- `nextjs` - Portal Page with Next.js
+
+## Next Steps
+
+After creating your project:
+
+1. Navigate to the project directory
+2. Install dependencies
+3. Start the development server
+4. Follow the instructions in the generated project's README
+
+For more information about developing Portal Pages, see the [pp-dev documentation](../pp-dev/README.md).
