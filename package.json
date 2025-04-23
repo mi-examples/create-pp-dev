@@ -19,7 +19,9 @@
   "files": [
     "index.js",
     "template-*/**",
-    "dist"
+    "mi-custom-rules",
+    "dist",
+    "CHANGELOG.md"
   ],
   "main": "index.js",
   "engines": {
@@ -30,7 +32,8 @@
     "build": "unbuild",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
-    "version": "npm version --commit-hooks false --git-tag-version false"
+    "version": "npm version --commit-hooks false --git-tag-version false",
+    "release": "semantic-release"
   },
   "author": "Serhii Shpak",
   "repository": {
@@ -39,18 +42,30 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.4.0",
+    "@metricinsights/pp-dev": "^0.10.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@types/cross-spawn": "^6.0.6",
     "@types/minimist": "^1.2.5",
-    "@types/prompts": "^2.4.9",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "prettier": "^3.2.2",
-    "unbuild": "^2.0.0"
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "prettier": "^3.2.5",
+    "semantic-release": "^23.0.0",
+    "unbuild": "^3.0.0"
   },
   "dependencies": {
+    "@clack/prompts": "^0.7.0",
     "cross-spawn": "^7.0.3",
     "kolorist": "^1.8.0",
-    "minimist": "^1.2.8",
-    "prompts": "^2.4.2"
+    "minimist": "^1.2.8"
+  },
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ]
   }
 }

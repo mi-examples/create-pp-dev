@@ -1,0 +1,14 @@
+---
+description: Coding workflow preferences
+globs:
+alwaysApply: true
+---
+
+# Coding workflow preferences
+
+## Approach: Always aim for a clean, maintainable architecture that favors security, durability, and consistency.
+
+- Focus on areas of the code relevant to the task
+- Do not touch code unrelated to the task
+- Avoid making major changes to the patterns and architecture of how a feature works, after it has shown to work well, unless explicitly instructed
+- Always think about what other methods and areas of code might be affected by code changes
