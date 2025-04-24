@@ -11,10 +11,10 @@
     "node": ">=18.0.0"
   },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.4.0",
-    "@types/jquery": "^1.10.45",
-    "eslint": "^8.56.0",
-    "prettier": "^3.2.2",
+    "@metricinsights/pp-dev": "^0.10.0",
+    "@types/jquery": "^3.5.29",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   }
 }

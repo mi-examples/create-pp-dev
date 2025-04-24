@@ -6,13 +6,14 @@ const config: PPDevConfig = {
    */
   // backendBaseURL: 'https://example.metricinsights.com',
   /**
-   * Portal page ID
+   * App ID
    */
-  // portalPageId: 1,
+  // appId: 1,
   /**
    * Disable MI top bar
    */
   miHudLess: false,
+  v7Features: true,
 };
 
 export default config;

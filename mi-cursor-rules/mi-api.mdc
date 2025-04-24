@@ -1,0 +1,493 @@
+---
+description: Comprehensive Guide to Using the Metric Insights REST API
+globs:
+alwaysApply: true
+---
+
+# Comprehensive Guide to Using the Metric Insights REST API
+
+## Authentication
+
+1. **Token Requirement**: All API calls require a valid token except for the token generation call itself.
+
+2. **Getting a Token**:
+   - Use the `/api/get_token` endpoint with a POST request
+   - Provide `application_id`, `application_key`, and `user` in the request
+   - Example request:
+     ```bash
+     curl --header "Content-Type:application/json" --header "Accept:application/json" -X POST --data '{"application_id":"ABC","application_key":"XYZ","user":"admin"}' https://yourinstance.com/api/get_token
+     ```
+   - Example response:
+     ```json
+     {
+       "token": "UClCUUKxUlkdbhE1cHLz3kyjbIZYVh9eB34A5Q21Y3FPqKGSJs",
+       "expires": "2024-04-14 18:46:08"
+     }
+     ```
+
+3. **Token Lifespan**: 
+   - Tokens are valid for approximately 15 minutes by default
+   - The expiration time is included in the response
+   - To extend token validity, modify the `API_TOKEN_LIFE_TIME` system variable in Admin > Utilities > System Config
+   - Generate a new token before beginning operations that might take longer
+
+## Request Structure
+
+1. **Base URL Format**: `https://yourinstance.com/api/{resource}`
+
+2. **HTTP Methods**:
+   - GET: Retrieve resources
+   - POST: Create new resources
+   - PUT: Update existing resources or perform actions
+   - DELETE: Remove resources
+
+3. **Headers**:
+   - Content-Type: application/json
+   - Accept: application/json
+   - Token: [your_token]
+
+4. **Resource Identification**:
+   - Most resources are identified by an `id` parameter
+   - For dimensioned elements, both `element_id` and `dimension_value` may be required
+   - IDs can typically be found in the URL when viewing the resource in the UI
+
+## Common Resources and Endpoints
+
+### Users and Groups
+
+1. **Users** (`/api/user`):
+   - GET: Retrieve user information
+   - POST: Create a new user
+   - Example response:
+     ```json
+     {
+       "users": [
+         {
+           "id": "118",
+           "username": "robert",
+           "first_name": "Robert",
+           "last_name": "Isaenko",
+           "type": "administrator",
+           "email": "robert.isaenko@metricinsights.com",
+           "enabled": "Y",
+           "ldap": "N"
+         }
+       ]
+     }
+     ```
+
+2. **Groups** (`/api/user_group`):
+   - GET: Retrieve group information
+   - POST: Create a new group
+   - Example response:
+     ```json
+     {
+       "user_groups": [
+         {
+           "id": "1",
+           "name": "Default Group",
+           "description": "Default Group - privileges accessible to all users",
+           "all_access_group": "N",
+           "ldap_organizational_unit": null,
+           "external_group_id": null
+         }
+       ]
+     }
+     ```
+
+3. **Group Membership** (`/api/user_group_member`):
+   - GET: View user-group associations
+   - POST: Add a user to a group
+   - DELETE: Remove a user from a group
+   - Example response:
+     ```json
+     {
+       "user_group_members": [
+         {
+           "id": "162",
+           "user": "118",
+           "group": "1"
+         }
+       ]
+     }
+     ```
+
+### Content Management
+
+1. **Metrics** (`/api/metric`):
+   - GET: Retrieve metric information
+   - POST: Create a new metric
+   - PUT: Update a metric or perform actions
+   - DELETE: Remove a metric
+
+2. **Reports** (`/api/report`, `/api/report_data`):
+   - GET: Retrieve report information
+   - POST: Create a new report
+   - PUT: Update a report or perform actions
+   - DELETE: Remove a report
+
+3. **Datasets** (`/api/dataset`):
+   - GET: Retrieve dataset information
+   - POST: Create a new dataset
+   - PUT: Update a dataset or perform actions
+   - DELETE: Remove a dataset
+   - Example response:
+     ```json
+     {
+       "id": "63",
+       "name": "Suppliers Analysis",
+       "description": "Suppliers Analysis",
+       "measurement_interval": "3",
+       "data_storage": "1",
+       "category": "65",
+       "data_collection_trigger": "1",
+       "keep_history": "yes",
+       "data_source": "57_sql",
+       "data_fetch_command": "SELECT * from dataset_61\nWHERE date = :measurement_time"
+     }
+     ```
+
+### Dataset Data in Detail (`/api/dataset_data`)
+
+The dataset_data endpoint provides flexible access to dataset contents with extensive filtering and sorting capabilities.
+
+1. **Basic Usage**:
+   - Required parameter: `dataset` (ID of the dataset)
+   - Optional parameters: 
+     - `view`: ID of a dataset view
+     - `measurement_time`: Specific timestamp for data retrieval
+
+2. **Example Basic Request**:
+   ```
+   GET /api/dataset_data?dataset=568
+   ```
+
+3. **Example Response Structure**:
+   ```json
+   {
+     "data": [
+       {
+         "Name": "User8",
+         "Country": "Algeria",
+         "Customer ID": "3",
+         "Items Purchased": "4",
+         "Date": null
+       },
+       {
+         "Name": "User7",
+         "Country": "Algeria",
+         "Customer ID": "3",
+         "Items Purchased": "10",
+         "Date": null
+       }
+     ],
+     "metadata": [
+       {"name": "Name", "type": "text"},
+       {"name": "Country", "type": "text"},
+       {"name": "Customer ID", "type": "numeric"},
+       {"name": "Items Purchased", "type": "numeric"},
+       {"name": "Date", "type": "datetime"}
+     ],
+     "amount": 6
+   }
+   ```
+
+4. **Pagination**:
+   - `limit`: Number of records to return
+   - `offset`: Number of records to skip
+   - `amount`: Set to "Y" to include total record count
+   - Example: `/api/dataset_data?dataset=568&limit=4&offset=1&amount=Y`
+
+5. **Sorting**:
+   - Use POST with a JSON body containing a `sort` array
+   - Each sort item includes `field` (column name) and `dir` (ASC or DESC)
+   - Example request:
+     ```javascript
+     $.ajax({
+       "url": "/api/dataset_data?dataset=568&limit=4&offset=1&amount=Y", 
+       "type": "POST", 
+       data: {
+         "sort": [
+           {"field": "items_purchased", "dir": "DESC"},
+           {"field": "country", "dir": "ASC"}
+         ]
+       },
+       "headers": {"Accept": "application/json"}
+     })
+     ```
+
+6. **Text Filtering (Contains)**:
+   - Use POST with a JSON body containing `filters` array
+   - Example request:
+     ```javascript
+     $.ajax({
+       "url": "/api/dataset_data?dataset=568",
+       "headers": { "Content-type": "application/json", "Accept": "application/json" },
+       "type": "POST",
+       "data": JSON.stringify({
+         "filters": [
+           {
+             "column_name": "country",
+             "condition": "contains",
+             "data": "Italy"
+           }
+         ]
+       })
+     })
+     ```
+
+7. **Numeric Filtering**:
+   - Conditions: `equals`, `is greater than`, `is less than`
+   - Example request:
+     ```javascript
+     $.ajax({
+       "url": "/api/dataset_data?dataset=568",
+       "headers": { "Content-type": "application/json", "Accept": "application/json" },
+       "type": "POST",
+       "data": JSON.stringify({
+         "filters": [
+           {
+             "column_name": "items_purchased",
+             "condition": "is less than",
+             "data": "12"
+           }
+         ]
+       })
+     })
+     ```
+
+8. **Compound Filtering with AND**:
+   - Group multiple conditions with the "AND" operator
+   - Example request:
+     ```javascript
+     $.ajax({
+       "url": "/api/dataset_data?dataset=568",
+       "headers": { "Content-type": "application/json", "Accept": "application/json" },
+       "type": "POST",
+       "data": JSON.stringify({
+         "filters": [
+           {
+             "group": {
+               "operator": "AND",
+               "rules": [
+                 {
+                   "column_name": "items_purchased",
+                   "condition": "is greater than",
+                   "data": "10"
+                 },
+                 {
+                   "column_name": "country",
+                   "condition": "contains",
+                   "data": "Italy"
+                 }
+               ]
+             }
+           }
+         ]
+       })
+     })
+     ```
+
+9. **Compound Filtering with OR**:
+   - Group multiple conditions with the "OR" operator
+   - Example request:
+     ```javascript
+     $.ajax({
+       "url": "/api/dataset_data?dataset=568",
+       "headers": { "Content-type": "application/json", "Accept": "application/json" },
+       "type": "POST",
+       "data": JSON.stringify({
+         "filters": [
+           {
+             "group": {
+               "operator": "OR",
+               "rules": [
+                 {
+                   "column_name": "items_purchased",
+                   "condition": "is less than",
+                   "data": "15"
+                 },
+                 {
+                   "column_name": "country",
+                   "condition": "contains",
+                   "data": "Canada"
+                 }
+               ]
+             }
+           }
+         ]
+       })
+     })
+     ```
+
+### Organization and Display
+
+1. **Folders** (`/api/folder`, `/api/folder_element`):
+   - Manage folders and folder contents
+   - Example response:
+     ```json
+     {
+       "folder": {
+         "id": "244",
+         "name": "Robert Empty Folder",
+         "visible": "Y",
+         "visible_on_mobile": "Y",
+         "include_in_export": "N"
+       }
+     }
+     ```
+
+2. **Favorites** (`/api/favorite`, `/api/favorite_element`):
+   - Manage favorite folders and elements
+   - Example response:
+     ```json
+     {
+       "favorites": [
+         {
+           "id": "382",
+           "name": "Most Popular",
+           "include_in_favorites_digest_ind": "N",
+           "include_in_digest_on": "element update"
+         }
+       ]
+     }
+     ```
+
+3. **Announcements** (`/api/announcement`):
+   - Create and manage announcements
+   - Example response:
+     ```json
+     {
+       "announcements": [
+         {
+           "id": "25",
+           "enabled": "Y",
+           "show_on_viewer": "N",
+           "show_on_homepage": "Y",
+           "subject": "Special Announcement",
+           "visible_to": "all",
+           "html_code": "<p>Hello! This is a <strong>special</strong> announcement</p>"
+         }
+       ]
+     }
+     ```
+
+### Portal Pages
+
+1. **Entities** (`/data/page/{page_name}/entity`):
+   - List all entities associated with a portal page
+   - Example response:
+     ```json
+     [
+       {
+         "name": "countries_info",
+         "entity_type": "internal",
+         "dataset_id": null,
+         "data_fetch_method": "sql"
+       },
+       {
+         "name": "csv-countries",
+         "entity_type": "dataset",
+         "dataset_id": "568",
+         "data_fetch_method": "sql"
+       }
+     ]
+     ```
+
+2. **Entity Data** (`/data/page/{page_name}/{entity_name}`):
+   - Access data for a specific entity
+   - Example response:
+     ```json
+     {
+       "data": [
+         {
+           "id": "User5",
+           "value": {
+             "name": "User5",
+             "Country": "Italy",
+             "Customer ID": "3",
+             "Items Purchased": "12"
+           }
+         }
+       ],
+       "count": "3"
+     }
+     ```
+
+## Special Actions
+
+1. **Dataset Actions**:
+   - Validate: `PUT /api/dataset/{id}?action=Validate`
+   - Delete data: `PUT /api/dataset/{id}?action=Delete data`
+   - Enable/Disable: `PUT /api/dataset/{id}?action=Enable` or `Disable`
+   - Update dataset: `PUT /api/dataset/{id}?action=Update Dataset`
+
+2. **Data Source Actions**:
+   - Test Connection: `PUT /api/data_source_sql/{id}?action=Test Connection`
+   - Refresh List (for plugin sources): `PUT /api/data_source_plugin?action=Refresh List`
+
+3. **Announcement Actions**:
+   - Accept, Decline, Dismiss, Clear Dismiss: `PUT /api/announcement/{id}?action={Action}`
+
+## Error Handling
+
+1. **HTTP Status Codes**:
+   - 200: Success
+   - 400: Bad request (check the request parameters)
+   - 401: Unauthorized (invalid or expired token)
+   - 403: Forbidden (insufficient permissions)
+   - 404: Resource not found
+   - 500: Server error
+
+2. **Response Body**:
+   - Error messages are typically included in the response body
+   - Check for error fields or messages
+
+## Best Practices
+
+1. **Token Management**:
+   - Generate a new token before starting operations that might take longer than the token lifespan
+   - Store the token securely between requests
+
+2. **ID Discovery**:
+   - IDs can usually be found in the URL when viewing a resource in the UI (e.g., `https://demo.metricinsights.com/editor/eventcalendar/edit/event/7` - the ID is 7)
+   - Use GET requests without IDs to list available resources and their IDs
+
+3. **Model-Based Creation**:
+   - When creating resources, use an existing resource as a model by providing its ID
+   - Modify only the fields that need to be different in the request body
+
+4. **Testing**:
+   - Use the API Toolkit (at Admin > System > API Toolkit) to test API calls
+   - Always test with limited data before performing bulk operations
+
+5. **Bulk Operations**:
+   - Some endpoints support bulk operations via arrays in the request body
+   - Example for adding multiple elements to a folder:
+     ```javascript
+     $.ajax({
+       url: '/api/folder_element',
+       type: 'POST',
+       data: {
+         folder_id: "258",
+         elements: ['1700', '122483']
+       }
+     });
+     ```
+
+6. **Filtering and Pagination**:
+   - Use filtering and pagination for large datasets to improve performance
+   - Be specific in your queries to minimize data transfer
+
+7. **Error Handling**:
+   - Always check response status codes and message bodies
+   - Implement appropriate retry logic for token expiration
+   - Log detailed error information for troubleshooting
+
+8. **Permission Awareness**:
+   - API calls respect the permissions of the user associated with the token
+   - Ensure the user has appropriate permissions for the requested operations
+
+9. **Custom Scripts Integration**:
+   - When working with custom scripts, use the appropriate parameter sets
+   - Pass data to custom scripts via structured JSON objects
