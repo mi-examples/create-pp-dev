@@ -4,7 +4,7 @@
 
 ## Overview
 
-`@metricinsights/create-pp-dev` is a CLI tool for scaffolding new MetricInsights Portal Page projects. It provides various templates to help you get started quickly with Portal Page development.
+`@metricinsights/create-pp-dev` is a CLI tool for scaffolding new MetricInsights Portal Page projects. It provides various templates to help you start quickly with Portal Page development.
 
 ## Requirements
 
