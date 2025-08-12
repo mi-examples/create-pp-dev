@@ -1,3 +1,10 @@
+# [@metricinsights/create-pp-dev-v0.5.0-beta.1](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.4.2...create-pp-dev@0.5.0-beta.1) (2025-08-12)
+
+
+### Features
+
+* **create-pp-dev:** add semantic release configuration ([4c38aa5](https://github.com/mi-examples/pp-dev-js/commit/4c38aa54e1df6db8710d9ee9e2553e21e46e8e2e))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [conventional commits](https://conventionalcommits.org) for commit guidelines.
