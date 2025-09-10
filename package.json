@@ -1,6 +1,6 @@
 {
   "name": "@metricinsights/create-pp-dev",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "type": "module",
   "description": "Portal Page Templates repository",
   "bin": {
@@ -42,7 +42,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.12.0",
+    "@metricinsights/pp-dev": "^0.12.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/cross-spawn": "^6.0.6",
