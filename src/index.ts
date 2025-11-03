@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import spawn from 'cross-spawn';
 import minimist from 'minimist';
 import * as p from '@clack/prompts';
-import { blue, cyan, magenta, red, reset, yellow } from 'kolorist';
+import { blue, cyan, magenta, yellow } from 'kolorist';
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string. See #4606
@@ -83,9 +83,9 @@ const defaultTargetDir = 'pp-project';
 
 async function init() {
   const argTargetDir = formatTargetDir(argv._[0]);
-  const argTemplate = argv.template || argv.t;
+  const argTemplate = argv.template ?? argv.t;
 
-  let targetDir = argTargetDir || defaultTargetDir;
+  let targetDir = argTargetDir ?? defaultTargetDir;
   const getProjectName = () => (targetDir === '.' ? path.basename(path.resolve()) : targetDir);
 
   p.intro('Create PP Dev Project');
@@ -110,7 +110,7 @@ async function init() {
         process.exit(0);
       }
 
-      targetDir = formatTargetDir(projectName) || defaultTargetDir;
+      targetDir = formatTargetDir(projectName) ?? defaultTargetDir;
     }
 
     if (fs.existsSync(targetDir) && !isEmpty(targetDir)) {
@@ -197,7 +197,7 @@ async function init() {
     }
 
     // determine template
-    const template = selectedVariant || framework.name || argTemplate || 'vanilla';
+    const template = selectedVariant ?? framework.name ?? argTemplate ?? 'vanilla';
 
     const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
     const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
@@ -258,14 +258,14 @@ async function init() {
       write(file);
     }
 
-    const pkg = JSON.parse(fs.readFileSync(path.join(templateDir, `package.json`), 'utf-8'));
+    const pkg = JSON.parse(fs.readFileSync(path.join(templateDir, 'package.json'), 'utf-8'));
 
     pkg.name = packageName || getProjectName();
 
     write('package.json', JSON.stringify(pkg, null, 2) + '\n');
 
     const addCursorRules = await p.confirm({
-      message: 'Add cursor rules?',
+      message: 'Add Cursor rules?',
     });
 
     const cdProjectName = path.relative(cwd, root);
@@ -315,7 +315,7 @@ async function init() {
 
     p.outro('Project created successfully! 🎉');
 
-    console.log(`\nNext steps:\n`);
+    console.log('\nNext steps:\n');
 
     if (root !== cwd) {
       console.log(`  cd ${cdProjectName.includes(' ') ? `"${cdProjectName}"` : cdProjectName}`);
