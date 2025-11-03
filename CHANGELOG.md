@@ -1,4 +1,16 @@
-# [@metricinsights/create-pp-dev-v0.5.0-beta.1](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.4.2...create-pp-dev@0.5.0-beta.1) (2025-08-12)
+# [@metricinsights/create-pp-dev-v0.5.2](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.5.1...create-pp-dev@0.5.2) (2025-01-15)
+
+### Bug Fixes
+
+* **release:** prepare v0.5.2 patch release
+
+# [@metricinsights/create-pp-dev-v0.5.1](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.5.0...create-pp-dev@0.5.1) (2025-01-15)
+
+### Bug Fixes
+
+* **release:** prepare v0.5.1 patch release
+
+# [@metricinsights/create-pp-dev-v0.5.0](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.4.2...create-pp-dev@0.5.0) (2025-01-15)
 
 
 ### Features
