@@ -19,7 +19,7 @@
   "files": [
     "index.js",
     "template-*/**",
-    "mi-custom-rules",
+    "mi-cursor-rules/**",
     "dist",
     "CHANGELOG.md"
   ],
