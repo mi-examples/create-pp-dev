@@ -40,6 +40,10 @@
     "type": "git",
     "url": "git+https://github.com/mi-examples/create-pp-dev.git"
   },
+  "bugs": {
+    "url": "https://github.com/mi-examples/create-pp-dev/issues"
+  },
+  "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
   "license": "ISC",
   "devDependencies": {
     "@metricinsights/pp-dev": "^0.12.2",
@@ -50,7 +54,6 @@
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "prettier": "^3.2.5",
     "semantic-release": "^24.2.7",
-    "semantic-release-monorepo": "^8.0.2",
     "unbuild": "^3.0.0"
   },
   "dependencies": {
