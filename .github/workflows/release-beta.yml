@@ -47,6 +47,11 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Configure remote with token for semantic-release to access
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+          # Fetch all refs after setting new remote URL
+          git fetch --all --tags
+          # Debug: show remote branches
+          echo "Remote branches:"
+          git branch -r
 
       - name: Release Beta (Git + GitHub only, no npm)
         env:
