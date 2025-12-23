@@ -330,11 +330,17 @@ async function init() {
 
     switch (pkgManager) {
       case 'yarn':
-        console.log('  yarn');
+        if (!installPackages) {
+          console.log('  yarn install');
+        }
+        
         console.log('  yarn dev');
         break;
       default:
-        console.log(`  ${pkgManager} install`);
+        if (!installPackages) {
+          console.log(`  ${pkgManager} install`);
+        }
+        
         console.log(`  ${pkgManager} run dev`);
         break;
     }
