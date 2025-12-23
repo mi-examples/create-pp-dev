@@ -12,33 +12,42 @@
     [
       "@semantic-release/commit-analyzer",
       {
-        "preset": "angular"
+        "preset": "angular",
+        "presetConfig": {
+          "issuePrefixes": [],
+          "issueFormat": false,
+          "issueReferences": false
+        }
       }
     ],
     [
       "@semantic-release/release-notes-generator",
       {
-        "preset": "angular"
+        "preset": "angular",
+        "presetConfig": {
+          "issuePrefixes": [],
+          "commitTypes": ["feat", "fix", "docs", "style", "refactor", "perf", "test", "chore", "ci", "build"],
+          "issueFormat": false,
+          "issueReferences": false
+        }
       }
     ],
     "@semantic-release/changelog",
     [
-      "@semantic-release/npm",
+      "@semantic-release/git",
       {
-        "npmPublish": true
+        "assets": ["package.json", "package-lock.json", "CHANGELOG.md"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
     [
-      "@semantic-release/git",
+      "@semantic-release/github",
       {
-        "assets": [
-          "package.json",
-          "package-lock.json",
-          "CHANGELOG.md"
-        ],
-        "message": "chore(release): ${nextRelease.version} [skip ci]"
+        "assets": ["package.json", "package-lock.json", "CHANGELOG.md"],
+        "releasedLabels": false,
+        "failCommentCondition": false,
+        "successCommentCondition": false
       }
-    ],
-    "@semantic-release/github"
+    ]
   ]
 }
