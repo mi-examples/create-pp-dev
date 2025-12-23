@@ -310,6 +310,7 @@ async function init() {
 
       spawn.sync(installCommand, {
         stdio: 'inherit',
+        cwd: root,
       });
     }
 

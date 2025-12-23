@@ -38,7 +38,7 @@
   "author": "Serhii Shpak",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mi-examples/pp-dev-js.git"
+    "url": "git+https://github.com/mi-examples/create-pp-dev.git"
   },
   "license": "ISC",
   "devDependencies": {
