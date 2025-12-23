@@ -1,0 +1,95 @@
+# create-pp-dev - Cursor Rules
+
+## Commit Message Guidelines
+
+### Format: `<type>(<scope>): <subject>`
+- Use imperative mood ("add" not "added")
+- Don't capitalize first letter
+- No period at the end
+- Keep subject concise (50 chars or less)
+
+### Commit Types (choose one):
+- **`feat`** - A new feature (triggers MINOR version bump)
+- **`fix`** - A bug fix (triggers PATCH version bump)
+- **`docs`** - Documentation only changes (NO version bump)
+- **`style`** - Code style changes, formatting, etc (NO version bump)
+- **`refactor`** - Code refactoring, no functional changes (NO version bump)
+- **`perf`** - Performance improvements (NO version bump)
+- **`test`** - Adding or updating tests (NO version bump)
+- **`chore`** - Maintenance tasks, dependencies, etc (NO version bump)
+- **`ci`** - CI/CD configuration changes (NO version bump)
+- **`build`** - Build system or external dependency changes (NO version bump)
+
+### Scopes (optional, but recommended):
+- **`templates`** - Template-related changes
+- **`react`** - React template changes
+- **`nextjs`** - Next.js template changes
+- **`vanilla`** - Vanilla template changes
+- **`cli`** - CLI-related changes
+- **`deps`** - Dependency updates
+- **`docs`** - Documentation changes
+- **`test`** - Testing changes
+- **`config`** - Configuration changes
+
+### Examples:
+```bash
+feat(templates): add new Vue.js template
+fix(cli): resolve project initialization issue
+docs(readme): update installation instructions
+style: format code according to prettier rules
+refactor(cli): extract common validation functions
+chore(deps): update all dependencies to latest versions
+ci(github): add semantic-release workflow
+feat(react): add TypeScript strict mode support
+fix(nextjs): resolve build configuration issue
+```
+
+### Breaking Changes:
+```bash
+feat(templates): change default project structure
+
+BREAKING CHANGE: Templates now use different folder structure.
+Existing projects may need manual migration.
+```
+
+### Body and Footer Guidelines:
+- **Body**: Explain WHAT and WHY, not HOW
+- **Breaking Changes**: Start footer with "BREAKING CHANGE: <description>"
+
+### Important Notes:
+- Only `feat`, `fix`, and `BREAKING CHANGE` trigger version bumps
+- Use scopes to indicate which area is affected
+- Be descriptive but concise
+- Reference related issues when possible
+- Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification
+
+## General Development Guidelines
+
+### Code Quality:
+- Always aim for clean, maintainable architecture
+- Focus on areas of the code relevant to the task
+- Do not touch code unrelated to the task
+- Avoid making major changes to working patterns unless explicitly instructed
+- Think about what other methods and areas might be affected by changes
+
+### Semantic Release:
+- This project uses semantic-release for automated versioning
+- All releases go through Pull Requests (no direct pushes to main)
+- Commit messages determine version bumps automatically
+- Follow conventional commit format strictly for proper releases
+
+### Project Structure:
+- `src/` - CLI source code
+- `template-react/` - React + Vite template
+- `template-nextjs/` - Next.js template
+- `template-vanilla/` - Vanilla JavaScript template
+- `template-vanilla-ts/` - Vanilla TypeScript template
+- `mi-cursor-rules/` - Cursor rules for generated projects
+- `dist/` - Build output
+
+### Template Guidelines:
+- Keep templates minimal but functional
+- Include proper TypeScript configurations
+- Ensure pp-dev dependency is up to date
+- Test templates after changes
+

@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 */6 * * *'  # Every 6 hours
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -15,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Check for pp-dev updates
         id: check
@@ -57,4 +61,3 @@ jobs:
             - New: ${{ steps.check.outputs.latest }}
           branch: deps/update-pp-dev
           delete-branch: true
-

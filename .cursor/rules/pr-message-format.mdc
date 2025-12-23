@@ -1,0 +1,86 @@
+---
+description: Generate PR messages in markdown format for easy copy-paste to GitHub
+globs: *.md,*.mdc
+---
+
+# PR Message Generation Rules
+
+When generating PR messages, always follow these formatting guidelines for optimal GitHub compatibility:
+
+## Required Format Structure
+
+### 1. Title Format
+- Use clear, descriptive titles with emoji prefixes when appropriate
+- Follow conventional commit format: `type(scope): description`
+- Keep titles under 72 characters
+- Use title case for the main description
+
+### 2. Markdown Structure
+```markdown
+## 🚀 [Title with Emoji]
+
+### 📋 Summary
+Brief 2-3 sentence overview of the changes
+
+### ✨ Key Features & Improvements
+- **Feature Name** - Description
+- **Another Feature** - Description
+
+### 📊 Impact Summary
+- **X files changed** with specific improvements
+- **Y insertions, Z deletions** - Net impact
+- **Performance/UX improvements** - Specific benefits
+
+### 🔄 Breaking Changes
+- List any breaking changes or "None - All changes maintain backward compatibility"
+
+### 🧪 Testing & Quality Assurance
+- Testing approach and coverage
+- Quality assurance measures
+
+### 📝 Included Commits
+- `commit-hash commit-message`
+- `commit-hash commit-message`
+
+### 🏷️ Release Notes
+- High-level benefits and improvements
+- What this release enables
+
+### ✅ Ready for [Target]
+- Merge status and readiness
+- Any additional notes
+
+---
+
+**Merge Request:** `source-branch` → `target-branch`  
+**Release Tag:** `version-tag` (if applicable)  
+**Status:** Ready for Review ✅
+```
+
+## Emoji Guidelines
+- 🚀 for new features
+- 🔧 for fixes/improvements
+- ⚡ for performance optimizations
+- 🔐 for security/auth features
+- 🧹 for cleanup/maintenance
+- 📊 for metrics/analytics
+- 🧪 for testing
+- 🔄 for breaking changes
+- ✅ for completion/readiness
+
+## Content Requirements
+- Always include a clear summary
+- List specific technical improvements
+- Mention file counts and code changes
+- Include commit references
+- Specify breaking changes or compatibility
+- Use bullet points for readability
+- Keep language professional but engaging
+
+## GitHub Compatibility
+- Use proper markdown headers (##, ###)
+- Include horizontal rules (---) for separation
+- Use bold text (**text**) for emphasis
+- Use code blocks for technical details
+- Ensure proper line breaks for readability
+- Use checkboxes (✅) for status indicators

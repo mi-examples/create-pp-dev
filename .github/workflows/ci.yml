@@ -3,8 +3,6 @@ name: CI
 on:
   pull_request:
     branches: [main, develop]
-  push:
-    branches: [develop]
 
 jobs:
   build:
@@ -16,7 +14,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -35,4 +33,3 @@ jobs:
             exit 1
           fi
           echo "Build verification passed"
-

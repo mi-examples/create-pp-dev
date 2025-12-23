@@ -1,0 +1,28 @@
+# IDE
+.idea
+.vscode
+
+# Build outputs
+dist
+
+# Dependencies
+node_modules
+
+# Template package locks (generated on install)
+template-*/package-lock.json
+
+# Pack files
+*-create-pp-dev-*.*.*.tgz
+
+# Environment
+.env
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
