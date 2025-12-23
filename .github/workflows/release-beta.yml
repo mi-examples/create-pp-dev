@@ -39,7 +39,15 @@ jobs:
           fi
           echo "Build verification passed"
 
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Release Beta (Git + GitHub only, no npm)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release --extends ./.releaserc.beta.json
+        run: |
+          # Use beta config directly (not extends, which merges with default)
+          cp .releaserc.beta.json .releaserc.json
+          npx semantic-release
