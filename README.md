@@ -8,10 +8,8 @@
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/en/) version 18+, 20+
+- [Node.js](https://nodejs.org/en/) version 22+
 - npm, yarn, or pnpm package manager
-
-> **Note:** Some templates may require a higher Node.js version. Please upgrade if your package manager warns about compatibility issues.
 
 ## Usage
 
@@ -51,18 +49,37 @@ npm create @metricinsights/pp-dev@latest . -- --template react
 
 ## Available Templates
 
-- `vanilla` - Basic Portal Page with vanilla JavaScript
-- `vanilla-ts` - Basic Portal Page with TypeScript
-- `react` - Portal Page with React
-- `nextjs` - Portal Page with Next.js
+| Template | Description |
+|----------|-------------|
+| `vanilla` | Basic Portal Page with vanilla JavaScript |
+| `vanilla-ts` | Basic Portal Page with TypeScript |
+| `react` | Portal Page with React |
+| `nextjs` | Portal Page with Next.js |
+
+## Interactive Features
+
+During project setup, the CLI will prompt you with optional features:
+
+- **Cursor Rules** - Add AI-assisted development rules for [Cursor IDE](https://cursor.sh/). These rules help the AI understand MetricInsights Portal Page conventions.
+
+- **@metricinsights/pp-components** - Optionally include the [@metricinsights/pp-components](https://www.npmjs.com/package/@metricinsights/pp-components) library with pre-built UI components for Portal Pages.
+
+- **Auto-install packages** - Choose to automatically run package installation after scaffolding.
 
 ## Next Steps
 
 After creating your project:
 
-1. Navigate to the project directory
-2. Install dependencies
-3. Start the development server
-4. Follow the instructions in the generated project's README
+```bash
+cd my-pp
+npm install
+npm run dev
+```
 
-For more information about developing Portal Pages, see the [pp-dev documentation](../pp-dev/README.md).
+Follow the instructions in the generated project's README for more details.
+
+For more information about developing Portal Pages, see the [@metricinsights/pp-dev documentation](https://www.npmjs.com/package/@metricinsights/pp-dev).
+
+## License
+
+ISC

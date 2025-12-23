@@ -6,12 +6,12 @@ export default defineBuildConfig({
   rollup: {
     inlineDependencies: true,
     esbuild: {
-      target: 'node20',
+      target: 'node22',
       minify: true,
     },
   },
   alias: {
-    // we can always use non-transpiled code since we support node 18+
+    // we can always use non-transpiled code since we support node 22+
     prompts: 'prompts/lib/index.js',
   },
   hooks: {},
