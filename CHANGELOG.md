@@ -1,3 +1,10 @@
+## [0.5.5-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.5.5-beta.1...v0.5.5-beta.2) (2025-12-23)
+
+
+### Bug Fixes
+
+* **cli:** hide install command in next steps when packages already installed ([2e6d56b](https://github.com/mi-examples/create-pp-dev/commit/2e6d56b7444a2f8480f2ea8f06864c9c2ec6a1b2))
+
 ## [0.5.5-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.5.4...v0.5.5-beta.1) (2025-12-23)
 
 
