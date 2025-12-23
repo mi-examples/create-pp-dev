@@ -1,0 +1,64 @@
+name: Update pp-dev Dependency
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check for pp-dev updates
+        id: check
+        run: |
+          CURRENT=$(node -p "require('./package.json').devDependencies['@metricinsights/pp-dev'].replace('^', '')")
+          LATEST=$(npm view @metricinsights/pp-dev version)
+          
+          echo "current=$CURRENT" >> $GITHUB_OUTPUT
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+          
+          if [ "$CURRENT" != "$LATEST" ]; then
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update dependency
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          VERSION=${{ steps.check.outputs.latest }}
+          
+          # Update package.json
+          npm pkg set devDependencies.@metricinsights/pp-dev="^$VERSION"
+          
+          # Update all template package.json files
+          find template-* -name "package.json" -exec sed -i \
+            "s/\"@metricinsights\/pp-dev\": \"[^\"]*\"/\"@metricinsights\/pp-dev\": \"^$VERSION\"/g" {} \;
+
+      - name: Create Pull Request
+        if: steps.check.outputs.needs_update == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore(deps): update @metricinsights/pp-dev to ${{ steps.check.outputs.latest }}"
+          title: "chore(deps): update pp-dev to ${{ steps.check.outputs.latest }}"
+          body: |
+            Automated update of @metricinsights/pp-dev dependency.
+            
+            - Previous: ${{ steps.check.outputs.current }}
+            - New: ${{ steps.check.outputs.latest }}
+          branch: deps/update-pp-dev
+          delete-branch: true
+
