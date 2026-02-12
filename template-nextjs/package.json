@@ -18,7 +18,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.13.1",
+    "@metricinsights/pp-dev": "^0.13.2",
     "@types/node": "^20.11.19",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
