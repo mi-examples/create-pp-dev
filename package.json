@@ -46,7 +46,7 @@
   "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
   "license": "ISC",
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.12.3",
+    "@metricinsights/pp-dev": "^0.13.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/cross-spawn": "^6.0.6",
