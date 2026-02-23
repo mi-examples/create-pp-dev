@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "overrides": {
+    "minimatch": "^10.2.2"
+  },
   "scripts": {
     "dev": "pp-dev",
     "build": "tsc && pp-dev build",
@@ -10,25 +13,26 @@
     "preview": "pp-dev preview"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
   },
   "dependencies": {
-    "clsx": "^2.1.0",
+    "clsx": "^2.1.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.13.2",
+    "@metricinsights/pp-dev": "^0.14.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.55.0",
-    "@typescript-eslint/parser": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "@typescript-eslint/parser": "^8.56.0",
     "@vitejs/plugin-react": "^5.1.4",
-    "eslint": "^10.0.0",
+    "eslint": "^9.0.0",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.3.3",
+    "eslint-plugin-react-refresh": "^0.5.1",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
     "vite": "^7.3.1"
   }
 }
