@@ -1,0 +1,37 @@
+---
+description: Create release tag from latest origin/main with version from package.json (without beta suffix)
+alwaysApply: false
+---
+
+# Create Release Workflow
+
+When the user asks to **Create release** (or "create tag", "release tag"):
+
+## Steps
+
+1. **Read version from package.json** – Get the `version` field (e.g. `0.5.5-beta.2`).
+
+2. **Strip beta suffix** – Remove `-beta.*`, `-alpha.*`, `-rc.*` etc. Examples:
+   - `0.5.5-beta.2` → `0.5.5`
+   - `1.0.0-rc.1` → `1.0.0`
+   - `2.3.4` → `2.3.4` (unchanged)
+
+3. **Tag name** – Use `v` + stripped version: `v0.5.5`.
+
+4. **Create tag on latest origin/main** – Run:
+   ```bash
+   git fetch origin main
+   git tag v<version> origin/main -m "Release v<version>"
+   ```
+   Example: `git tag v0.5.5 origin/main -m "Release v0.5.5"`
+
+5. **Push tag** (if user wants to publish):
+   ```bash
+   git push origin v<version>
+   ```
+
+## Notes
+
+- Tag is created from `origin/main`, not from the current branch.
+- Do not push the tag unless the user explicitly requests it.
+- Confirm the version and tag name with the user before creating/pushing.

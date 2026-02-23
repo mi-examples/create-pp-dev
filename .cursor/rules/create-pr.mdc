@@ -1,0 +1,40 @@
+---
+description: Create PR message for merging current branch into target branch (default: origin/develop)
+alwaysApply: false
+---
+
+# Create PR Workflow
+
+When the user asks to **Create PR** (or "create pull request", "generate PR message"):
+
+## Steps
+
+1. **Determine target branch** – Default is `origin/develop`. If the user specifies a different branch in their message, use that instead.
+
+2. **Get current branch** – Run `git branch --show-current` to get the source branch.
+
+3. **Get commit range** – Compare current branch against target. Run:
+   ```bash
+   git log origin/develop..HEAD --oneline
+   ```
+   (Replace `origin/develop` with the target branch if changed.)
+
+4. **Generate PR message** – Create a markdown PR message following the project's PR format (see `pr-message-format.mdc`). Include:
+   - Title
+   - Summary of changes
+   - Key features/improvements
+   - Included commits
+   - Merge request line: `source-branch` → `target-branch`
+
+5. **Save to file** – Write the PR message to an MD file, e.g. `PR_MESSAGE.md` or `pr-message.md` in the project root.
+
+## Example output file
+
+```markdown
+## 🚀 feat: Add minimatch override for security
+
+### 📋 Summary
+...
+
+**Merge Request:** `feature/xyz` → `origin/develop`
+```
