@@ -1,6 +1,6 @@
 {
   "name": "@metricinsights/create-pp-dev",
-  "version": "0.5.5-beta.2",
+  "version": "0.6.0-beta.1",
   "type": "module",
   "description": "Portal Page Templates repository",
   "bin": {
@@ -25,11 +25,13 @@
   ],
   "main": "index.js",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
   },
   "scripts": {
     "dev": "unbuild --stub",
     "build": "unbuild",
+    "postbuild": "npm pack && node scripts/postbuild.js",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "version": "npm version --commit-hooks false --git-tag-version false",
@@ -45,20 +47,23 @@
   },
   "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
   "license": "ISC",
+  "overrides": {
+    "minimatch": "^10.2.2"
+  },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.13.2",
+    "@metricinsights/pp-dev": "^0.14.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/cross-spawn": "^6.0.6",
     "@types/minimist": "^1.2.5",
-    "@typescript-eslint/eslint-plugin": "^8.55.0",
-    "prettier": "^3.2.5",
+    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "prettier": "^3.8.1",
     "semantic-release": "^25.0.3",
-    "unbuild": "^3.0.0"
+    "unbuild": "^3.6.1"
   },
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
-    "cross-spawn": "^7.0.3",
+    "@clack/prompts": "^1.0.1",
+    "cross-spawn": "^7.0.6",
     "kolorist": "^1.8.0",
     "minimist": "^1.2.8"
   }

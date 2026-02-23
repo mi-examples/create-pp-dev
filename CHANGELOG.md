@@ -1,3 +1,16 @@
+# [0.6.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.5.7...v0.6.0-beta.1) (2026-02-23)
+
+
+### Bug Fixes
+
+* **deps:** add minimatch override and upgrade packages for security ([ee27478](https://github.com/mi-examples/create-pp-dev/commit/ee27478e75f2a260eaed93a46cdcb98ed67d56d4))
+* resolve TypeScript errors and runtime bugs in create-pp-dev ([b994e40](https://github.com/mi-examples/create-pp-dev/commit/b994e405f9b893fa26f196c23bf8510808b8e4b6))
+
+
+### Features
+
+* **cursor:** add Create PR and Create release rules ([029973e](https://github.com/mi-examples/create-pp-dev/commit/029973ecafc48e0793a8cee1eeef64f0bf8785f0))
+
 ## [0.5.5-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.5.5-beta.1...v0.5.5-beta.2) (2025-12-23)
 
 

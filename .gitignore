@@ -13,6 +13,7 @@ template-*/package-lock.json
 
 # Pack files
 *-create-pp-dev-*.*.*.tgz
+*-create-pp-dev-latest.tgz
 
 # Environment
 .env

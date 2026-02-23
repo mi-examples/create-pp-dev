@@ -3,20 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "overrides": {
+    "minimatch": "^10.2.2"
+  },
   "scripts": {
     "dev": "pp-dev",
     "build": "tsc && pp-dev build"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
   },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.13.2",
-    "@types/jquery": "^3.5.29",
-    "@typescript-eslint/eslint-plugin": "^8.55.0",
-    "@typescript-eslint/parser": "^8.55.0",
-    "eslint": "^10.0.0",
-    "prettier": "^3.2.5",
-    "typescript": "^5.3.3"
+    "@metricinsights/pp-dev": "^0.14.0",
+    "@types/jquery": "^3.5.33",
+    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "@typescript-eslint/parser": "^8.56.0",
+    "eslint": "^10.0.1",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
   }
 }

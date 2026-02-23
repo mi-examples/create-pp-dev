@@ -95,8 +95,8 @@ async function init() {
       const projectName = await p.text({
         message: 'Project name:',
         initialValue: targetDir,
-        validate: (value: string) => {
-          if (!value) {
+        validate: (value: string | undefined) => {
+          if (!value?.trim()) {
             return 'Project name is required';
           }
 
@@ -148,8 +148,8 @@ async function init() {
     const packageName = await p.text({
       message: 'Package name:',
       initialValue: toValidPackageName(getProjectName()),
-      validate: (value: string) => {
-        if (!isValidPackageName(value)) {
+      validate: (value: string | undefined) => {
+        if (!value || !isValidPackageName(value)) {
           return 'Invalid package.json name';
         }
 
@@ -163,7 +163,7 @@ async function init() {
       process.exit(0);
     }
 
-    const framework = await p.select<{ value: Framework; label: string }[], Framework>({
+    const framework = await p.select<Framework>({
       message: 'Select a framework:',
       options: FRAMEWORKS.map((f) => ({
         value: f,
@@ -296,6 +296,9 @@ async function init() {
 
       const version = latestVersion['dist-tags']?.latest ?? '0.0.1';
 
+      if (!pkgJson.dependencies) {
+        pkgJson.dependencies = {};
+      }
       pkgJson.dependencies['@metricinsights/pp-components'] = `^${version}`;
 
       write('package.json', JSON.stringify(pkgJson, null, 2) + '\n');
@@ -307,8 +310,9 @@ async function init() {
 
     if (installPackages) {
       const installCommand = pkgManager === 'yarn' ? 'yarn install' : `${pkgManager} install`;
+      const [cmd, ...args] = installCommand.split(' ');
 
-      spawn.sync(installCommand, {
+      spawn.sync(cmd, args, {
         stdio: 'inherit',
         cwd: root,
       });
