@@ -15,7 +15,7 @@
     "npm": ">=10.0.0"
   },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.14.0",
+    "@metricinsights/pp-dev": "^0.15.0",
     "@types/jquery": "^3.5.33",
     "eslint": "^10.0.1",
     "prettier": "^3.8.1",
