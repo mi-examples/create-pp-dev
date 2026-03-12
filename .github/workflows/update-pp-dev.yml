@@ -3,7 +3,7 @@ name: Update pp-dev Dependency
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours
+    - cron: '0 */6 * * *' # Every 6 hours
 
 permissions:
   contents: write
@@ -26,10 +26,10 @@ jobs:
         run: |
           CURRENT=$(node -p "require('./package.json').devDependencies['@metricinsights/pp-dev'].replace('^', '')")
           LATEST=$(npm view @metricinsights/pp-dev version)
-          
+
           echo "current=$CURRENT" >> $GITHUB_OUTPUT
           echo "latest=$LATEST" >> $GITHUB_OUTPUT
-          
+
           if [ "$CURRENT" != "$LATEST" ]; then
             echo "needs_update=true" >> $GITHUB_OUTPUT
           else
@@ -40,10 +40,10 @@ jobs:
         if: steps.check.outputs.needs_update == 'true'
         run: |
           VERSION=${{ steps.check.outputs.latest }}
-          
+
           # Update package.json
           npm pkg set devDependencies.@metricinsights/pp-dev="^$VERSION"
-          
+
           # Update all template package.json files
           find template-* -name "package.json" -exec sed -i \
             "s/\"@metricinsights\/pp-dev\": \"[^\"]*\"/\"@metricinsights\/pp-dev\": \"^$VERSION\"/g" {} \;
@@ -53,11 +53,11 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          commit-message: "chore(deps): update @metricinsights/pp-dev to ${{ steps.check.outputs.latest }}"
-          title: "chore(deps): update pp-dev to ${{ steps.check.outputs.latest }}"
+          commit-message: 'chore(deps): update @metricinsights/pp-dev to ${{ steps.check.outputs.latest }}'
+          title: 'chore(deps): update pp-dev to ${{ steps.check.outputs.latest }}'
           body: |
             Automated update of @metricinsights/pp-dev dependency.
-            
+
             - Previous: ${{ steps.check.outputs.current }}
             - New: ${{ steps.check.outputs.latest }}
           branch: deps/update-pp-dev
