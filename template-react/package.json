@@ -24,7 +24,7 @@
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
     "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "^9.39.4",
+    "@eslint/js": "^10.0.1",
     "@metricinsights/pp-dev": "^0.15.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/react": "^19.2.14",
