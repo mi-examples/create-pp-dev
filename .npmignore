@@ -1,0 +1,6 @@
+# Dependencies - never include in package
+node_modules
+**/node_modules
+
+# Template package locks (users get fresh install)
+template-*/package-lock.json
