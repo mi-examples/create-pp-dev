@@ -9,7 +9,7 @@
     "dev": "pp-dev next",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0"
   },
   "engines": {
     "node": ">=22.0.0",
@@ -22,13 +22,18 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^0.14.0",
+    "@eslint/compat": "^2.0.3",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.39.4",
+    "@metricinsights/pp-dev": "^0.15.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^25.3.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.56.0",
     "eslint": "^10.0.1",
     "eslint-config-next": "16.1.6",
+    "globals": "^17.4.0",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   }
