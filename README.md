@@ -49,12 +49,12 @@ npm create @metricinsights/pp-dev@latest . -- --template react
 
 ## Available Templates
 
-| Template | Description |
-|----------|-------------|
-| `vanilla` | Basic Portal Page with vanilla JavaScript |
-| `vanilla-ts` | Basic Portal Page with TypeScript |
-| `react` | Portal Page with React |
-| `nextjs` | Portal Page with Next.js |
+| Template     | Description                               |
+| ------------ | ----------------------------------------- |
+| `vanilla`    | Basic Portal Page with vanilla JavaScript |
+| `vanilla-ts` | Basic Portal Page with TypeScript         |
+| `react`      | Portal Page with React                    |
+| `nextjs`     | Portal Page with Next.js                  |
 
 ## Interactive Features
 

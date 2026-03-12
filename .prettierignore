@@ -1,0 +1,6 @@
+dist
+node_modules
+template-*
+*.tgz
+package-lock.json
+CHANGELOG.md
