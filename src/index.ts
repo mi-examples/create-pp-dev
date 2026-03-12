@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import fs, { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -299,6 +298,7 @@ async function init() {
       if (!pkgJson.dependencies) {
         pkgJson.dependencies = {};
       }
+
       pkgJson.dependencies['@metricinsights/pp-components'] = `^${version}`;
 
       write('package.json', JSON.stringify(pkgJson, null, 2) + '\n');
@@ -327,9 +327,11 @@ async function init() {
 
       const configFileName = fs.readdirSync(root).find((value) => value.startsWith('pp-dev.config'));
 
-      configFileName
-        ? console.log(`  Fill in the configuration file: ${path.join(root, configFileName)}`)
-        : console.log(`  Fill configuration in ${path.join(root, 'package.json')} key "pp-dev"`);
+      if (configFileName) {
+        console.log(`  Fill in the configuration file: ${path.join(root, configFileName)}`);
+      } else {
+        console.log(`  Fill configuration in ${path.join(root, 'package.json')} key "pp-dev"`);
+      }
     }
 
     switch (pkgManager) {
@@ -337,14 +339,14 @@ async function init() {
         if (!installPackages) {
           console.log('  yarn install');
         }
-        
+
         console.log('  yarn dev');
         break;
       default:
         if (!installPackages) {
           console.log(`  ${pkgManager} install`);
         }
-        
+
         console.log(`  ${pkgManager} run dev`);
         break;
     }

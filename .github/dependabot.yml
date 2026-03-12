@@ -1,22 +1,22 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/template-nextjs"
+      interval: 'daily'
+  - package-ecosystem: 'npm'
+    directory: '/template-nextjs'
     schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/template-react"
+      interval: 'daily'
+  - package-ecosystem: 'npm'
+    directory: '/template-react'
     schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/template-vanilla"
+      interval: 'daily'
+  - package-ecosystem: 'npm'
+    directory: '/template-vanilla'
     schedule:
-      interval: "daily"
-  - package-ecosystem: "npm"
-    directory: "/template-vanilla-ts"
+      interval: 'daily'
+  - package-ecosystem: 'npm'
+    directory: '/template-vanilla-ts'
     schedule:
-      interval: "daily"
+      interval: 'daily'
