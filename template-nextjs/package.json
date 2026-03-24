@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "overrides": {
-    "minimatch": "^10.2.2"
+    "minimatch": "^10.2.2",
+    "flatted": "^3.4.2",
+    "undici": "^7.24.0"
   },
   "scripts": {
     "dev": "pp-dev next",
@@ -17,21 +19,21 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "next": "16.1.6",
+    "next": "16.2.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
     "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "^9.39.4",
-    "@metricinsights/pp-dev": "^0.15.1",
+    "@eslint/js": "^10.0.1",
+    "@metricinsights/pp-dev": "^0.16.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^25.3.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.56.0",
-    "eslint": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "eslint": "^10.1.0",
     "eslint-config-next": "16.1.6",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
