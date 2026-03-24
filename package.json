@@ -37,6 +37,7 @@
     "prepack": "node scripts/clean-templates.js",
     "postbuild": "npm pack && node scripts/postbuild.js",
     "typecheck": "tsc --noEmit",
+    "test": "npm run build && playwright test",
     "postinstall": "npx update-browserslist-db@latest",
     "prepublishOnly": "npm run build",
     "version": "npm version --commit-hooks false --git-tag-version false",
@@ -53,28 +54,31 @@
   "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
   "license": "ISC",
   "overrides": {
-    "minimatch": "^10.2.2"
+    "minimatch": "^10.2.2",
+    "flatted": "^3.4.2",
+    "undici": "^7.24.0"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
     "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "^9.39.4",
-    "@metricinsights/pp-dev": "^0.15.1",
+    "@eslint/js": "^10.0.1",
+    "@metricinsights/pp-dev": "^0.16.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@playwright/test": "^1.55.0",
     "@types/cross-spawn": "^6.0.6",
     "@types/minimist": "^1.2.5",
-    "@typescript-eslint/eslint-plugin": "^8.56.0",
-    "@typescript-eslint/parser": "^8.56.0",
-    "eslint": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "eslint": "^10.1.0",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
     "semantic-release": "^25.0.3",
     "unbuild": "^3.6.1"
   },
   "dependencies": {
-    "@clack/prompts": "^1.0.1",
+    "@clack/prompts": "1.0.1",
     "cross-spawn": "^7.0.6",
     "kolorist": "^1.8.0",
     "minimist": "^1.2.8"
