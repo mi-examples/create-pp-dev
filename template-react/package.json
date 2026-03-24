@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "overrides": {
-    "minimatch": "^10.2.2"
+    "minimatch": "^10.2.2",
+    "flatted": "^3.4.2",
+    "undici": "^7.24.0"
   },
   "scripts": {
     "dev": "pp-dev",
@@ -24,15 +26,15 @@
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
     "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "^9.39.4",
-    "@metricinsights/pp-dev": "^0.15.1",
+    "@eslint/js": "^10.0.1",
+    "@metricinsights/pp-dev": "^0.16.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.56.0",
-    "@typescript-eslint/parser": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "@vitejs/plugin-react": "^5.1.4",
-    "eslint": "^9.0.0",
+    "eslint": "^10.1.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.1",
     "globals": "^17.4.0",

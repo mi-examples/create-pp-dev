@@ -1,3 +1,10 @@
+# [0.7.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.6.1...v0.7.0-beta.1) (2026-03-24)
+
+
+### Features
+
+* support non-interactive CLI options and fix path handling ([d542fb6](https://github.com/mi-examples/create-pp-dev/commit/d542fb6e9b43c7084f783673224300d1bc08585b))
+
 # [0.6.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.5.7...v0.6.0-beta.1) (2026-02-23)
 
 

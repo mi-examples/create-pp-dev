@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "overrides": {
-    "minimatch": "^10.2.2"
+    "minimatch": "^10.2.2",
+    "flatted": "^3.4.2",
+    "undici": "^7.24.0"
   },
   "scripts": {
     "dev": "pp-dev",
@@ -18,11 +20,11 @@
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
     "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "^9.39.4",
-    "@metricinsights/pp-dev": "^0.15.1",
+    "@eslint/js": "^10.0.1",
+    "@metricinsights/pp-dev": "^0.16.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/jquery": "^3.5.33",
-    "eslint": "^10.0.1",
+    "eslint": "^10.1.0",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3"
