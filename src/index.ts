@@ -8,10 +8,10 @@ import { blue, cyan, magenta, yellow } from 'kolorist';
 
 // Avoids autoconversion to number of the project name by defining that the args
 // non associated with an option ( _ ) needs to be parsed as a string. See #4606
-const argv = minimist<{
-  t?: string;
-  template?: string;
-}>(process.argv.slice(2), { string: ['_'] });
+const argv = minimist(process.argv.slice(2), {
+  string: ['_', 'template', 't', 'package-name'],
+  boolean: ['yes', 'y', 'install', 'cursor-rules', 'pp-components'],
+});
 const cwd = process.cwd();
 
 type ColorFunc = (str: string | number) => string;
@@ -82,7 +82,11 @@ const defaultTargetDir = 'pp-project';
 
 async function init() {
   const argTargetDir = formatTargetDir(argv._[0]);
-  const argTemplate = argv.template ?? argv.t;
+  const argTemplate = (argv.template ?? argv.t) as string | undefined;
+  const argPackageName = argv['package-name'] as string | undefined;
+  const shouldInstallPackages = argv.install as boolean | undefined;
+  const shouldAddCursorRules = argv['cursor-rules'] as boolean | undefined;
+  const shouldAddMiComponentsLibrary = argv['pp-components'] as boolean | undefined;
 
   let targetDir = argTargetDir ?? defaultTargetDir;
   const getProjectName = () => (targetDir === '.' ? path.basename(path.resolve()) : targetDir);
@@ -144,17 +148,19 @@ async function init() {
       }
     }
 
-    const packageName = await p.text({
-      message: 'Package name:',
-      initialValue: toValidPackageName(getProjectName()),
-      validate: (value: string | undefined) => {
-        if (!value || !isValidPackageName(value)) {
-          return 'Invalid package.json name';
-        }
+    const packageName = argPackageName
+      ? argPackageName
+      : await p.text({
+          message: 'Package name:',
+          initialValue: toValidPackageName(getProjectName()),
+          validate: (value: string | undefined) => {
+            if (!value || !isValidPackageName(value)) {
+              return 'Invalid package.json name';
+            }
 
-        return undefined;
-      },
-    });
+            return undefined;
+          },
+        });
 
     if (p.isCancel(packageName)) {
       p.cancel('Operation cancelled');
@@ -162,41 +168,56 @@ async function init() {
       process.exit(0);
     }
 
-    const framework = await p.select<Framework>({
-      message: 'Select a framework:',
-      options: FRAMEWORKS.map((f) => ({
-        value: f,
-        label: f.color(f.display || f.name),
-      })),
-    });
-
-    if (p.isCancel(framework)) {
-      p.cancel('Operation cancelled');
-
-      process.exit(0);
+    if (!isValidPackageName(packageName)) {
+      p.cancel('Invalid package.json name');
+      process.exit(1);
     }
 
-    let selectedVariant: string | undefined;
+    let template: string | undefined = argTemplate;
 
-    if (framework.variants) {
-      const variantResult = await p.select({
-        message: 'Select a variant:',
-        options: framework.variants.map((v: FrameworkVariant) => ({
-          value: v.name,
-          label: v.color(v.display || v.name),
+    if (template) {
+      const isKnownTemplate = FRAMEWORKS.flatMap((f) => f.variants).some((v) => v.name === template);
+
+      if (!isKnownTemplate) {
+        p.cancel(`Unknown template "${template}"`);
+        process.exit(1);
+      }
+    } else {
+      const frameworkResult = await p.select({
+        message: 'Select a framework:',
+        options: FRAMEWORKS.map((f) => ({
+          value: f,
+          label: f.color(f.display || f.name),
         })),
       });
 
-      if (p.isCancel(variantResult)) {
+      if (p.isCancel(frameworkResult)) {
         p.cancel('Operation cancelled');
+
         process.exit(0);
       }
 
-      selectedVariant = variantResult as string;
-    }
+      const framework = frameworkResult as Framework;
 
-    // determine template
-    const template = selectedVariant ?? framework.name ?? argTemplate ?? 'vanilla';
+      if (framework.variants) {
+        const variantResult = await p.select({
+          message: 'Select a variant:',
+          options: framework.variants.map((v: FrameworkVariant) => ({
+            value: v.name,
+            label: v.color(v.display || v.name),
+          })),
+        });
+
+        if (p.isCancel(variantResult)) {
+          p.cancel('Operation cancelled');
+          process.exit(0);
+        }
+
+        template = variantResult as string;
+      } else {
+        template = framework.name;
+      }
+    }
 
     const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
     const pkgManager = pkgInfo ? pkgInfo.name : 'npm';
@@ -231,7 +252,7 @@ async function init() {
       process.exit(status ?? 0);
     }
 
-    const root = path.join(cwd, targetDir);
+    const root = path.resolve(cwd, targetDir);
 
     if (!fs.existsSync(root)) {
       fs.mkdirSync(root, { recursive: true });
@@ -263,9 +284,12 @@ async function init() {
 
     write('package.json', JSON.stringify(pkg, null, 2) + '\n');
 
-    const addCursorRules = await p.confirm({
-      message: 'Add Cursor rules?',
-    });
+    const addCursorRules =
+      typeof shouldAddCursorRules === 'boolean'
+        ? shouldAddCursorRules
+        : await p.confirm({
+            message: 'Add Cursor rules?',
+          });
 
     const cdProjectName = path.relative(cwd, root);
 
@@ -282,10 +306,13 @@ async function init() {
       }
     }
 
-    const addMiComponentsLibrary = await p.confirm({
-      message:
-        'Add @metricinsights/pp-components (https://www.npmjs.com/package/@metricinsights/pp-components) library?',
-    });
+    const addMiComponentsLibrary =
+      typeof shouldAddMiComponentsLibrary === 'boolean'
+        ? shouldAddMiComponentsLibrary
+        : await p.confirm({
+            message: `Add @metricinsights/pp-components ` +
+              `(https://www.npmjs.com/package/@metricinsights/pp-components) library?`,
+          });
 
     if (addMiComponentsLibrary) {
       const pkgJson = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf-8'));
@@ -304,9 +331,12 @@ async function init() {
       write('package.json', JSON.stringify(pkgJson, null, 2) + '\n');
     }
 
-    const installPackages = await p.confirm({
-      message: 'Install packages?',
-    });
+    const installPackages =
+      typeof shouldInstallPackages === 'boolean'
+        ? shouldInstallPackages
+        : await p.confirm({
+            message: 'Install packages?',
+          });
 
     if (installPackages) {
       const installCommand = pkgManager === 'yarn' ? 'yarn install' : `${pkgManager} install`;
@@ -360,11 +390,11 @@ async function init() {
   }
 }
 
-function formatTargetDir(targetDir: string | undefined) {
+export function formatTargetDir(targetDir: string | undefined) {
   return targetDir?.trim().replace(/\/+$/g, '');
 }
 
-function copy(src: string, dest: string) {
+export function copy(src: string, dest: string) {
   const stat = fs.statSync(src);
 
   if (stat.isDirectory()) {
@@ -374,11 +404,11 @@ function copy(src: string, dest: string) {
   }
 }
 
-function isValidPackageName(projectName: string) {
+export function isValidPackageName(projectName: string) {
   return /^(?:@[a-z\d\-*~][a-z\d\-*._~]*\/)?[a-z\d\-~][a-z\d\-._~]*$/.test(projectName);
 }
 
-function toValidPackageName(projectName: string) {
+export function toValidPackageName(projectName: string) {
   return projectName
     .trim()
     .toLowerCase()
@@ -387,7 +417,7 @@ function toValidPackageName(projectName: string) {
     .replace(/[^a-z\d\-~]+/g, '-');
 }
 
-function copyDir(srcDir: string, destDir: string) {
+export function copyDir(srcDir: string, destDir: string) {
   fs.mkdirSync(destDir, { recursive: true });
 
   for (const file of fs.readdirSync(srcDir)) {
@@ -398,13 +428,13 @@ function copyDir(srcDir: string, destDir: string) {
   }
 }
 
-function isEmpty(path: string) {
+export function isEmpty(path: string) {
   const files = fs.readdirSync(path);
 
   return files.length === 0 || (files.length === 1 && files[0] === '.git');
 }
 
-function emptyDir(dir: string) {
+export function emptyDir(dir: string) {
   if (!fs.existsSync(dir)) {
     return;
   }
@@ -418,7 +448,7 @@ function emptyDir(dir: string) {
   }
 }
 
-function pkgFromUserAgent(userAgent: string | undefined) {
+export function pkgFromUserAgent(userAgent: string | undefined) {
   if (!userAgent) {
     return undefined;
   }
