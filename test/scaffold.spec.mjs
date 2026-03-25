@@ -4,15 +4,34 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { spawn } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
-const npmCliPath = process.env.npm_execpath;
 
-if (!npmCliPath) {
-  throw new Error('npm_execpath is not available');
+/**
+ * When tests run via `npm test`, npm sets `npm_execpath` to npm-cli.js. IDE / `npx playwright`
+ * does not — fall back to `npm` on PATH (needs shell on Windows for npm.cmd).
+ */
+function runNpmSync(args, options) {
+  const npmExec = process.env.npm_execpath;
+
+  if (npmExec) {
+    return spawnSync(process.execPath, [npmExec, ...args], options);
+  }
+
+  return spawnSync('npm', args, { shell: process.platform === 'win32', ...options });
+}
+
+function runNpm(args, options) {
+  const npmExec = process.env.npm_execpath;
+
+  if (npmExec) {
+    return spawn(process.execPath, [npmExec, ...args], options);
+  }
+
+  return spawn('npm', args, { shell: process.platform === 'win32', ...options });
 }
 
 const templates = [
@@ -30,6 +49,35 @@ function scaffoldProject({ targetDir, template, packageName, install, cursorRule
   args.push(ppComponents ? '--pp-components' : '--no-pp-components');
 
   return spawnSync(process.execPath, args, {
+    cwd: repoRoot,
+    encoding: 'utf8',
+  });
+}
+
+/**
+ * Same CLI entry as `npm create @metricinsights/pp-dev` (npm wires create-* to this package).
+ * Uses `npm exec --package=file:…` because `npm create …@file:` is not supported for scoped
+ * initializers on some npm versions.
+ */
+function runNpmCreateFromLocalPackage({ targetDir, template, packageName, install, cursorRules, ppComponents }) {
+  const pkgUrl = pathToFileURL(repoRoot).href;
+  const args = [
+    'exec',
+    '--yes',
+    `--package=${pkgUrl}`,
+    '--',
+    'create-pp-dev',
+    targetDir,
+    '--template',
+    template,
+    '--package-name',
+    packageName,
+    install ? '--install' : '--no-install',
+    cursorRules ? '--cursor-rules' : '--no-cursor-rules',
+    ppComponents ? '--pp-components' : '--no-pp-components',
+  ];
+
+  return runNpmSync(args, {
     cwd: repoRoot,
     encoding: 'utf8',
   });
@@ -128,6 +176,43 @@ for (const template of templates) {
   });
 }
 
+for (const template of templates) {
+  test(`npm create (npm exec) + npm install for ${template.name} template`, async () => {
+    test.setTimeout(300_000);
+
+    const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'create-pp-dev-npm-flow-'));
+    const packageName = `npm-flow-${template.name}`;
+    const targetDir = path.join(tmpRoot, packageName);
+
+    const run = runNpmCreateFromLocalPackage({
+      targetDir,
+      template: template.name,
+      packageName,
+      install: false,
+      cursorRules: false,
+      ppComponents: false,
+    });
+
+    try {
+      expect(run.status, `create stderr: ${run.stderr}\nstdout: ${run.stdout}`).toBe(0);
+
+      const templateSpecificFile = path.join(targetDir, template.checkFile);
+
+      expect(fs.existsSync(templateSpecificFile)).toBeTruthy();
+
+      const installRun = runNpmSync(['install', '--no-audit', '--fund=false'], {
+        cwd: targetDir,
+        encoding: 'utf8',
+      });
+
+      expect(installRun.status, `npm install stderr: ${installRun.stderr}\nstdout: ${installRun.stdout}`).toBe(0);
+      expect(fs.existsSync(path.join(targetDir, 'node_modules'))).toBeTruthy();
+    } finally {
+      fs.rmSync(tmpRoot, { recursive: true, force: true });
+    }
+  });
+}
+
 const optionCombinations = [true, false].flatMap((install) =>
   [true, false].flatMap((cursorRules) => [true, false].map((ppComponents) => ({ install, cursorRules, ppComponents }))),
 );
@@ -187,7 +272,7 @@ test('runs dev server for scaffolded vanilla project', async () => {
 
   expect(scaffold.status, `stderr: ${scaffold.stderr}\nstdout: ${scaffold.stdout}`).toBe(0);
 
-  const install = spawnSync(process.execPath, [npmCliPath, 'install', '--no-audit', '--fund=false'], {
+  const install = runNpmSync(['install', '--no-audit', '--fund=false'], {
     cwd: targetDir,
     encoding: 'utf8',
   });
@@ -195,7 +280,7 @@ test('runs dev server for scaffolded vanilla project', async () => {
   expect(install.error, `install spawn error: ${install.error?.message ?? 'none'}`).toBeUndefined();
   expect(install.status, `stderr: ${install.stderr}\nstdout: ${install.stdout}`).toBe(0);
 
-  const devServer = spawn(process.execPath, [npmCliPath, 'run', 'dev', '--', '--host', '127.0.0.1', '--port', '4173'], {
+  const devServer = runNpm(['run', 'dev', '--', '--host', '127.0.0.1', '--port', '4173'], {
     cwd: targetDir,
     stdio: ['ignore', 'pipe', 'pipe'],
   });
