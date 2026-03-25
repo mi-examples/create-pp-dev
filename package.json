@@ -38,7 +38,6 @@
     "postbuild": "npm pack && node scripts/postbuild.js",
     "typecheck": "tsc --noEmit",
     "test": "npm run build && playwright test",
-    "postinstall": "npx update-browserslist-db@latest",
     "prepublishOnly": "npm run build",
     "version": "npm version --commit-hooks false --git-tag-version false",
     "release": "semantic-release"
