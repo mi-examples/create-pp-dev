@@ -1,3 +1,10 @@
+# [0.7.0-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.7.0-beta.1...v0.7.0-beta.2) (2026-03-25)
+
+
+### Bug Fixes
+
+* remove postinstall for reliable npm create ([3899699](https://github.com/mi-examples/create-pp-dev/commit/389969959823e56b33c8cd7df94ea0c6a75ce0a9))
+
 # [0.7.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.6.1...v0.7.0-beta.1) (2026-03-24)
 
 
