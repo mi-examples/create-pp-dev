@@ -1,3 +1,10 @@
+## [0.7.2-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.1...v0.7.2-beta.1) (2026-03-25)
+
+
+### Bug Fixes
+
+* align ESLint 9 in templates and harden Playwright npm helpers ([8e7c577](https://github.com/mi-examples/create-pp-dev/commit/8e7c57766e64ae4d35263c802cf22847fd359537))
+
 # [0.7.0-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.7.0-beta.1...v0.7.0-beta.2) (2026-03-25)
 
 
