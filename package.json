@@ -53,19 +53,22 @@
   "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
   "license": "ISC",
   "overrides": {
+    "@xmldom/xmldom": "^0.8.12",
+    "brace-expansion": "^5.0.5",
     "minimatch": "^10.2.2",
     "flatted": "^3.4.2",
-    "undici": "^7.24.0"
+    "undici": "^7.24.0",
+    "picomatch": "^4.0.4"
   },
   "devDependencies": {
     "@eslint/compat": "^2.0.3",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.0",
-    "@metricinsights/pp-dev": "^0.16.1",
+    "@metricinsights/pp-dev": "^0.17.0",
+    "@playwright/test": "^1.55.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@playwright/test": "^1.55.0",
     "@types/cross-spawn": "^6.0.6",
     "@types/minimist": "^1.2.5",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
