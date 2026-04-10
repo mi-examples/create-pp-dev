@@ -1,3 +1,10 @@
+## [0.7.4-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.3...v0.7.4-beta.1) (2026-04-10)
+
+
+### Bug Fixes
+
+* **deps:** resolve npm audit vulnerabilities ([3253fba](https://github.com/mi-examples/create-pp-dev/commit/3253fba789c1dba27d8decbbf99d81d10766a723))
+
 ## [0.7.2-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.1...v0.7.2-beta.1) (2026-03-25)
 
 
