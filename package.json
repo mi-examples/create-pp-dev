@@ -83,7 +83,7 @@
     "unbuild": "^3.6.1"
   },
   "dependencies": {
-    "@clack/prompts": "1.0.1",
+    "@clack/prompts": "1.1.0",
     "cross-spawn": "^7.0.6",
     "kolorist": "^1.8.0",
     "minimist": "^1.2.8"
