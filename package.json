@@ -1,6 +1,6 @@
 {
   "name": "@metricinsights/create-pp-dev",
-  "version": "0.7.4-beta.1",
+  "version": "0.7.5-beta.1",
   "type": "module",
   "description": "Portal Page Templates repository",
   "bin": {

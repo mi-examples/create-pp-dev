@@ -1,3 +1,10 @@
+## [0.7.5-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.4...v0.7.5-beta.1) (2026-04-22)
+
+
+### Bug Fixes
+
+* **deps:** patch audited transitive vulnerabilities ([7a433c6](https://github.com/mi-examples/create-pp-dev/commit/7a433c68d63d19409751fabcfaf5d6e5e8067eea))
+
 ## [0.7.4-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.3...v0.7.4-beta.1) (2026-04-10)
 
 
