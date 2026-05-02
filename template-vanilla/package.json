@@ -27,7 +27,7 @@
     "@metricinsights/pp-dev": "^0.18.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/jquery": "^3.5.33",
-    "eslint": "^9.39.0",
+    "eslint": "^10.3.0",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3"
