@@ -1,3 +1,10 @@
+## [0.7.6-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.5...v0.7.6-beta.1) (2026-05-07)
+
+
+### Bug Fixes
+
+* **deps:** patch audit issues in root tooling ([44f0cdd](https://github.com/mi-examples/create-pp-dev/commit/44f0cdd1dea4d6e6d579184c376d780118a9ff71))
+
 ## [0.7.5-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.4...v0.7.5-beta.1) (2026-04-22)
 
 
