@@ -1,7 +1,8 @@
 /**
  * @semantic-release/npm depends on the `npm` package, which vendors older
- * brace-expansion / picomatch than npm audit allows. Overrides cannot replace
- * bundleDependencies; copy patched versions from hoisted node_modules after install.
+ * brace-expansion / picomatch / ip-address than npm audit allows. Overrides
+ * cannot replace bundleDependencies; copy patched versions from hoisted
+ * node_modules after install.
  */
 import { cpSync, existsSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -22,6 +23,10 @@ const patches = [
   {
     src: join(root, 'node_modules/picomatch'),
     dest: join(npmRoot, 'node_modules/tinyglobby/node_modules/picomatch'),
+  },
+  {
+    src: join(root, 'node_modules/ip-address'),
+    dest: join(npmRoot, 'node_modules/ip-address'),
   },
 ];
 
