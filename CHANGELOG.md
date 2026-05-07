@@ -1,3 +1,10 @@
+## [0.7.6-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.7.6-beta.1...v0.7.6-beta.2) (2026-05-07)
+
+
+### Bug Fixes
+
+* **deps:** refresh lockfile bundled audit patches ([0593425](https://github.com/mi-examples/create-pp-dev/commit/05934252f82f943d3e2c47566b9e90a0ee9f8e82))
+
 ## [0.7.6-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.5...v0.7.6-beta.1) (2026-05-07)
 
 
