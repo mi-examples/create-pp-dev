@@ -71,7 +71,7 @@
     "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@metricinsights/pp-dev": "^0.18.3",
+    "@metricinsights/pp-dev": "^0.19.0",
     "@playwright/test": "^1.60.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
