@@ -59,22 +59,24 @@ Before using the PP Dev Helper, you need to configure it. You need to change the
 
 ```typescript
 // pp-dev.config.ts
-import { PPDevConfig } from '@metricinsights/pp-dev';
+import { defineConfig } from '@metricinsights/pp-dev';
 
-const config: PPDevConfig = {
-  /**
-   * Backend base URL
-   */
-  backendBaseURL: 'https://example.metricinsights.com',
-  /**
-   * Portal page ID
-   */
-  portalPageId: 1,
-  /**
-   * Disable MI top bar
-   */
-  miHudLess: true,
-};
-
-export default config;
+export default defineConfig({
+  mi: {
+    /**
+     * Metric Insights instance URL
+     */
+    url: 'https://example.metricinsights.com',
+    mode: 'standalone',
+    include: 'top-bar',
+    apiVersion: 7,
+  },
+  app: {
+    /**
+     * Portal page / app ID
+     */
+    id: 1,
+    type: 'template',
+  },
+});
 ```

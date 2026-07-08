@@ -20,7 +20,7 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0"
   },
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=24.0.0",
     "npm": ">=10.0.0"
   },
   "dependencies": {
@@ -33,7 +33,7 @@
     "@eslint/compat": "^2.0.5",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@metricinsights/pp-dev": "^0.18.3",
+    "@metricinsights/pp-dev": "^1.0.0-beta.2",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^25.3.0",
     "@types/react": "^19.2.14",

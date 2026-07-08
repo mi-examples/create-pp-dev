@@ -31,21 +31,23 @@ Before using the PP Dev Helper, you need to configure it. You need to change the
 
 ```javascript
 // pp-dev.config.js
-/**
- * @type {import('@metricinsights/pp-dev').PPDevConfig}
- */
-export default {
-  /**
-   * Backend base URL
-   */
-  backendBaseURL: 'https://640.metricinsights.com',
-  /**
-   * Portal page ID
-   */
-  portalPageId: 1,
-  /**
-   * Disable MI top bar
-   */
-  miHudLess: false,
-};
+import { defineConfig } from '@metricinsights/pp-dev';
+
+export default defineConfig({
+  mi: {
+    /**
+     * Metric Insights instance URL
+     */
+    url: 'https://640.metricinsights.com',
+    mode: 'embedding',
+    apiVersion: 7,
+  },
+  app: {
+    /**
+     * Portal page / app ID
+     */
+    id: 1,
+    type: 'template',
+  },
+});
 ```
