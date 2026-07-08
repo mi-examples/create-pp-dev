@@ -14,13 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org/
@@ -34,7 +34,7 @@ jobs:
           echo "Releasing version: $VERSION"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci --no-audit
 
       - name: Build
         run: npm run build
@@ -49,6 +49,9 @@ jobs:
 
       - name: Update package version
         run: npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+
+      - name: Upgrade npm for OIDC trusted publishing
+        run: npm install -g npm@latest --no-audit
 
       - name: Publish to npm
         run: npm publish --access public
