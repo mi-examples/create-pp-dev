@@ -39,6 +39,7 @@ const templates = [
   { name: 'vanilla-ts', checkFile: 'src/main.ts' },
   { name: 'react', checkFile: 'src/main.tsx' },
   { name: 'nextjs', checkFile: 'src/pages/index.tsx' },
+  { name: 'nextjs-esm', checkFile: 'src/pages/index.tsx' },
 ];
 
 function scaffoldProject({ targetDir, template, packageName, install, cursorRules, ppComponents }) {
