@@ -9,7 +9,7 @@
     "brace-expansion": "^5.0.6",
     "minimatch": "^10.2.2",
     "flatted": "^3.4.2",
-    "undici": "^7.24.0",
+    "undici": "^7.28.0",
     "picomatch": "^4.0.4",
     "postcss": "^8.5.10",
     "ip-address": "^10.2.0"
@@ -34,7 +34,7 @@
     "@eslint/compat": "^2.0.5",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@metricinsights/pp-dev": "^1.0.0-beta.2",
+    "@metricinsights/pp-dev": "^1.0.0",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^26.1.0",
     "@types/react": "^19.2.14",
