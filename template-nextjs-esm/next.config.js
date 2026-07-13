@@ -1,4 +1,4 @@
-const { withPPDev } = require('@metricinsights/pp-dev');
+import { withPPDev } from '@metricinsights/pp-dev';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -8,4 +8,4 @@ const nextConfig = {
   distDir: 'dist',
 };
 
-module.exports = withPPDev(nextConfig);
+export default withPPDev(nextConfig);

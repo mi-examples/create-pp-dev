@@ -39,6 +39,7 @@ const templates = [
   { name: 'vanilla-ts', checkFile: 'src/main.ts' },
   { name: 'react', checkFile: 'src/main.tsx' },
   { name: 'nextjs', checkFile: 'src/pages/index.tsx' },
+  { name: 'nextjs-esm', checkFile: 'src/pages/index.tsx' },
 ];
 
 function scaffoldProject({ targetDir, template, packageName, install, cursorRules, ppComponents }) {
@@ -271,6 +272,18 @@ test('runs dev server for scaffolded vanilla project', async () => {
   });
 
   expect(scaffold.status, `stderr: ${scaffold.stderr}\nstdout: ${scaffold.stdout}`).toBe(0);
+
+  // pp-dev 1.0 requires mi.url whenever mi.mode is "embedding" or app.type is "template" — fill in
+  // the placeholder the template ships commented out, same as a user would before their first `dev`.
+  const configPath = path.join(targetDir, 'pp-dev.config.js');
+  const configSource = fs.readFileSync(configPath, 'utf8');
+
+  fs.writeFileSync(
+    configPath,
+    configSource
+      .replace("// url: 'https://example.metricinsights.com',", "url: 'https://example.metricinsights.com',")
+      .replace('// id: 1,', 'id: 1,'),
+  );
 
   const install = runNpmSync(['install', '--no-audit', '--fund=false'], {
     cwd: targetDir,

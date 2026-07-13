@@ -67,7 +67,12 @@ const FRAMEWORKS: Framework[] = [
     variants: [
       {
         name: 'nextjs',
-        display: 'Next.js',
+        display: 'CommonJS',
+        color: magenta,
+      },
+      {
+        name: 'nextjs-esm',
+        display: 'ESM',
         color: magenta,
       },
     ],

@@ -1,3 +1,29 @@
+# [1.0.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.6...v1.0.0-beta.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* **test:** fill in mi.url/app.id before booting the scaffolded dev server ([8d10d92](https://github.com/mi-examples/create-pp-dev/commit/8d10d92254f89533261c2fefd15431edf82c1068))
+
+
+### Features
+
+* **nextjs:** add ESM template variant ([ddee870](https://github.com/mi-examples/create-pp-dev/commit/ddee870411e91fcaa464894c8aabf8ae69ab0b03))
+* **templates:** migrate pp-dev config to grouped schema, pin to 1.0.0-beta.2 ([675833c](https://github.com/mi-examples/create-pp-dev/commit/675833ca6f586ace2f495416e181a8e02dab6efd))
+* **templates:** require pp-dev 1.0 config schema and Node 24+ ([fd71ec6](https://github.com/mi-examples/create-pp-dev/commit/fd71ec6503ccc4904fe3f1488092ef8b207ba06d))
+
+
+### BREAKING CHANGES
+
+* **templates:** Templates now target @metricinsights/pp-dev >=1.0.0-beta.2
+and its grouped pp-dev.config schema (defineConfig({ mi, app, ... })),
+replacing the old flat backendBaseURL/portalPageId/miHudLess/v7Features
+options. engines.node is raised to >=24.0.0 across the CLI and all
+templates. Projects scaffolded from older create-pp-dev versions must
+migrate their pp-dev.config before upgrading pp-dev past 1.0.
+
+Related to PP-3449.
+
 ## [0.7.6-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.7.6-beta.1...v0.7.6-beta.2) (2026-05-07)
 
 

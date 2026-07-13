@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
 
@@ -30,7 +30,10 @@ jobs:
           echo "current=$CURRENT" >> $GITHUB_OUTPUT
           echo "latest=$LATEST" >> $GITHUB_OUTPUT
 
-          if [ "$CURRENT" != "$LATEST" ]; then
+          # Only update when the published version is actually newer — a plain "!=" would also
+          # fire (and downgrade us) if CURRENT is pinned ahead of what's published (e.g. a pre-release
+          # major bump landed here before npm caught up).
+          if [ "$CURRENT" != "$LATEST" ] && [ "$(printf '%s\n%s\n' "$CURRENT" "$LATEST" | sort -V | tail -1)" = "$LATEST" ]; then
             echo "needs_update=true" >> $GITHUB_OUTPUT
           else
             echo "needs_update=false" >> $GITHUB_OUTPUT

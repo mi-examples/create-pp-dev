@@ -34,6 +34,9 @@ You'll need to create a file with the name `pp-dev.config` and extension `js` or
 
 Alternatively, you can define configuration in your `package.json` via the `pp-dev` key
 
+Configuration is a grouped object (`PPDevConfig`) with sections for `mi`, `app`, `proxy`, `build`, `sync`, and
+`inspector`. Use the `defineConfig()` helper for full TypeScript intellisense.
+
 Generic configuration examples:
 
 - JavaScript
@@ -41,13 +44,17 @@ Generic configuration examples:
 ```javascript
 // pp-dev.config.js
 
-/**
- * @type {import('@metricinsights/pp-dev').PPDevConfig}
- */
-module.exports = {
-  backendBaseURL: 'https://mi.company.com',
-  portalPageId: 1,
-};
+const { defineConfig } = require('@metricinsights/pp-dev');
+
+module.exports = defineConfig({
+  mi: {
+    url: 'https://mi.company.com',
+    mode: 'standalone',
+  },
+  app: {
+    id: 1,
+  },
+});
 ```
 
 - TypeScript
@@ -55,22 +62,30 @@ module.exports = {
 ```typescript
 // pp-dev.config.ts
 
-import { PPDevConfig } from '@metricinsights/pp-dev';
+import { defineConfig } from '@metricinsights/pp-dev';
 
-const config: PPDevConfig = {
-  backendBaseURL: 'https://mi.company.com',
-  portalPageId: 1,
-};
-
-export default config;
+export default defineConfig({
+  mi: {
+    url: 'https://mi.company.com',
+    mode: 'standalone',
+  },
+  app: {
+    id: 1,
+  },
+});
 ```
 
 - JSON as `pp-dev.config.json`
 
 ```json
 {
-  "backendBaseURL": "https://mi.company.com",
-  "portalPageId": 1
+  "mi": {
+    "url": "https://mi.company.com",
+    "mode": "standalone"
+  },
+  "app": {
+    "id": 1
+  }
 }
 ```
 
@@ -82,11 +97,20 @@ export default config;
   "version": "1.0.0",
   "scripts": {},
   "pp-dev": {
-    "backendBaseURL": "https://mi.company.com",
-    "portalPageId": 1
+    "mi": {
+      "url": "https://mi.company.com",
+      "mode": "standalone"
+    },
+    "app": {
+      "id": 1
+    }
   }
 }
 ```
+
+> Migrating from an older, flat config (`backendBaseURL`, `portalPageId`, `miHudLess`, `v7Features`, ...)? Run
+> `npx @metricinsights/pp-dev migrate` to convert it to the grouped format automatically (writes a `.bak` backup
+> first; use `--dry-run` to preview).
 
 ## [Next.js](https://nextjs.org/) Configuration
 
@@ -115,120 +139,56 @@ More details [Vite Confighere](https://vitejs.dev/config/)
 
 ### Configuration API description
 
-#### `backendBaseURL`
+#### `mi` — Metric Insights connection
 
-Type: String
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mi.url` | `string` | `MI_BACKEND_URL` env | MI instance base URL, used for proxying requests to the MI backend |
+| `mi.token` | `string` | `MI_ACCESS_TOKEN` env | Personal access token for authentication |
+| `mi.mode` | `'standalone' \| 'embedding'` | `'standalone'` | `standalone` hides the MI navigation bar (recommended for React); `embedding` keeps the MI wrapper around the page |
+| `mi.include` | `'top-bar' \| 'shared-components'` | — | Bundle MI shared/top-bar assets into the build. Only valid when `mi.mode` is `'standalone'` |
+| `mi.apiVersion` | `6 \| 7` | `7` | MI API/routing version to target |
 
-Example: `https://mi.company.com`
+#### `app` — Portal Page identity
 
-Description: Defines the backend URL (Metric Insights instance) that is used for proxying requests to the MI backend
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `app.id` | `number` | — | Portal Page ID, used to fetch Portal Page Variable values. Required when `app.type` is `'template'`, or when `app.type` is `'page'` and `mi.mode` is `'standalone'` |
+| `app.type` | `'template' \| 'page'` | `'template'` | `template` loads Template Variables for `app.id`; `page` disables Template Variables transformation (for a Portal Page without a template) |
+| `app.name` | `string` | `package.json#name` | Internal asset name for URLs and the build ZIP — usually left unset |
 
-#### `portalPageId`
+#### `proxy` — dev-server proxy
 
-Type: Number
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `proxy.cache` | `boolean` | `true` | Enables proxy cache for requests to the MI backend |
+| `proxy.cacheTtl` | `number` (ms) | `600000` | Proxy cache TTL |
+| `proxy.tls.allowSelfSigned` | `boolean` | `false` | Disables SSL certificate validation for proxy requests. Useful for self-signed certificates |
 
-Example: `1`
+#### `build` — build output
 
-Description: Defines the Portal Page ID that used to get Portal Page Variable values.
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `build.outDir` | `string` | `'dist'` | Output directory for the build |
+| `build.zip` | `boolean \| { fileName?, outDir?, inDir? }` | `true` | Zips the build output. Object form customizes the output filename/directory (filename supports `[name]` as a placeholder for the template name) |
+| `build.versionFile` | `boolean \| { enabled?, fileNameTemplate? }` | `true` | Writes a VERSION file with SHA256 hashes into the build |
+| `build.imageOptimisations` | `boolean \| object` | `true` | Enables image optimization for the build. Object form is passed to [vite-plugin-image-optimizer](https://www.npmjs.com/package/vite-plugin-image-optimizer#plugin-options) |
 
-#### `miHudLess`
+#### `sync` — asset sync / backups
 
-Type: Boolean
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `sync.backupsDir` | `string` | `'backups'` | Directory for asset backups pulled from the MI server |
 
-Default: `false`
+#### `inspector` — Request Inspector
 
-Example: `true`
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `inspector.enabled` | `boolean` | `true` | Enables the request inspector web UI at `/@pp-dev/inspector` |
+| `inspector.maxMemory` | `number` (bytes) | `1073741824` | Max total captured request/response body memory before oldest entries are evicted |
+| `inspector.captureLimit` | `number` (bytes) | `10485760` | Max body size captured per request/response; larger bodies are stored truncated |
 
-Description: Disables Metric Insights navigation bar for local development
-
-#### `templateLess`
-
-Type: Boolean
-
-Default: `false`
-
-Example: `true`
-
-Description: Disables Template Variables transformation. Used when developing a Portal Page without a template
-
-#### `enableProxyCache`
-
-Type: Boolean
-
-Default: `true`
-
-Description: Enables proxy cache. If you want to disable proxy cache, you need to set this option to `false`
-
-#### `proxyCacheTTL`
-
-Type: Number
-
-Default: `10 * 60 * 1000`
-
-Description: Defines proxy cache TTL in milliseconds
-
-#### `disableSSLValidation`
-
-Type: Boolean
-
-Default: `false`
-
-Description: Disables SSL certificate validation for proxy requests. Useful for self-signed certificates
-
-#### `imageOptimizer`
-
-Type: Boolean | Object
-
-Default: `true`
-
-Description: Enables image optimization for build.
-If you want to disable image optimization, you need to set this option to `false`.
-If you want to customize image optimization, you need to set this option to an object with properties that are described
-in the [vite-plugin-image-optimizer](https://www.npmjs.com/package/vite-plugin-image-optimizer#plugin-options)
-
-#### `outDir`
-
-Type: String
-
-Default: `dist`
-
-Description: Define the output directory for the build
-
-#### `distZip`
-
-Type: Boolean | { outDir?: string, outFileName?: string }
-
-Default: `true`
-
-Description: Enables zipping the build output.
-If you want to disable zipping the build output, you need to set this option to `false`.
-If you want to customize zipping the build output,
-you need to set this option to an object with properties `outDir` and `outFileName`.
-
-- `outDir` defines the output directory for the zipped build.
-- `outFileName` defines the output file name for the zipped build.
-  You can use placeholder `[templateName]` in the file name to replace it with the template name.
-
-#### `syncBackupsDir`
-
-Type: String
-
-Default: `backups`
-
-Description: Define the directory for the asset backups that are used for backup assets from the MI server
-
-#### `v7Features`
-
-Type: Boolean
-
-Default: `false`
-
-Description: Enables V7 features.
-If you want to enable V7 features, you need to set this option to `true`.
-This option is used for enabling new features that are available only on the Metric Insights v7 instances.
-When setting this option to `true`, the CLI will use apply changes:
-1. Default development path will be changed from `/pt/<portal-page-name>` to `/pl/<portal-page-name>`. This will avoid conflicts with the Metric Insights v7 features when developing a Portal Page with the Metric Insights toolbar.
-2. The Code Sync feature will use the new URLs of the Metric Insights v7 instances (available only on the Metric Insights v7.1.0 instances or higher).
+`mi.apiVersion: 7` changes the default local development path from `/pt/<portal-page-name>` to `/pl/<portal-page-name>` (avoids conflicts with the Metric Insights v7 toolbar) and switches Code Sync to the v7 URLs (available on Metric Insights v7.1.0+ instances).
 
 ### CLI API description
 
