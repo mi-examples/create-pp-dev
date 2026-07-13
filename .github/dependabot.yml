@@ -9,6 +9,10 @@ updates:
     schedule:
       interval: 'daily'
   - package-ecosystem: 'npm'
+    directory: '/template-nextjs-esm'
+    schedule:
+      interval: 'daily'
+  - package-ecosystem: 'npm'
     directory: '/template-react'
     schedule:
       interval: 'daily'

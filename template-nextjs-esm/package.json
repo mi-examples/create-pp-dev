@@ -1,7 +1,8 @@
 {
-  "name": "pp-dev-nextjs-starter",
+  "name": "pp-dev-nextjs-esm-starter",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "overrides": {
     "@xmldom/xmldom": "^0.8.13",
     "axios": "^1.15.2",

@@ -1,6 +1,8 @@
-# Next.js + PP Dev
+# Next.js (ESM) + PP Dev
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`@metricinsights/create-pp-dev`](https://github.com/mi-examples/pp-dev-js/tree/main/packages/create-pp-dev).
+
+This variant uses ECMAScript modules (`"type": "module"` in `package.json`, `import`/`export` in `next.config.js`) instead of CommonJS. Use the `nextjs` template if you need CommonJS instead.
 
 ## Getting Started
 

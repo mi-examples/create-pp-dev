@@ -1,18 +1,19 @@
-/**
- * @type {import('@metricinsights/pp-dev').PPDevConfig}
- */
-export default {
-  /**
-   * Backend base URL
-   */
-  // backendBaseURL: 'https://example.metricinsights.com',
-  /**
-   * App ID
-   */
-  // appId: 1,
-  /**
-   * Disable MI top bar
-   */
-  miHudLess: false,
-  v7Features: true,
-};
+import { defineConfig } from '@metricinsights/pp-dev';
+
+export default defineConfig({
+  mi: {
+    /**
+     * Metric Insights instance URL
+     */
+    // url: 'https://example.metricinsights.com',
+    mode: 'embedding',
+    apiVersion: 7,
+  },
+  app: {
+    /**
+     * Portal page / app ID
+     */
+    // id: 1,
+    type: 'template',
+  },
+});
