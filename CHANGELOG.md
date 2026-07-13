@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-07-13)
+
+
+### Bug Fixes
+
+* **deps:** upgrade to pp-dev 1.0.0 stable and patch undici advisories ([3058024](https://github.com/mi-examples/create-pp-dev/commit/3058024b660f3f9a1d7a6685a4d437ed0b926435))
+
 # [1.0.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.6...v1.0.0-beta.1) (2026-07-13)
 
 
