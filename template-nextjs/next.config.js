@@ -6,6 +6,9 @@ const nextConfig = {
   cleanDistDir: true,
   reactStrictMode: true,
   distDir: 'dist',
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = withPPDev(nextConfig);
