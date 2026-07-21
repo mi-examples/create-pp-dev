@@ -1,3 +1,10 @@
+# [1.0.0-beta.3](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2026-07-21)
+
+
+### Bug Fixes
+
+* **deps:** upgrade to pp-dev 1.1.0 and patch axios/body-parser/brace-expansion advisories ([825fe68](https://github.com/mi-examples/create-pp-dev/commit/825fe68502db6b959c461ddab1334fa703aec47e))
+
 # [1.0.0-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-07-13)
 
 
