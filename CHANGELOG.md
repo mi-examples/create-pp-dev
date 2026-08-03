@@ -1,3 +1,10 @@
+# [1.0.0-beta.4](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2026-08-03)
+
+
+### Bug Fixes
+
+* **deps:** patch npm audit findings and fix pp-dev bump workflow auth ([82330cf](https://github.com/mi-examples/create-pp-dev/commit/82330cff1b0e3a4ac067403874c3a6f96be9151c))
+
 # [1.0.0-beta.3](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2026-07-21)
 
 
