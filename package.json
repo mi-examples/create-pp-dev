@@ -78,7 +78,7 @@
     "@metricinsights/pp-dev": "^1.1.0",
     "@playwright/test": "^1.60.0",
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/git": "^11.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/cross-spawn": "^6.0.6",
     "@types/minimist": "^1.2.5",
