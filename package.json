@@ -1,6 +1,6 @@
 {
   "name": "@metricinsights/create-pp-dev",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "type": "module",
   "description": "Portal Page Templates repository",
   "bin": {
@@ -58,15 +58,18 @@
     "@xmldom/xmldom": "^0.8.13",
     "axios": "^1.18.1",
     "body-parser": "^2.3.0",
-    "brace-expansion": "^5.0.7",
+    "brace-expansion": "^5.0.9",
     "minimatch": "^10.2.2",
     "flatted": "^3.4.2",
     "undici": "^7.28.0",
     "picomatch": "^4.0.4",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.25",
     "ip-address": "^10.2.0",
     "qs": "^6.15.2",
-    "npm": "^12.0.1"
+    "npm": "^12.0.2",
+    "tar": "^7.5.22",
+    "immutable": "^5.1.9",
+    "svgo": "^4.0.2"
   },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
