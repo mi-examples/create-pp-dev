@@ -53,6 +53,10 @@ jobs:
           find template-* -name "package.json" -exec sed -i \
             "s/\"@metricinsights\/pp-dev\": \"[^\"]*\"/\"@metricinsights\/pp-dev\": \"^$VERSION\"/g" {} \;
 
+      - name: Update package-lock.json
+        if: steps.check.outputs.needs_update == 'true'
+        run: npm install --package-lock-only
+
       - name: Create Pull Request
         if: steps.check.outputs.needs_update == 'true'
         uses: peter-evans/create-pull-request@v5
