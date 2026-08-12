@@ -1,3 +1,10 @@
+## [1.1.3-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.2...v1.1.3-beta.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* **deps:** resolve nanoid/postcss audit findings and apply pending Dependabot bumps ([619c01c](https://github.com/mi-examples/create-pp-dev/commit/619c01cd64c1d92ac9a1d3f053892600b8e880a6)), closes [hi#severity](https://github.com/hi/issues/severity)
+
 # [1.0.0-beta.4](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2026-08-03)
 
 
