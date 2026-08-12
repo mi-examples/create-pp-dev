@@ -1,3 +1,10 @@
+## [1.1.3-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.1...v1.1.3-beta.2) (2026-08-12)
+
+
+### Bug Fixes
+
+* **deps:** sync @metricinsights/pp-dev version across all templates ([f1a67f5](https://github.com/mi-examples/create-pp-dev/commit/f1a67f5c16ff80ea1b56ddb82e9da22b1ce69eb1))
+
 ## [1.1.3-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.2...v1.1.3-beta.1) (2026-08-12)
 
 
