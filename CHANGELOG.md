@@ -1,3 +1,10 @@
+## [1.1.3-beta.3](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.2...v1.1.3-beta.3) (2026-08-12)
+
+
+### Bug Fixes
+
+* **ci:** regenerate package-lock.json in update-pp-dev workflow ([3a1d49c](https://github.com/mi-examples/create-pp-dev/commit/3a1d49cf7da5a19dc235b1394ebeeb43358544c1))
+
 ## [1.1.3-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.1...v1.1.3-beta.2) (2026-08-12)
 
 
