@@ -55,7 +55,7 @@
   "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
   "license": "ISC",
   "overrides": {
-    "@xmldom/xmldom": "^0.8.13",
+    "@xmldom/xmldom": "^0.8.15",
     "axios": "^1.18.1",
     "body-parser": "^2.3.0",
     "brace-expansion": "^5.0.9",
