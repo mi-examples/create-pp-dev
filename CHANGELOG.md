@@ -1,3 +1,11 @@
+## [1.1.4-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3...v1.1.4-beta.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* **ci:** regenerate package-lock.json in update-pp-dev workflow ([3a1d49c](https://github.com/mi-examples/create-pp-dev/commit/3a1d49cf7da5a19dc235b1394ebeeb43358544c1))
+* **deps:** resolve Dependabot vulnerability alerts (PP-4200) ([cf74af3](https://github.com/mi-examples/create-pp-dev/commit/cf74af364da3805cb1dbcfb88c5f00011dba0df0))
+
 ## [1.1.3-beta.4](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.3...v1.1.3-beta.4) (2026-09-11)
 
 
