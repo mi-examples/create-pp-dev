@@ -1,3 +1,10 @@
+## [1.1.3-beta.4](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.3...v1.1.3-beta.4) (2026-09-11)
+
+
+### Bug Fixes
+
+* **deps:** resolve Dependabot vulnerability alerts (PP-4200) ([cf74af3](https://github.com/mi-examples/create-pp-dev/commit/cf74af364da3805cb1dbcfb88c5f00011dba0df0))
+
 ## [1.1.3-beta.3](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.2...v1.1.3-beta.3) (2026-08-12)
 
 
