@@ -20,8 +20,8 @@ alwaysApply: true
    - Example response:
      ```json
      {
-       "token": "UClCUUKxUlkdbhE1cHLz3kyjbIZYVh9eB34A5Q21Y3FPqKGSJs",
-       "expires": "2024-04-14 18:46:08"
+       "token": "<API_TOKEN>",
+       "expires": "YYYY-MM-DD HH:MM:SS"
      }
      ```
 
