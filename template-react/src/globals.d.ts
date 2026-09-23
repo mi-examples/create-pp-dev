@@ -3,3 +3,5 @@ declare global {
     PP_VARIABLES?: Record<string, unknown>;
   }
 }
+
+export {};

@@ -20,6 +20,7 @@ module.exports = defineConfig([
     languageOptions: {
       globals: {
         ...globals.browser,
+        ...globals.jquery,
       },
       parserOptions: {
         ecmaVersion: 'latest',
@@ -37,7 +38,7 @@ module.exports = defineConfig([
       'eol-last': ['error', 'always'],
       'max-statements-per-line': ['error', { max: 3 }],
       'max-len': ['error', 120],
-      'no-console': 'error',
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       'new-cap': ['error', { newIsCap: true, properties: false, capIsNew: false }],
       curly: ['error', 'all'],
       '@stylistic/curly-newline': ['error', 'always'],

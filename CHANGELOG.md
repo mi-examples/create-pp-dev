@@ -1,3 +1,12 @@
+## [1.1.5-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.4...v1.1.5-beta.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **cli:** show install/rules/components prompts again ([0c34a73](https://github.com/mi-examples/create-pp-dev/commit/0c34a7325357971b691b8d9a001bfd83c8eaebba))
+* **deps:** drop stale overrides and postinstall patch ([d93f73e](https://github.com/mi-examples/create-pp-dev/commit/d93f73ee0895aabc2a877c50f11a94dd348679ba))
+* **templates:** make fresh projects lint, type-check and build ([8d14c7a](https://github.com/mi-examples/create-pp-dev/commit/8d14c7aa4ff8a4d0cdf30494e46eee80f0b0f841))
+
 ## [1.1.4-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3...v1.1.4-beta.1) (2026-09-11)
 
 

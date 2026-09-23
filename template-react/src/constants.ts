@@ -1,4 +1,5 @@
 export interface PPVariables {
+  [key: string]: unknown;
   // LOGO: string;
   // DATASET_ID: number;
 }
