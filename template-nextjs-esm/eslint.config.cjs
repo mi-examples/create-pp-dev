@@ -1,11 +1,13 @@
 const { defineConfig, globalIgnores } = require('eslint/config');
 
 const nextVitals = require('eslint-config-next/core-web-vitals');
+const nextTs = require('eslint-config-next/typescript');
 
 const stylistic = require('@stylistic/eslint-plugin');
 
 module.exports = defineConfig([
   ...nextVitals,
+  ...nextTs,
   {
     plugins: {
       '@stylistic': stylistic,
@@ -25,7 +27,7 @@ module.exports = defineConfig([
       'eol-last': ['error', 'always'],
       'max-statements-per-line': ['error', { max: 3 }],
       'max-len': ['error', 120],
-      'no-console': 'error',
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       'new-cap': ['error', { newIsCap: true, properties: false, capIsNew: false }],
       curly: ['error', 'all'],
       '@stylistic/curly-newline': ['error', 'always'],
