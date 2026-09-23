@@ -1,20 +1,43 @@
 import fs, { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parseArgs, styleText } from 'node:util';
 import spawn from 'cross-spawn';
-import minimist from 'minimist';
 import * as p from '@clack/prompts';
-import { blue, cyan, magenta, yellow } from 'kolorist';
 
-// Avoids autoconversion to number of the project name by defining that the args
-// non associated with an option ( _ ) needs to be parsed as a string. See #4606
-const argv = minimist(process.argv.slice(2), {
-  string: ['_', 'template', 't', 'package-name'],
-  boolean: ['yes', 'y', 'install', 'cursor-rules', 'pp-components'],
+// Positionals stay strings (a numeric project name is not coerced), and boolean flags the user
+// didn't pass stay `undefined` — so the interactive prompt is shown for them. `--no-<flag>` sets
+// false. strict: false keeps unknown flags from aborting the CLI.
+const { values: argv, positionals } = parseArgs({
+  args: process.argv.slice(2),
+  options: {
+    template: { type: 'string', short: 't' },
+    'package-name': { type: 'string' },
+    install: { type: 'boolean' },
+    'cursor-rules': { type: 'boolean' },
+    'pp-components': { type: 'boolean' },
+    yes: { type: 'boolean', short: 'y' },
+  },
+  allowPositionals: true,
+  allowNegative: true,
+  strict: false,
 });
 const cwd = process.cwd();
 
+const stringArg = (value: unknown): string | undefined => (typeof value === 'string' ? value : undefined);
+const booleanArg = (value: unknown): boolean | undefined => (typeof value === 'boolean' ? value : undefined);
+
 type ColorFunc = (str: string | number) => string;
+
+// node:util styleText honours NO_COLOR / FORCE_COLOR and non-TTY output.
+const color =
+  (format: Parameters<typeof styleText>[0]): ColorFunc =>
+  (str) =>
+    styleText(format, String(str));
+const blue = color('blue');
+const cyan = color('cyan');
+const magenta = color('magenta');
+const yellow = color('yellow');
 
 type Framework = {
   name: string;
@@ -86,12 +109,12 @@ const renameFiles: Record<string, string | undefined> = {
 const defaultTargetDir = 'pp-project';
 
 async function init() {
-  const argTargetDir = formatTargetDir(argv._[0]);
-  const argTemplate = (argv.template ?? argv.t) as string | undefined;
-  const argPackageName = argv['package-name'] as string | undefined;
-  const shouldInstallPackages = argv.install as boolean | undefined;
-  const shouldAddCursorRules = argv['cursor-rules'] as boolean | undefined;
-  const shouldAddMiComponentsLibrary = argv['pp-components'] as boolean | undefined;
+  const argTargetDir = formatTargetDir(positionals[0]);
+  const argTemplate = stringArg(argv.template);
+  const argPackageName = stringArg(argv['package-name']);
+  const shouldInstallPackages = booleanArg(argv.install);
+  const shouldAddCursorRules = booleanArg(argv['cursor-rules']);
+  const shouldAddMiComponentsLibrary = booleanArg(argv['pp-components']);
 
   let targetDir = argTargetDir ?? defaultTargetDir;
   const getProjectName = () => (targetDir === '.' ? path.basename(path.resolve()) : targetDir);

@@ -62,7 +62,6 @@
     "@semantic-release/git": "^11.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/cross-spawn": "^6.0.6",
-    "@types/minimist": "^1.2.5",
     "@typescript-eslint/eslint-plugin": "^8.59.3",
     "@typescript-eslint/parser": "^8.59.3",
     "eslint": "^10.3.0",
@@ -73,8 +72,6 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.4.0",
-    "cross-spawn": "^7.0.6",
-    "kolorist": "^1.8.0",
-    "minimist": "^1.2.8"
+    "cross-spawn": "^7.0.6"
   }
 }
