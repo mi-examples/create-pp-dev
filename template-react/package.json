@@ -3,18 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "overrides": {
-    "@xmldom/xmldom": "^0.8.13",
-    "axios": "^1.18.1",
-    "body-parser": "^2.3.0",
-    "brace-expansion": "^5.0.7",
-    "minimatch": "^10.2.2",
-    "flatted": "^3.4.2",
-    "undici": "^7.28.0",
-    "picomatch": "^4.0.4",
-    "postcss": "^8.5.10",
-    "ip-address": "^10.2.0"
-  },
   "scripts": {
     "dev": "pp-dev",
     "build": "tsc && pp-dev build",
@@ -34,7 +22,7 @@
     "@eslint/compat": "^2.0.5",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@metricinsights/pp-dev": "^1.2.2",
+    "@metricinsights/pp-dev": "^1.4.2",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
