@@ -21,8 +21,7 @@
     "template-*/**",
     "mi-cursor-rules/**",
     "dist",
-    "CHANGELOG.md",
-    "scripts/sync-npm-bundled-patches.mjs"
+    "CHANGELOG.md"
   ],
   "main": "index.js",
   "engines": {
@@ -30,7 +29,6 @@
     "npm": ">=10.0.0"
   },
   "scripts": {
-    "postinstall": "node scripts/sync-npm-bundled-patches.mjs",
     "dev": "unbuild --stub",
     "build": "unbuild",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
@@ -54,29 +52,11 @@
   },
   "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
   "license": "ISC",
-  "overrides": {
-    "@xmldom/xmldom": "^0.8.15",
-    "axios": "^1.18.1",
-    "body-parser": "^2.3.0",
-    "brace-expansion": "^5.0.9",
-    "minimatch": "^10.2.2",
-    "flatted": "^3.4.2",
-    "undici": "^7.28.0",
-    "picomatch": "^4.0.4",
-    "postcss": "^8.5.26",
-    "ip-address": "^10.2.0",
-    "qs": "^6.16.0",
-    "js-yaml": "^4.3.2",
-    "npm": "^12.0.2",
-    "tar": "^7.5.22",
-    "immutable": "^5.1.9",
-    "svgo": "^4.1.0"
-  },
   "devDependencies": {
     "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@metricinsights/pp-dev": "^1.2.2",
+    "@metricinsights/pp-dev": "^1.4.2",
     "@playwright/test": "^1.60.0",
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/git": "^11.0.1",
