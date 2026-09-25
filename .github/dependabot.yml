@@ -1,35 +1,35 @@
 version: 2
 updates:
+  # The package itself. Runtime dependencies ship to users, so their updates
+  # are commits of type fix and release a patch; development dependencies
+  # don't release.
   - package-ecosystem: 'npm'
     directory: '/'
     target-branch: 'develop'
     schedule:
       interval: 'daily'
+    commit-message:
+      prefix: 'fix'
+      prefix-development: 'chore'
+      include: 'scope'
+
+  # The project templates. Every dependency in them ships in each scaffolded
+  # project, so an update is a fix and releases a patch. Updates of pp-dev in
+  # all templates arrive as one pull request, with the range raised to the
+  # new version.
   - package-ecosystem: 'npm'
-    directory: '/template-nextjs'
+    directories: ['/template-*']
     target-branch: 'develop'
+    versioning-strategy: increase
     schedule:
       interval: 'daily'
-  - package-ecosystem: 'npm'
-    directory: '/template-nextjs-esm'
-    target-branch: 'develop'
-    schedule:
-      interval: 'daily'
-  - package-ecosystem: 'npm'
-    directory: '/template-react'
-    target-branch: 'develop'
-    schedule:
-      interval: 'daily'
-  - package-ecosystem: 'npm'
-    directory: '/template-vanilla'
-    target-branch: 'develop'
-    schedule:
-      interval: 'daily'
-  - package-ecosystem: 'npm'
-    directory: '/template-vanilla-ts'
-    target-branch: 'develop'
-    schedule:
-      interval: 'daily'
+    commit-message:
+      prefix: 'fix'
+      include: 'scope'
+    groups:
+      pp-dev:
+        patterns: ['@metricinsights/pp-dev']
+
   - package-ecosystem: 'github-actions'
     directory: '/'
     target-branch: 'develop'
