@@ -81,6 +81,14 @@ Follow the instructions in the generated project's README for more details.
 
 For more information about developing Portal Pages, see the [@metricinsights/pp-dev documentation](https://www.npmjs.com/package/@metricinsights/pp-dev).
 
+## Releases
+
+Releases use the shared workflows from [mi-examples-workflows](https://github.com/mi-examples/mi-examples-workflows) ([release flow](https://github.com/mi-examples/mi-examples-workflows/blob/main/docs/workflows.md#release-workflows)):
+
+- every push to `develop` with releasable commits publishes `X.Y.Z-beta.N` under the `beta` dist-tag (`npm create @metricinsights/pp-dev@beta`);
+- **Actions → Release → Run workflow** opens a release pull request into `main`; merging it publishes `latest` and opens the back-merge into `develop`;
+- versions come from [Conventional Commits](https://www.conventionalcommits.org/) (`feat` → minor; `fix`, `perf`, `revert` → patch; `!` or `BREAKING CHANGE:` → major);
+- publishing uses npm Trusted Publishing (OIDC) from `.github/workflows/release.yml`, so don't rename that file.
 ## License
 
 ISC

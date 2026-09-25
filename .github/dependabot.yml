@@ -2,26 +2,32 @@ version: 2
 updates:
   - package-ecosystem: 'npm'
     directory: '/'
+    target-branch: 'develop'
     schedule:
       interval: 'daily'
   - package-ecosystem: 'npm'
     directory: '/template-nextjs'
+    target-branch: 'develop'
     schedule:
       interval: 'daily'
   - package-ecosystem: 'npm'
     directory: '/template-nextjs-esm'
+    target-branch: 'develop'
     schedule:
       interval: 'daily'
   - package-ecosystem: 'npm'
     directory: '/template-react'
+    target-branch: 'develop'
     schedule:
       interval: 'daily'
   - package-ecosystem: 'npm'
     directory: '/template-vanilla'
+    target-branch: 'develop'
     schedule:
       interval: 'daily'
   - package-ecosystem: 'npm'
     directory: '/template-vanilla-ts'
+    target-branch: 'develop'
     schedule:
       interval: 'daily'
   - package-ecosystem: 'github-actions'
