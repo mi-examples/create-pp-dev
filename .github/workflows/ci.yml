@@ -1,40 +1,26 @@
+# Managed by mi-examples-workflows. Do not edit by hand: change
+# .github/mi-examples-workflows.json and re-run `npx github:mi-examples/mi-examples-workflows`,
+# or merge the sync pull request.
+
 name: CI
+
+# Shared pull-request CI: https://github.com/mi-examples/mi-examples-workflows/blob/main/docs/workflows.md#node-ciyml
 
 on:
   pull_request:
     branches: [main, develop]
 
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-        with:
-          persist-credentials: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
-        with:
-          node-version: 24
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci --no-audit
-
-      - name: Build
-        run: npm run build
-
-      - name: Type check
-        run: npm run typecheck
-
-      - name: Run autotests
-        run: npm test
-
-      - name: Verify build output
-        run: |
-          if [[ ! -d "dist" ]]; then
-            echo "Build failed: dist directory not found"
-            exit 1
-          fi
-          echo "Build verification passed"
+  ci:
+    name: CI
+    permissions:
+      contents: read
+    uses: mi-examples/mi-examples-workflows/.github/workflows/node-ci.yml@e9dbb3ff76c930e744437d1c52e2654f864c404f # v0.6.0
+    with:
+      dist-dir: "dist"
