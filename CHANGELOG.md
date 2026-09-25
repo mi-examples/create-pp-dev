@@ -1,233 +1,184 @@
-## [1.1.5-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.4...v1.1.5-beta.1) (2026-09-23)
+# Changelog
 
+## [1.1.5](https://github.com/mi-examples/create-pp-dev/compare/v1.1.4...v1.1.5) (2026-09-23)
 
 ### Bug Fixes
 
+* **templates:** make fresh projects lint, type-check and build ([8d14c7a](https://github.com/mi-examples/create-pp-dev/commit/8d14c7aa4ff8a4d0cdf30494e46eee80f0b0f841))
 * **cli:** show install/rules/components prompts again ([0c34a73](https://github.com/mi-examples/create-pp-dev/commit/0c34a7325357971b691b8d9a001bfd83c8eaebba))
 * **deps:** drop stale overrides and postinstall patch ([d93f73e](https://github.com/mi-examples/create-pp-dev/commit/d93f73ee0895aabc2a877c50f11a94dd348679ba))
-* **templates:** make fresh projects lint, type-check and build ([8d14c7a](https://github.com/mi-examples/create-pp-dev/commit/8d14c7aa4ff8a4d0cdf30494e46eee80f0b0f841))
 
-## [1.1.4-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3...v1.1.4-beta.1) (2026-09-11)
-
+## [1.1.4](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3...v1.1.4) (2026-09-11)
 
 ### Bug Fixes
 
-* **ci:** regenerate package-lock.json in update-pp-dev workflow ([3a1d49c](https://github.com/mi-examples/create-pp-dev/commit/3a1d49cf7da5a19dc235b1394ebeeb43358544c1))
-* **deps:** resolve Dependabot vulnerability alerts (PP-4200) ([cf74af3](https://github.com/mi-examples/create-pp-dev/commit/cf74af364da3805cb1dbcfb88c5f00011dba0df0))
+* **deps:** resolve Dependabot vulnerability alerts ([cf74af3](https://github.com/mi-examples/create-pp-dev/commit/cf74af364da3805cb1dbcfb88c5f00011dba0df0))
 
-## [1.1.3-beta.4](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.3...v1.1.3-beta.4) (2026-09-11)
+### Changes
 
+* Add MIT license ([a305203](https://github.com/mi-examples/create-pp-dev/commit/a3052035ccfe0ee97a225113fb53093939c396f6))
 
-### Bug Fixes
-
-* **deps:** resolve Dependabot vulnerability alerts (PP-4200) ([cf74af3](https://github.com/mi-examples/create-pp-dev/commit/cf74af364da3805cb1dbcfb88c5f00011dba0df0))
-
-## [1.1.3-beta.3](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.2...v1.1.3-beta.3) (2026-08-12)
-
-
-### Bug Fixes
-
-* **ci:** regenerate package-lock.json in update-pp-dev workflow ([3a1d49c](https://github.com/mi-examples/create-pp-dev/commit/3a1d49cf7da5a19dc235b1394ebeeb43358544c1))
-
-## [1.1.3-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v1.1.3-beta.1...v1.1.3-beta.2) (2026-08-12)
-
+## [1.1.3](https://github.com/mi-examples/create-pp-dev/compare/v1.1.2...v1.1.3) (2026-08-12)
 
 ### Bug Fixes
 
 * **deps:** sync @metricinsights/pp-dev version across all templates ([f1a67f5](https://github.com/mi-examples/create-pp-dev/commit/f1a67f5c16ff80ea1b56ddb82e9da22b1ce69eb1))
+* **deps:** resolve nanoid/postcss audit findings and apply pending Dependabot bumps ([619c01c](https://github.com/mi-examples/create-pp-dev/commit/619c01cd64c1d92ac9a1d3f053892600b8e880a6))
 
-## [1.1.3-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.2...v1.1.3-beta.1) (2026-08-12)
+## [1.1.2](https://github.com/mi-examples/create-pp-dev/compare/v1.1.1...v1.1.2) (2026-08-03)
 
+### Dependencies
 
-### Bug Fixes
+* bump next 16.2.12 and refresh lockfile to latest in-range versions ([94a44c2](https://github.com/mi-examples/create-pp-dev/commit/94a44c2c5f84fe0f124067a80b0bade0ccd0be38))
 
-* **deps:** resolve nanoid/postcss audit findings and apply pending Dependabot bumps ([619c01c](https://github.com/mi-examples/create-pp-dev/commit/619c01cd64c1d92ac9a1d3f053892600b8e880a6)), closes [hi#severity](https://github.com/hi/issues/severity)
-
-# [1.0.0-beta.4](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2026-08-03)
-
+## [1.1.1](https://github.com/mi-examples/create-pp-dev/compare/v1.1.0...v1.1.1) (2026-08-03)
 
 ### Bug Fixes
 
 * **deps:** patch npm audit findings and fix pp-dev bump workflow auth ([82330cf](https://github.com/mi-examples/create-pp-dev/commit/82330cff1b0e3a4ac067403874c3a6f96be9151c))
 
-# [1.0.0-beta.3](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2026-07-21)
-
+## [1.1.0](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0...v1.1.0) (2026-07-21)
 
 ### Bug Fixes
 
 * **deps:** upgrade to pp-dev 1.1.0 and patch axios/body-parser/brace-expansion advisories ([825fe68](https://github.com/mi-examples/create-pp-dev/commit/825fe68502db6b959c461ddab1334fa703aec47e))
 
-# [1.0.0-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2026-07-13)
+## [1.0.0](https://github.com/mi-examples/create-pp-dev/compare/v0.7.7...v1.0.0) (2026-07-13)
 
+### ⚠ BREAKING CHANGES
+
+* **templates:** Templates now target @metricinsights/pp-dev >=1.0.0-beta.2 and its grouped pp-dev.config schema (defineConfig({ mi, app,... })), replacing the old flat backendBaseURL/portalPageId/miHudLess/v7Features options. engines.node is raised to >=24.0.0 across the CLI and all templates. Projects scaffolded from older create-pp-dev versions must migrate their pp-dev.config before upgrading pp-dev past 1.0.
+
+### Features
+
+* **templates:** require pp-dev 1.0 config schema and Node 24+ ([fd71ec6](https://github.com/mi-examples/create-pp-dev/commit/fd71ec6503ccc4904fe3f1488092ef8b207ba06d))
+* **nextjs:** add ESM template variant ([ddee870](https://github.com/mi-examples/create-pp-dev/commit/ddee870411e91fcaa464894c8aabf8ae69ab0b03))
+* **templates:** migrate pp-dev config to grouped schema, pin to 1.0.0-beta.2 ([675833c](https://github.com/mi-examples/create-pp-dev/commit/675833ca6f586ace2f495416e181a8e02dab6efd))
 
 ### Bug Fixes
 
 * **deps:** upgrade to pp-dev 1.0.0 stable and patch undici advisories ([3058024](https://github.com/mi-examples/create-pp-dev/commit/3058024b660f3f9a1d7a6685a4d437ed0b926435))
 
-# [1.0.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.6...v1.0.0-beta.1) (2026-07-13)
+## [0.7.7](https://github.com/mi-examples/create-pp-dev/compare/v0.7.6...v0.7.7) (2026-06-08)
 
+### Dependencies
 
-### Bug Fixes
+* update @metricinsights/pp-dev to ^0.18.3 ([8417c7c](https://github.com/mi-examples/create-pp-dev/commit/8417c7c4fca6670ab81e64868c2cb9ec0fd54862))
+* fix audit vulnerabilities and consolidate dependency bumps ([92d7759](https://github.com/mi-examples/create-pp-dev/commit/92d7759dcf452e4016c26432a9341b6ead0b9142))
 
-* **test:** fill in mi.url/app.id before booting the scaffolded dev server ([8d10d92](https://github.com/mi-examples/create-pp-dev/commit/8d10d92254f89533261c2fefd15431edf82c1068))
-
-
-### Features
-
-* **nextjs:** add ESM template variant ([ddee870](https://github.com/mi-examples/create-pp-dev/commit/ddee870411e91fcaa464894c8aabf8ae69ab0b03))
-* **templates:** migrate pp-dev config to grouped schema, pin to 1.0.0-beta.2 ([675833c](https://github.com/mi-examples/create-pp-dev/commit/675833ca6f586ace2f495416e181a8e02dab6efd))
-* **templates:** require pp-dev 1.0 config schema and Node 24+ ([fd71ec6](https://github.com/mi-examples/create-pp-dev/commit/fd71ec6503ccc4904fe3f1488092ef8b207ba06d))
-
-
-### BREAKING CHANGES
-
-* **templates:** Templates now target @metricinsights/pp-dev >=1.0.0-beta.2
-and its grouped pp-dev.config schema (defineConfig({ mi, app, ... })),
-replacing the old flat backendBaseURL/portalPageId/miHudLess/v7Features
-options. engines.node is raised to >=24.0.0 across the CLI and all
-templates. Projects scaffolded from older create-pp-dev versions must
-migrate their pp-dev.config before upgrading pp-dev past 1.0.
-
-Related to PP-3449.
-
-## [0.7.6-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.7.6-beta.1...v0.7.6-beta.2) (2026-05-07)
-
+## [0.7.6](https://github.com/mi-examples/create-pp-dev/compare/v0.7.5...v0.7.6) (2026-05-07)
 
 ### Bug Fixes
 
 * **deps:** refresh lockfile bundled audit patches ([0593425](https://github.com/mi-examples/create-pp-dev/commit/05934252f82f943d3e2c47566b9e90a0ee9f8e82))
-
-## [0.7.6-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.5...v0.7.6-beta.1) (2026-05-07)
-
-
-### Bug Fixes
-
 * **deps:** patch audit issues in root tooling ([44f0cdd](https://github.com/mi-examples/create-pp-dev/commit/44f0cdd1dea4d6e6d579184c376d780118a9ff71))
 
-## [0.7.5-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.4...v0.7.5-beta.1) (2026-04-22)
-
+## [0.7.5](https://github.com/mi-examples/create-pp-dev/compare/v0.7.4...v0.7.5) (2026-04-22)
 
 ### Bug Fixes
 
 * **deps:** patch audited transitive vulnerabilities ([7a433c6](https://github.com/mi-examples/create-pp-dev/commit/7a433c68d63d19409751fabcfaf5d6e5e8067eea))
 
-## [0.7.4-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.3...v0.7.4-beta.1) (2026-04-10)
-
+## [0.7.4](https://github.com/mi-examples/create-pp-dev/compare/v0.7.3...v0.7.4) (2026-04-10)
 
 ### Bug Fixes
 
 * **deps:** resolve npm audit vulnerabilities ([3253fba](https://github.com/mi-examples/create-pp-dev/commit/3253fba789c1dba27d8decbbf99d81d10766a723))
 
-## [0.7.2-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.1...v0.7.2-beta.1) (2026-03-25)
+## [0.7.3](https://github.com/mi-examples/create-pp-dev/compare/v0.7.2...v0.7.3) (2026-04-06)
 
+No notable changes.
+
+## [0.7.2](https://github.com/mi-examples/create-pp-dev/compare/v0.7.1...v0.7.2) (2026-03-26)
 
 ### Bug Fixes
 
 * align ESLint 9 in templates and harden Playwright npm helpers ([8e7c577](https://github.com/mi-examples/create-pp-dev/commit/8e7c57766e64ae4d35263c802cf22847fd359537))
 
-# [0.7.0-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.7.0-beta.1...v0.7.0-beta.2) (2026-03-25)
-
+## [0.7.1](https://github.com/mi-examples/create-pp-dev/compare/v0.7.0...v0.7.1) (2026-03-25)
 
 ### Bug Fixes
 
 * remove postinstall for reliable npm create ([3899699](https://github.com/mi-examples/create-pp-dev/commit/389969959823e56b33c8cd7df94ea0c6a75ce0a9))
 
-# [0.7.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.6.1...v0.7.0-beta.1) (2026-03-24)
-
+## [0.7.0](https://github.com/mi-examples/create-pp-dev/compare/v0.6.1...v0.7.0) (2026-03-24)
 
 ### Features
 
 * support non-interactive CLI options and fix path handling ([d542fb6](https://github.com/mi-examples/create-pp-dev/commit/d542fb6e9b43c7084f783673224300d1bc08585b))
 
-# [0.6.0-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.5.7...v0.6.0-beta.1) (2026-02-23)
+## [0.6.1](https://github.com/mi-examples/create-pp-dev/compare/v0.6.0...v0.6.1) (2026-03-12)
 
+No notable changes.
 
-### Bug Fixes
-
-* **deps:** add minimatch override and upgrade packages for security ([ee27478](https://github.com/mi-examples/create-pp-dev/commit/ee27478e75f2a260eaed93a46cdcb98ed67d56d4))
-* resolve TypeScript errors and runtime bugs in create-pp-dev ([b994e40](https://github.com/mi-examples/create-pp-dev/commit/b994e405f9b893fa26f196c23bf8510808b8e4b6))
-
+## [0.6.0](https://github.com/mi-examples/create-pp-dev/compare/v0.5.7...v0.6.0) (2026-02-23)
 
 ### Features
 
 * **cursor:** add Create PR and Create release rules ([029973e](https://github.com/mi-examples/create-pp-dev/commit/029973ecafc48e0793a8cee1eeef64f0bf8785f0))
 
-## [0.5.5-beta.2](https://github.com/mi-examples/create-pp-dev/compare/v0.5.5-beta.1...v0.5.5-beta.2) (2025-12-23)
+### Bug Fixes
 
+* resolve TypeScript errors and runtime bugs in create-pp-dev ([b994e40](https://github.com/mi-examples/create-pp-dev/commit/b994e405f9b893fa26f196c23bf8510808b8e4b6))
+* **deps:** add minimatch override and upgrade packages for security ([ee27478](https://github.com/mi-examples/create-pp-dev/commit/ee27478e75f2a260eaed93a46cdcb98ed67d56d4))
+
+## [0.5.7](https://github.com/mi-examples/create-pp-dev/compare/v0.5.6...v0.5.7) (2026-02-12)
+
+### Dependencies
+
+* update @metricinsights/pp-dev to 0.13.1 ([51a2253](https://github.com/mi-examples/create-pp-dev/commit/51a225383da654ddef3439217b5abe84ccf0d85a))
+
+## [0.5.6](https://github.com/mi-examples/create-pp-dev/compare/v0.5.5...v0.5.6) (2026-02-11)
+
+### Dependencies
+
+* update @metricinsights/pp-dev to 0.13.0 ([7e37299](https://github.com/mi-examples/create-pp-dev/commit/7e372991d875390355751c14de87ceccc691b013))
+
+## [0.5.5](https://github.com/mi-examples/create-pp-dev/compare/v0.5.4...v0.5.5) (2025-12-23)
 
 ### Bug Fixes
 
 * **cli:** hide install command in next steps when packages already installed ([2e6d56b](https://github.com/mi-examples/create-pp-dev/commit/2e6d56b7444a2f8480f2ea8f06864c9c2ec6a1b2))
-
-## [0.5.5-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.5.4...v0.5.5-beta.1) (2025-12-23)
-
-
-### Bug Fixes
-
-* **ci:** add git user config for semantic-release commits ([6657cc4](https://github.com/mi-examples/create-pp-dev/commit/6657cc4ce10dff5b5eb1827aadd7e4fa92c703f2))
-* **ci:** configure git remote with token for semantic-release branch access ([68febcd](https://github.com/mi-examples/create-pp-dev/commit/68febcd6bdbb63250faa24c8fdb4601a583bfb6a))
-* **ci:** disable github fail comments in beta release ([1a57a31](https://github.com/mi-examples/create-pp-dev/commit/1a57a31e7bd7b779a27f940c73dd0fc24d392135))
-* **ci:** fetch all refs after setting remote URL for branch detection ([dcd6989](https://github.com/mi-examples/create-pp-dev/commit/dcd6989f7fc39c85722ed0e2f156d9484f6cded6))
-* **ci:** remove npm plugin from beta releases to avoid token requirement ([c3b1ed6](https://github.com/mi-examples/create-pp-dev/commit/c3b1ed672768a0c31e1036ffc8fdeb68c2c98eb1))
-* **ci:** use beta config directly instead of extends to avoid npm plugin ([c1bb7ef](https://github.com/mi-examples/create-pp-dev/commit/c1bb7ef0a9016c592ce10f77a00097e40d34198f))
-* **config:** remove BOM from .releaserc.json ([8eb8898](https://github.com/mi-examples/create-pp-dev/commit/8eb8898706a30e93e1eb90f176e2611dedc3702b))
+* **config:** remove BOM from.releaserc.json ([8eb8898](https://github.com/mi-examples/create-pp-dev/commit/8eb8898706a30e93e1eb90f176e2611dedc3702b))
 * **config:** update tagFormat to v\ and enable npm publish ([290454b](https://github.com/mi-examples/create-pp-dev/commit/290454be82b14fa2ada65112c07aed1cd5512708))
 
-## [0.5.4-beta.1](https://github.com/mi-examples/create-pp-dev/compare/v0.5.3...v0.5.4-beta.1) (2025-12-23)
+## [0.5.4](https://github.com/mi-examples/create-pp-dev/compare/v0.5.3...v0.5.4) (2025-12-19)
 
+No notable changes.
+
+## [0.5.3](https://github.com/mi-examples/create-pp-dev/compare/v0.4.2...v0.5.3) (2025-09-10)
+
+### Features
+
+* **pp-dev:** add dependency version synchronization for create-pp-dev releases ([b722d1a](https://github.com/mi-examples/create-pp-dev/commit/b722d1abaa27ff2c747ddd6bbd9163471ea1e0d4))
+* **create-pp-dev:** add semantic release configuration ([2d8b894](https://github.com/mi-examples/create-pp-dev/commit/2d8b8947ca47e7bf6f0498d9abdfae4999f24cf0))
 
 ### Bug Fixes
 
-* **ci:** add git user config for semantic-release commits ([6657cc4](https://github.com/mi-examples/create-pp-dev/commit/6657cc4ce10dff5b5eb1827aadd7e4fa92c703f2))
-* **ci:** configure git remote with token for semantic-release branch access ([68febcd](https://github.com/mi-examples/create-pp-dev/commit/68febcd6bdbb63250faa24c8fdb4601a583bfb6a))
-* **ci:** disable github fail comments in beta release ([1a57a31](https://github.com/mi-examples/create-pp-dev/commit/1a57a31e7bd7b779a27f940c73dd0fc24d392135))
-* **ci:** fetch all refs after setting remote URL for branch detection ([dcd6989](https://github.com/mi-examples/create-pp-dev/commit/dcd6989f7fc39c85722ed0e2f156d9484f6cded6))
-* **ci:** remove npm plugin from beta releases to avoid token requirement ([c3b1ed6](https://github.com/mi-examples/create-pp-dev/commit/c3b1ed672768a0c31e1036ffc8fdeb68c2c98eb1))
-* **ci:** use beta config directly instead of extends to avoid npm plugin ([c1bb7ef](https://github.com/mi-examples/create-pp-dev/commit/c1bb7ef0a9016c592ce10f77a00097e40d34198f))
-* **config:** remove BOM from .releaserc.json ([8eb8898](https://github.com/mi-examples/create-pp-dev/commit/8eb8898706a30e93e1eb90f176e2611dedc3702b))
-* **config:** update tagFormat to v\ and enable npm publish ([290454b](https://github.com/mi-examples/create-pp-dev/commit/290454be82b14fa2ada65112c07aed1cd5512708))
+* **create-pp-dev:** resolve security vulnerabilities in dependencies ([be8258c](https://github.com/mi-examples/create-pp-dev/commit/be8258cfc6a291b747e4fbd0e57d7be29de0dab0))
+* remove issue number references from semantic-release configs ([898b98c](https://github.com/mi-examples/create-pp-dev/commit/898b98cb9892a0ed752d66d2c05953306ca237b6))
 
-# [@metricinsights/create-pp-dev-v0.5.2](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.5.1...create-pp-dev@0.5.2) (2025-01-15)
+### Changes
 
-### Bug Fixes
+* Update dependencies and improve package configurations ([5feea06](https://github.com/mi-examples/create-pp-dev/commit/5feea0679d8db303540d800fc8c2eca336afa271))
+* Update build configuration and dependencies for create-pp-dev ([aa99e84](https://github.com/mi-examples/create-pp-dev/commit/aa99e84a12bd548caeca4c90c2716c628613b9b1))
 
-* **release:** prepare v0.5.2 patch release
+## [0.4.2](https://github.com/mi-examples/create-pp-dev/compare/v0.4.1...v0.4.2) (2024-02-12)
 
-# [@metricinsights/create-pp-dev-v0.5.1](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.5.0...create-pp-dev@0.5.1) (2025-01-15)
+### Changes
 
-### Bug Fixes
+* Fixed styles and updated templates README.md files ([be31726](https://github.com/mi-examples/create-pp-dev/commit/be317269c3af670da29df2600a4a8d1a719fea01))
 
-* **release:** prepare v0.5.1 patch release
+## [0.4.1](https://github.com/mi-examples/create-pp-dev/compare/v0.4.0...v0.4.1) (2024-02-06)
 
-# [@metricinsights/create-pp-dev-v0.5.0](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.4.2...create-pp-dev@0.5.0) (2025-01-15)
+### Changes
 
+* Fixed typo in README.md and make changes for npm pack ([a8d89f6](https://github.com/mi-examples/create-pp-dev/commit/a8d89f66c3912b8b32fcd86b5ce6cf8e68b4bea9))
 
-### Features
+## 0.4.0 (2024-01-30)
 
-* **create-pp-dev:** add semantic release configuration ([4c38aa5](https://github.com/mi-examples/pp-dev-js/commit/4c38aa54e1df6db8710d9ee9e2553e21e46e8e2e))
+### Changes
 
-# Changelog
-
-All notable changes to this project will be documented in this file. See [conventional commits](https://conventionalcommits.org) for commit guidelines.
-
-## [create-pp-dev@0.4.2](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.4.1...create-pp-dev@0.4.2) (2024-04-23)
-
-### Features
-- Added semantic-release support for automated version management and changelog generation
-
-## [create-pp-dev@0.4.1](https://github.com/mi-examples/pp-dev-js/compare/create-pp-dev@0.4.0...create-pp-dev@0.4.1) (2024-02-07)
-
-### Features
-- Added Next.js template support
-- Added React template support
-- Added vanilla TypeScript template support
-- Added vanilla JavaScript template support
-- Updated templates README.md files
-- Fixed styles in templates
-
-## [create-pp-dev@0.4.0](https://github.com/mi-examples/pp-dev-js/compare/initial...create-pp-dev@0.4.0) (2024-01-30)
-
-### Features
-- Initial project setup
-- Basic template structure
-- CI/CD pipeline configuration
+* Updated page templates code ([69c4ad7](https://github.com/mi-examples/create-pp-dev/commit/69c4ad77bf3fa2834b0e8da49fbfeed52ecf4685))
+* Added base templates for JS, TS, and Next.js ([819e6d5](https://github.com/mi-examples/create-pp-dev/commit/819e6d552700d0ef70cd882f0ea5b14597a997e7))
+* Created template for React.js ([62abf1b](https://github.com/mi-examples/create-pp-dev/commit/62abf1be1111f3ebc901bc9fa85c4a5f001d4cc3))
