@@ -12,6 +12,12 @@ updates:
       prefix: 'fix'
       prefix-development: 'chore'
       include: 'scope'
+    ignore:
+      # TypeScript 7 conflicts with the typescript-eslint peer range
+      # (>=4.8.4 <6.1.0) in the templates and here. Remove this once
+      # typescript-eslint supports it.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
 
   # The project templates. Every dependency in them ships in each scaffolded
   # project, so an update is a fix and releases a patch. Ranges are raised to
@@ -39,6 +45,12 @@ updates:
       templates-major:
         patterns: ['*']
         update-types: ['major']
+    ignore:
+      # TypeScript 7 conflicts with the typescript-eslint peer range
+      # (>=4.8.4 <6.1.0) in the templates and here. Remove this once
+      # typescript-eslint supports it.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'github-actions'
     directory: '/'
