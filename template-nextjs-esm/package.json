@@ -22,7 +22,7 @@
   "devDependencies": {
     "@metricinsights/pp-dev": "^1.4.2",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.6.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.5",
