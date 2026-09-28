@@ -14,9 +14,13 @@ updates:
       include: 'scope'
 
   # The project templates. Every dependency in them ships in each scaffolded
-  # project, so an update is a fix and releases a patch. Updates of pp-dev in
-  # all templates arrive as one pull request, with the range raised to the
-  # new version.
+  # project, so an update is a fix and releases a patch. Ranges are raised to
+  # the new version. Updates arrive as at most three pull requests for all
+  # templates together (a dependency joins the first group it matches):
+  #   - pp-dev on its own;
+  #   - every other minor and patch update;
+  #   - every other major update, separately, since those can need changes to
+  #     the templates.
   - package-ecosystem: 'npm'
     directories: ['/template-*']
     target-branch: 'develop'
@@ -29,6 +33,12 @@ updates:
     groups:
       pp-dev:
         patterns: ['@metricinsights/pp-dev']
+      templates:
+        patterns: ['*']
+        update-types: ['minor', 'patch']
+      templates-major:
+        patterns: ['*']
+        update-types: ['major']
 
   - package-ecosystem: 'github-actions'
     directory: '/'
