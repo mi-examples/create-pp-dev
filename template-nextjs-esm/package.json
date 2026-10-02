@@ -20,7 +20,7 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@metricinsights/pp-dev": "^1.4.2",
+    "@metricinsights/pp-dev": "^1.4.3",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^26.6.3",
     "@types/react": "^19.3.0",
