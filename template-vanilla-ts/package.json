@@ -16,13 +16,13 @@
     "@eslint/compat": "^2.1.1",
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
-    "@metricinsights/pp-dev": "^1.4.2",
+    "@metricinsights/pp-dev": "^1.4.4",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/jquery": "^4.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.70.1",
-    "@typescript-eslint/parser": "^8.70.1",
-    "eslint": "^10.11.0",
-    "globals": "^17.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.71.1",
+    "@typescript-eslint/parser": "^8.71.1",
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0",
     "prettier": "^3.9.9",
     "typescript": "^6.0.3"
   }
