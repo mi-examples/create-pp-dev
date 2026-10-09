@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.6](https://github.com/mi-examples/create-pp-dev/compare/v1.1.5...v1.1.6) (2026-10-09)
+
+### Other changes
+
+- New projects from the Next.js templates (`template-nextjs` and `template-nextjs-esm`) now get `next` and `eslint-config-next` 16.3.8 instead of 16.3.6, which was affected by six Next.js security advisories.
+- All templates now require `@metricinsights/pp-dev` `^1.4.5`, which fixes security advisories in `proxy-addr`, `sharp`, `source-map-js`, `ip-address` and `serialize-javascript`.
+- New projects get newer dependencies, including React 19.3, Vite 8.3, `@vitejs/plugin-react` 6.1 and newer `typescript-eslint`, `globals` and `prettier`.
+- The Next.js templates now use ESLint 10.
+
 ## [1.1.5](https://github.com/mi-examples/create-pp-dev/compare/v1.1.4...v1.1.5) (2026-09-23)
 
 ### Bug Fixes
