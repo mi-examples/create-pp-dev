@@ -4,7 +4,7 @@
 
 ### Bug fixes
 
-- When `--pp-components` can't read the latest version from the npm registry, it now adds `@metricinsights/pp-components` at `^1.0.0` instead of the outdated `^0.0.1`.
+- `--pp-components` still adds `@metricinsights/pp-components` at the version from the npm `latest` dist-tag (now `1.0.0`). When the registry answers without that tag, it now falls back to `^1.0.0` instead of `^0.0.1`.
 
 ### Other changes
 
