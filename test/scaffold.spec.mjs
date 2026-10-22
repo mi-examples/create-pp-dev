@@ -250,6 +250,11 @@ for (const options of optionCombinations) {
       expect(packageJson.name).toBe(packageName);
       expect(fs.existsSync(path.join(targetDir, '.cursor'))).toBe(options.cursorRules);
       expect(Boolean(packageJson.dependencies?.['@metricinsights/pp-components'])).toBe(options.ppComponents);
+
+      if (options.ppComponents) {
+        expect(packageJson.dependencies['@metricinsights/pp-components']).toMatch(/^\^[1-9]\d*\./);
+      }
+
       expect(fs.existsSync(path.join(targetDir, 'node_modules'))).toBe(options.install);
     } finally {
       fs.rmSync(tmpRoot, { recursive: true, force: true });
