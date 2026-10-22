@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.7](https://github.com/mi-examples/create-pp-dev/compare/v1.1.6...v1.1.7) (2026-10-22)
+
+### Bug fixes
+
+- `--pp-components` still adds `@metricinsights/pp-components` at the version from the npm `latest` dist-tag (now `1.0.0`). When the registry answers without that tag, it now falls back to `^1.0.0` instead of `^0.0.1`.
+
+### Other changes
+
+- New projects from all templates now use `@metricinsights/pp-dev` `^1.4.7`, and the React template now requires `vite` `^8.3.4`, so new projects get the fixes for six recently disclosed `vite` security advisories, one of them rated high.
+
 ## [1.1.6](https://github.com/mi-examples/create-pp-dev/compare/v1.1.5...v1.1.6) (2026-10-09)
 
 ### Other changes

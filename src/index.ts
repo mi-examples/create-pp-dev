@@ -348,7 +348,7 @@ async function init() {
         res.json(),
       );
 
-      const version = latestVersion['dist-tags']?.latest ?? '0.0.1';
+      const version = latestVersion['dist-tags']?.latest ?? '1.0.0';
 
       if (!pkgJson.dependencies) {
         pkgJson.dependencies = {};
