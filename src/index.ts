@@ -122,8 +122,9 @@ Options:
       --install                Install the packages after scaffolding (--no-install skips it)
       --cursor-rules           Copy the MI Cursor rules into .cursor/rules (--no-cursor-rules skips it)
       --pp-components          Add ${PP_COMPONENTS_PACKAGE} as a dependency (--no-pp-components skips it)
-  -y, --yes                    Ask nothing: keep the files of a non-empty directory, install the
-                               packages, no Cursor rules, no pp-components; needs --template
+  -y, --yes                    Ask nothing: install the packages, no Cursor rules, no pp-components;
+                               a non-empty directory is accepted when no file would be overwritten;
+                               needs --template
   -h, --help                   Show this help
   -v, --version                Show the version
 
@@ -282,6 +283,43 @@ async function init() {
     fail(`--yes needs --template <name>. Available templates: ${TEMPLATE_NAMES.join(', ')}.`);
   }
 
+  // Without a terminal nothing can be asked later either: name every missing flag now, before
+  // anything is written, instead of failing on the first one after the scaffold is on disk.
+  if (!canPrompt && !assumeDefaults) {
+    const missing: string[] = [];
+
+    if (argTargetDir === undefined) {
+      missing.push('the project name as the first argument');
+    }
+
+    if (argTemplate === undefined) {
+      missing.push('--template <name>');
+    }
+
+    if (argPackageName === undefined) {
+      missing.push('--package-name <name>');
+    }
+
+    if (shouldAddCursorRules === undefined) {
+      missing.push('--cursor-rules or --no-cursor-rules');
+    }
+
+    if (shouldAddMiComponentsLibrary === undefined) {
+      missing.push('--pp-components or --no-pp-components');
+    }
+
+    if (shouldInstallPackages === undefined) {
+      missing.push('--install or --no-install');
+    }
+
+    if (missing.length > 0) {
+      fail(
+        `Standard input is not a terminal, so there is nothing to ask: pass ${missing.join(', ')} ` +
+          'or --yes (see --help).',
+      );
+    }
+  }
+
   try {
     if (!argTargetDir) {
       if (assumeDefaults) {
@@ -306,16 +344,20 @@ async function init() {
     }
 
     if (fs.existsSync(targetDir) && !isEmpty(targetDir)) {
-      const message =
-        targetDir === '.'
-          ? 'Current directory is not empty. Please choose how to proceed:'
-          : `Target directory "${targetDir}" is not empty. Please choose how to proceed:`;
+      const where = targetDir === '.' ? 'The current directory' : `Target directory "${targetDir}"`;
+
+      if (!canPrompt && !assumeDefaults) {
+        fail(
+          `${where} is not empty and there is no terminal to ask what to do with its files: ` +
+            'use an empty directory, or pass --yes to keep them (refused if the template would overwrite one).',
+        );
+      }
 
       const overwrite = assumeDefaults
         ? 'ignore'
-        : await ask('--yes (keeps the existing files)', () =>
+        : await ask('--yes', () =>
             p.select<'yes' | 'no' | 'ignore'>({
-              message,
+              message: `${where} is not empty. Please choose how to proceed:`,
               options: [
                 { value: 'yes', label: 'Remove existing files and continue' },
                 { value: 'no', label: 'Cancel operation' },
@@ -335,6 +377,21 @@ async function init() {
       }
 
       if (assumeDefaults) {
+        // "Keep the files" has to mean it: with nobody to ask, a template file that would land on an
+        // existing one stops the run before anything is written.
+        const templateDir = path.join(packageRoot, `template-${argTemplate}`);
+        const collisions = fs
+          .readdirSync(templateDir)
+          .map((file) => renameFiles[file] ?? file)
+          .filter((name) => fs.existsSync(path.join(targetDir, name)));
+
+        if (collisions.length > 0) {
+          fail(
+            `${where} already contains ${collisions.join(', ')}, which the ${argTemplate} template would ` +
+              'overwrite. Use an empty directory, or run without --yes to choose.',
+          );
+        }
+
         p.log.info(`Keeping the existing files in ${targetDir === '.' ? 'the current directory' : `"${targetDir}"`}`);
       }
     }
@@ -509,7 +566,17 @@ async function init() {
 }
 
 export function formatTargetDir(targetDir: string | undefined) {
-  return targetDir?.trim().replace(/[\\/]+$/g, '');
+  const trimmed = targetDir?.trim();
+
+  if (!trimmed) {
+    return undefined;
+  }
+
+  // Trailing separators go ("my-pp/" -> "my-pp"), but a filesystem root stays what it is: "C:\"
+  // without its backslash is a drive-relative path, "/" without its slash is nothing at all.
+  const stripped = trimmed.replace(/[\\/]+$/, '');
+
+  return stripped === '' || /^[A-Za-z]:$/.test(stripped) ? trimmed : stripped;
 }
 
 export function copy(src: string, dest: string) {

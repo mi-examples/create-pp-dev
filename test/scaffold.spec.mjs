@@ -316,11 +316,87 @@ test.describe('argument validation happens before anything is written', () => {
   test('a non-empty directory without a terminal exits 1 and keeps its files', offline, async () => {
     await withTmpDir('non-empty-no-tty', async (tmpRoot) => {
       const targetDir = nonEmptyTarget(tmpRoot);
-      const run = runCli([targetDir, '--template', 'vanilla', '--package-name', 'existing', '--no-install']);
+      const run = runCli([
+        targetDir,
+        '--template',
+        'vanilla',
+        '--package-name',
+        'existing',
+        '--no-install',
+        '--no-cursor-rules',
+        '--no-pp-components',
+      ]);
 
       expect(run.status).toBe(1);
+      expect(run.stdout + run.stderr).toContain(`"${targetDir}" is not empty`);
       expect(run.stdout + run.stderr).toContain('--yes');
       expect(fs.readdirSync(targetDir)).toEqual([existingFile]);
+    });
+  });
+
+  test('without a terminal every missing flag is named before anything is written', offline, async () => {
+    await withTmpDir('missing-flags', async (tmpRoot) => {
+      const run = runCli(['proj', '--template', 'vanilla', '--package-name', 'proj', '--no-install'], { cwd: tmpRoot });
+
+      expect(run.status).toBe(1);
+      expect(run.stdout + run.stderr).toContain('--cursor-rules');
+      expect(run.stdout + run.stderr).toContain('--pp-components');
+      expect(fs.readdirSync(tmpRoot)).toEqual([]);
+    });
+  });
+
+  test('--yes refuses a directory where the template would overwrite a file', offline, async () => {
+    await withTmpDir('yes-collision', async (tmpRoot) => {
+      const targetDir = nonEmptyTarget(tmpRoot);
+
+      fs.writeFileSync(path.join(targetDir, 'package.json'), '{}');
+
+      const run = runCli([targetDir, '--template', 'vanilla', '-y', '--no-install']);
+
+      expect(run.status).toBe(1);
+      expect(run.stdout + run.stderr).toContain('package.json');
+      expect(fs.readdirSync(targetDir).sort()).toEqual([existingFile, 'package.json']);
+      expect(fs.readFileSync(path.join(targetDir, 'package.json'), 'utf8')).toBe('{}');
+    });
+  });
+
+  test('a filesystem root as target keeps its trailing separator', offline, async () => {
+    // "C:\\" stripped to "C:" would be a drive-relative path and resolve to the current directory
+    const root = path.parse(os.tmpdir()).root;
+    const run = runCli([
+      root,
+      '--template',
+      'vanilla',
+      '--package-name',
+      'root',
+      '--no-install',
+      '--no-cursor-rules',
+      '--no-pp-components',
+    ]);
+
+    expect(run.status).toBe(1);
+    expect(run.stdout + run.stderr).toContain(`"${root}" is not empty`);
+  });
+
+  test('a trailing path separator on the target is stripped', offline, async () => {
+    await withTmpDir('trailing-sep', async (tmpRoot) => {
+      const targetDir = path.join(tmpRoot, 'sub');
+      const run = scaffoldProject({
+        targetDir: targetDir + path.sep,
+        template: 'vanilla',
+        packageName: 'sub',
+        install: false,
+        cursorRules: false,
+        ppComponents: false,
+      });
+
+      expect(
+        run.status,
+        `stderr: ${run.stderr}
+stdout: ${run.stdout}`,
+      ).toBe(0);
+      expect(readJson(path.join(targetDir, 'package.json')).name).toBe('sub');
+      expect(run.stdout).toContain(`cd ${path.relative(repoRoot, targetDir)}`);
     });
   });
 });
