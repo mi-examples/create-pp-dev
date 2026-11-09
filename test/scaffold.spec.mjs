@@ -30,11 +30,14 @@ const unreachableRegistryEnv = {
 };
 
 /**
- * When tests run via `npm test`, npm sets `npm_execpath` to npm-cli.js. IDE / `npx playwright`
- * does not — fall back to `npm` on PATH (needs shell on Windows for npm.cmd).
+ * When tests run via `npm test`, npm sets `npm_execpath` to npm-cli.js. Under yarn or pnpm it is
+ * their CLI instead, and IDE / `npx playwright` sets nothing — fall back to `npm` on PATH then
+ * (needs shell on Windows for npm.cmd).
  */
+const npmExecPath = /npm-cli\.js$/.test(process.env.npm_execpath ?? '') ? process.env.npm_execpath : undefined;
+
 function runNpmSync(args, options) {
-  const npmExec = process.env.npm_execpath;
+  const npmExec = npmExecPath;
 
   if (npmExec) {
     return spawnSync(process.execPath, [npmExec, ...args], options);
@@ -44,7 +47,7 @@ function runNpmSync(args, options) {
 }
 
 function runNpm(args, options) {
-  const npmExec = process.env.npm_execpath;
+  const npmExec = npmExecPath;
 
   if (npmExec) {
     return spawn(process.execPath, [npmExec, ...args], options);
@@ -623,6 +626,27 @@ test.describe('package installation', () => {
       );
       expect(fs.existsSync(path.join(targetDir, '.cursor/rules'))).toBeTruthy();
     });
+  });
+});
+
+test.describe('build scripts', () => {
+  test('postbuild packs with npm even when another package manager runs the build', offline, async () => {
+    test.setTimeout(120_000);
+
+    // yarn and pnpm also set npm_execpath, to their own CLI; postbuild must not hand npm's arguments to it
+    const run = spawnSync(process.execPath, [path.join(repoRoot, 'scripts', 'postbuild.js')], {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      env: { ...process.env, npm_execpath: path.join(repoRoot, 'node_modules', 'not-installed', 'yarn.js') },
+    });
+
+    expect(
+      run.status,
+      `stderr: ${run.stderr}
+stdout: ${run.stdout}`,
+    ).toBe(0);
+    expect(run.stdout).toMatch(/Packed metricinsights-create-pp-dev-\d.*-latest\.tgz/);
+    expect(fs.existsSync(path.join(repoRoot, 'metricinsights-create-pp-dev-latest.tgz'))).toBeTruthy();
   });
 });
 
