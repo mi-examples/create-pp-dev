@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs';
+import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -129,12 +130,32 @@ function runNpmCreateFromLocalPackage({ targetDir, template, packageName, ...opt
 }
 
 /**
- * Resolves once the dev server answers HTTP on `url` (any status counts), rejects when the child
- * exits first or the budget runs out. The server's output is kept for the error message.
+ * A TCP port nothing listens on at this moment. The server is then started with --strictPort, so
+ * losing the port to another process in between fails the test instead of passing it by accident.
  */
-function waitForHttp(child, url, timeoutMs) {
+function freePort() {
+  return new Promise((resolve, reject) => {
+    const server = net.createServer();
+
+    server.unref();
+    server.on('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      const { port } = server.address();
+
+      server.close(() => resolve(port));
+    });
+  });
+}
+
+/**
+ * Resolves once a request to `url` gets a response that `isReady` accepts, rejects when the child
+ * exits first or the budget runs out. A response from something else listening on the port keeps
+ * the polling going. The server's output is kept for the error message.
+ */
+function waitForHttp(child, url, isReady, timeoutMs) {
   return new Promise((resolve, reject) => {
     let output = '';
+    let lastResponse = 'none';
     let exited = false;
     let finished = false;
 
@@ -179,14 +200,22 @@ function waitForHttp(child, url, timeoutMs) {
         const response = await fetch(url, { redirect: 'manual', signal: AbortSignal.timeout(2_000) });
 
         await response.arrayBuffer();
-        finish();
+        lastResponse = `HTTP ${response.status}, location: ${response.headers.get('location') ?? 'none'}`;
+
+        if (isReady(response)) {
+          finish();
+        }
       } catch {
         // not listening yet
       }
     }, 500);
 
     const timer = setTimeout(() => {
-      finish(new Error(`timed out waiting for the dev server at ${url}\noutput:\n${output}`));
+      finish(
+        new Error(
+          `timed out waiting for the dev server at ${url} (last response: ${lastResponse})\noutput:\n${output}`,
+        ),
+      );
     }, timeoutMs);
   });
 }
@@ -357,6 +386,23 @@ test.describe('argument validation happens before anything is written', () => {
       expect(run.stdout + run.stderr).toContain('package.json');
       expect(fs.readdirSync(targetDir).sort()).toEqual([existingFile, 'package.json']);
       expect(fs.readFileSync(path.join(targetDir, 'package.json'), 'utf8')).toBe('{}');
+    });
+  });
+
+  test('--yes --cursor-rules refuses a directory with a Cursor rule it would overwrite', offline, async () => {
+    await withTmpDir('yes-rule-collision', async (tmpRoot) => {
+      const targetDir = nonEmptyTarget(tmpRoot);
+      const ruleFile = path.join(targetDir, '.cursor', 'rules', 'mi-custom-apps-dev.mdc');
+
+      fs.mkdirSync(path.dirname(ruleFile), { recursive: true });
+      fs.writeFileSync(ruleFile, 'customized');
+
+      const run = runCli([targetDir, '--template', 'vanilla', '-y', '--cursor-rules', '--no-install']);
+
+      expect(run.status).toBe(1);
+      expect(run.stdout + run.stderr).toContain('.cursor/rules/mi-custom-apps-dev.mdc');
+      expect(fs.readdirSync(targetDir).sort()).toEqual(['.cursor', existingFile]);
+      expect(fs.readFileSync(ruleFile, 'utf8')).toBe('customized');
     });
   });
 
@@ -560,6 +606,30 @@ test.describe('scaffolding', () => {
       expect(run.stdout).toContain('Project created successfully');
     });
   });
+
+  test('the registry warning does not repeat credentials from the registry URL', offline, async () => {
+    await withTmpDir('registry-creds', async (tmpRoot) => {
+      const targetDir = path.join(tmpRoot, 'redacted-registry');
+      const run = scaffoldProject({
+        targetDir,
+        template: 'vanilla',
+        packageName: 'redacted-registry',
+        install: false,
+        cursorRules: false,
+        ppComponents: true,
+        env: { ...unreachableRegistryEnv, npm_config_registry: 'http://user:s3cret-token@127.0.0.1:9' },
+      });
+      const output = run.stdout + run.stderr;
+
+      expect(run.status, `stderr: ${run.stderr}\nstdout: ${run.stdout}`).toBe(0);
+      expect(output).toContain('http://127.0.0.1:9/@metricinsights/pp-components');
+      expect(output).not.toContain('s3cret-token');
+      expect(output).not.toContain('user:');
+      expect(readJson(path.join(targetDir, 'package.json')).dependencies['@metricinsights/pp-components']).toBe(
+        '^1.0.0',
+      );
+    });
+  });
 });
 
 test.describe('package installation', () => {
@@ -657,7 +727,7 @@ test('runs dev server for scaffolded vanilla project', async () => {
   await withTmpDir('devserver', async (tmpRoot) => {
     const packageName = 'sample-vanilla-server';
     const targetDir = path.join(tmpRoot, packageName);
-    const port = 4173;
+    const port = await freePort();
 
     const scaffold = scaffoldProject({
       targetDir,
@@ -693,13 +763,18 @@ test('runs dev server for scaffolded vanilla project', async () => {
     expect(install.error, `install spawn error: ${install.error?.message ?? 'none'}`).toBeUndefined();
     expect(install.status, `stderr: ${install.stderr}\nstdout: ${install.stdout}`).toBe(0);
 
-    const devServer = runNpm(['run', 'dev', '--', '--host', '127.0.0.1', '--port', String(port)], {
+    const devServer = runNpm(['run', 'dev', '--', '--host', '127.0.0.1', '--port', String(port), '--strictPort'], {
       cwd: targetDir,
       stdio: ['ignore', 'pipe', 'pipe'],
     });
 
+    // pp-dev answers "/" with a redirect to the page's own base, /pl/<package name>/ — that is what
+    // tells this server apart from anything else that could answer on the port.
+    const isScaffoldedApp = (response) =>
+      response.status === 302 && (response.headers.get('location') ?? '').includes(`/${packageName}/`);
+
     try {
-      await waitForHttp(devServer, `http://127.0.0.1:${port}/`, 60_000);
+      await waitForHttp(devServer, `http://127.0.0.1:${port}/`, isScaffoldedApp, 60_000);
     } finally {
       stopProcessTree(devServer.pid);
     }
