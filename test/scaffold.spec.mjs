@@ -34,6 +34,16 @@ function runNpm(args, options) {
   return spawn('npm', args, { shell: process.platform === 'win32', ...options });
 }
 
+/** Entries of a .gitignore without comments, blanks, CR and the leading "/" of rooted patterns. */
+function readGitignoreEntries(file) {
+  return fs
+    .readFileSync(file, 'utf8')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'))
+    .map((line) => line.replace(/^\//, ''));
+}
+
 const templates = [
   { name: 'vanilla', checkFile: 'src/main.js' },
   { name: 'vanilla-ts', checkFile: 'src/main.ts' },
@@ -171,6 +181,16 @@ for (const template of templates) {
 
       expect(packageJson.name).toBe(packageName);
       expect(packageJson.dependencies?.['@metricinsights/pp-components']).toBeUndefined();
+
+      // _gitignore is renamed on copy; the result must keep the pp-dev token file (.env, read by
+      // pp-dev through Vite's loadEnv) and pp-dev's build output and MI backups out of git.
+      expect(fs.existsSync(path.join(targetDir, '_gitignore'))).toBeFalsy();
+
+      const gitignoreEntries = readGitignoreEntries(path.join(targetDir, '.gitignore'));
+
+      for (const entry of ['.env', '.env.*', 'dist', 'dist-zip', 'backups']) {
+        expect(gitignoreEntries, `.gitignore of ${template.name} lacks "${entry}"`).toContain(entry);
+      }
     } finally {
       fs.rmSync(tmpRoot, { recursive: true, force: true });
     }
