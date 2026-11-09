@@ -8,6 +8,7 @@ import * as p from '@clack/prompts';
 // dist/index.mjs is bundled into <package>/dist; the templates, the Cursor rules and package.json
 // sit next to that directory.
 const packageRoot = path.resolve(fileURLToPath(import.meta.url), '../..');
+const cursorRulesDir = path.join(packageRoot, 'mi-cursor-rules');
 const cwd = process.cwd();
 
 // clack can only ask questions on a terminal. In a pipe or in CI every answer has to come from a
@@ -202,6 +203,20 @@ async function chooseTemplate(): Promise<string> {
   );
 }
 
+/** The URL without its userinfo, for messages: `https://user:secret@host/x` becomes `https://host/x`. */
+function withoutCredentials(url: string): string {
+  try {
+    const parsed = new URL(url);
+
+    parsed.username = '';
+    parsed.password = '';
+
+    return parsed.href.replace(/\/+$/, '');
+  } catch {
+    return url.replace(/^([a-z][a-z0-9+.-]*:\/\/)[^/@]*@/i, '$1');
+  }
+}
+
 /**
  * The newest published version of pp-components, read from the registry npm is configured with.
  * A registry that is down, slow or answers something else is a warning, not a failure: the project
@@ -227,11 +242,14 @@ async function latestPpComponentsVersion(): Promise<string> {
 
     return latest;
   } catch (error) {
-    const reason = error instanceof Error ? error.message : String(error);
+    // A registry URL may carry basic-auth userinfo (https://user:secret@registry.example), which must
+    // not end up in a terminal or a CI log, neither on its own nor quoted inside the error.
+    const shownRegistry = withoutCredentials(registry);
+    const reason = (error instanceof Error ? error.message : String(error)).replaceAll(registry, shownRegistry);
 
     p.log.warn(
-      `Could not read the latest ${PP_COMPONENTS_PACKAGE} version from ${url} (${reason}); ` +
-        `using ^${PP_COMPONENTS_FALLBACK_VERSION}.`,
+      `Could not read the latest ${PP_COMPONENTS_PACKAGE} version from ${shownRegistry}/${PP_COMPONENTS_PACKAGE} ` +
+        `(${reason}); using ^${PP_COMPONENTS_FALLBACK_VERSION}.`,
     );
 
     return PP_COMPONENTS_FALLBACK_VERSION;
@@ -377,18 +395,21 @@ async function init() {
       }
 
       if (assumeDefaults) {
-        // "Keep the files" has to mean it: with nobody to ask, a template file that would land on an
-        // existing one stops the run before anything is written.
+        // "Keep the files" has to mean it: with nobody to ask, a template file or a Cursor rule that
+        // would land on an existing one stops the run before anything is written.
         const templateDir = path.join(packageRoot, `template-${argTemplate}`);
-        const collisions = fs
-          .readdirSync(templateDir)
-          .map((file) => renameFiles[file] ?? file)
-          .filter((name) => fs.existsSync(path.join(targetDir, name)));
+        const wouldWrite = fs.readdirSync(templateDir).map((file) => renameFiles[file] ?? file);
+
+        if (shouldAddCursorRules) {
+          wouldWrite.push(...fs.readdirSync(cursorRulesDir).map((file) => `.cursor/rules/${file}`));
+        }
+
+        const collisions = wouldWrite.filter((name) => fs.existsSync(path.join(targetDir, name)));
 
         if (collisions.length > 0) {
           fail(
-            `${where} already contains ${collisions.join(', ')}, which the ${argTemplate} template would ` +
-              'overwrite. Use an empty directory, or run without --yes to choose.',
+            `${where} already contains ${collisions.join(', ')}, which this run would overwrite. ` +
+              'Use an empty directory, or run without --yes to choose.',
           );
         }
 
@@ -472,13 +493,10 @@ async function init() {
     const cdProjectName = path.relative(cwd, root);
 
     if (addCursorRules) {
-      const rulesDir = path.join(packageRoot, 'mi-cursor-rules');
-      const ruleFiles = fs.readdirSync(rulesDir);
-
       fs.mkdirSync(path.join(root, '.cursor/rules'), { recursive: true });
 
-      for (const file of ruleFiles) {
-        copy(path.join(rulesDir, file), path.join(root, '.cursor/rules', file));
+      for (const file of fs.readdirSync(cursorRulesDir)) {
+        copy(path.join(cursorRulesDir, file), path.join(root, '.cursor/rules', file));
       }
     }
 
