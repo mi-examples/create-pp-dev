@@ -2,7 +2,7 @@
   "name": "@metricinsights/create-pp-dev",
   "version": "1.1.7",
   "type": "module",
-  "description": "Portal Page Templates repository",
+  "description": "Scaffolds a Metric Insights Portal Page project from a template",
   "bin": {
     "create-pp-dev": "index.js"
   },
@@ -34,8 +34,9 @@
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --report-unused-disable-directives --max-warnings 0 --fix",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepack": "node scripts/clean-templates.js",
-    "postbuild": "npm pack && node scripts/postbuild.js",
+    "postbuild": "node scripts/postbuild.js",
     "typecheck": "tsc --noEmit",
     "pretest": "unbuild",
     "test": "playwright test"
@@ -49,7 +50,7 @@
     "url": "https://github.com/mi-examples/create-pp-dev/issues"
   },
   "homepage": "https://github.com/mi-examples/create-pp-dev#readme",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@eslint/compat": "^2.1.1",
     "@eslint/eslintrc": "^3.3.7",
