@@ -1,3 +1,7 @@
+// Runs as `prepack`, before every `npm pack` / `npm publish`. It is the only thing keeping a
+// template's node_modules and package-lock.json out of the published package: `files` in
+// package.json whitelists `template-*/**`, and a root .npmignore cannot exclude anything below a
+// whitelisted directory. Both appear whenever a template was installed in place for a manual test.
 import { readdirSync, rmSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
