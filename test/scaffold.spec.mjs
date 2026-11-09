@@ -247,6 +247,18 @@ test.describe('usage and version', () => {
     expect(run.stdout.trim()).toBe(packageVersion);
   });
 
+  test('the README documents every flag of --help', offline, async () => {
+    const usage = runCli(['--help']).stdout;
+    const flags = [...new Set(usage.match(/--[a-z][a-z-]*/g))];
+    const readme = fs.readFileSync(path.join(repoRoot, 'README.md'), 'utf8');
+
+    expect(flags.length).toBeGreaterThan(5);
+
+    for (const flag of flags) {
+      expect(readme, `README.md does not mention ${flag}`).toContain(flag);
+    }
+  });
+
   test('an unknown flag exits 1 with a hint and creates nothing', offline, async () => {
     await withTmpDir('unknown-flag', async (tmpRoot) => {
       const run = runCli(['proj', '--template', 'vanilla', '--bogus-flag'], { cwd: tmpRoot });
