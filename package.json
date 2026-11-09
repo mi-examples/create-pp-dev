@@ -37,6 +37,7 @@
     "prepack": "node scripts/clean-templates.js",
     "postbuild": "npm pack && node scripts/postbuild.js",
     "typecheck": "tsc --noEmit",
+    "pretest": "unbuild",
     "test": "playwright test"
   },
   "author": "Serhii Shpak",
