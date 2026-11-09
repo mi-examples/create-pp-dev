@@ -24,3 +24,4 @@ jobs:
     uses: mi-examples/mi-examples-workflows/.github/workflows/node-ci.yml@75e92a129ce7adbf059e73e83ce9e14222e7c7a2 # v0.10.0
     with:
       dist-dir: "dist"
+      audit-command: "npm run audit:all"

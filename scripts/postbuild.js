@@ -1,10 +1,11 @@
 // Runs after `npm run build` (unbuild): packs the package and keeps a copy of the tarball as
 // <name>-latest.tgz, so a fixed file name can be installed from (npm i ../metricinsights-create-pp-dev-latest.tgz).
 // Tarballs of earlier builds are removed first, so the repository root holds the current version only.
-import { copyFileSync, existsSync, readdirSync, readFileSync, rmSync } from 'fs';
+import { copyFileSync, readdirSync, readFileSync, rmSync } from 'fs';
 import { execFileSync } from 'child_process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { npmCommand } from './npm-cli.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(__dirname, '..');
@@ -20,39 +21,16 @@ for (const file of readdirSync(rootDir)) {
   }
 }
 
-// Under an npm script, npm_execpath points at npm-cli.js; run that with the current node so the
-// same npm packs the package. Under yarn or pnpm it points at their CLI, whose `pack` takes other
-// options and prints another shape, so then (and outside any package manager) use the npm that
-// ships with the running node, or npm from PATH as the last resort.
-function findNpmCli() {
-  const fromEnv = process.env.npm_execpath;
-
-  if (fromEnv && /npm-cli\.js$/.test(fromEnv)) {
-    return fromEnv;
-  }
-
-  const nodeDir = dirname(process.execPath);
-  const candidates = [
-    join(nodeDir, 'node_modules', 'npm', 'bin', 'npm-cli.js'), // Windows installs, nvm-windows
-    join(nodeDir, '..', 'lib', 'node_modules', 'npm', 'bin', 'npm-cli.js'), // Linux, macOS, nvm
-  ];
-
-  return candidates.find((candidate) => existsSync(candidate));
-}
-
-const npmCli = findNpmCli();
-const [command, ...prefix] = npmCli ? [process.execPath, npmCli] : [process.platform === 'win32' ? 'npm.cmd' : 'npm'];
-const useShell = process.platform === 'win32' && !npmCli;
-
 // prepack (clean-templates.js) prints to stdout, where `npm pack --json` prints its result too, so
 // run the cleanup here and pack with the scripts off; `npm publish` in CI still runs prepack.
 execFileSync(process.execPath, [join(__dirname, 'clean-templates.js')], { cwd: rootDir, stdio: 'inherit' });
 
-const output = execFileSync(command, [...prefix, 'pack', '--json', '--ignore-scripts'], {
+const pack = npmCommand(['pack', '--json', '--ignore-scripts']);
+const output = execFileSync(pack.command, pack.args, {
   cwd: rootDir,
   encoding: 'utf8',
   stdio: ['ignore', 'pipe', 'inherit'],
-  shell: useShell,
+  shell: pack.shell,
 });
 
 const [packed] = JSON.parse(output);

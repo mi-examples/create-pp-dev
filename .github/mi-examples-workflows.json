@@ -8,7 +8,11 @@
   ],
   "inputs": {
     "ci": {
-      "dist-dir": "dist"
+      "dist-dir": "dist",
+      "audit-command": "npm run audit:all"
+    },
+    "dependency-audit": {
+      "audit-command": "npm run audit:all"
     }
   }
 }

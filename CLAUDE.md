@@ -15,7 +15,7 @@ npm test               # builds, then the Playwright suite: scaffolds and instal
 npx playwright test --grep @offline   # the quick subset: no network, under half a minute
 ```
 
-The templates have no lockfiles in the repository (`.gitignore`, `scripts/clean-templates.js`). To audit one, copy its `package.json` to a temporary directory, run `npm install --package-lock-only` there and `npm audit`.
+The templates have no lockfiles in the repository (`.gitignore`, `scripts/clean-templates.js`), so a plain `npm audit` covers the package itself only. `npm run audit:all` audits the root and every template (each template is resolved in a temporary directory with `npm install --package-lock-only`); the shared CI runs it on pull requests and weekly. A high or critical advisory without a fix goes into the shared `audit-allowlist.json` in mi-examples-workflows with a reason and an `until` date, never into this repository.
 
 ## Layout
 

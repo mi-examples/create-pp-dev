@@ -116,6 +116,7 @@ npm run build          # build dist/index.mjs and pack the tarball
 npm run lint
 npm run typecheck
 npm run format:check
+npm run audit:all      # npm audit for the package and every template (each resolved in a temp dir)
 npm test               # builds, then scaffolds and installs every template (minutes)
 npx playwright test --grep @offline   # the quick subset without network
 ```

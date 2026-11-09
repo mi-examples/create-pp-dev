@@ -21,3 +21,5 @@ jobs:
     permissions:
       contents: read
     uses: mi-examples/mi-examples-workflows/.github/workflows/dependency-audit.yml@75e92a129ce7adbf059e73e83ce9e14222e7c7a2 # v0.10.0
+    with:
+      audit-command: "npm run audit:all"

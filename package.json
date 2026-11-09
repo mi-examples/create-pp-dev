@@ -38,6 +38,7 @@
     "prepack": "node scripts/clean-templates.js",
     "postbuild": "node scripts/postbuild.js",
     "typecheck": "tsc --noEmit",
+    "audit:all": "node scripts/audit-all.mjs",
     "pretest": "unbuild",
     "test": "playwright test"
   },
