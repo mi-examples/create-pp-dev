@@ -19,6 +19,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { parseAllowlist } from './audit-allowlist.js';
 import { npmCommand } from './npm-cli.js';
 
 const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -51,24 +52,10 @@ async function loadAllowlist() {
       text = readFileSync(source, 'utf8');
     }
 
-    // An entry applies through its `until` day, in UTC.
-    const today = new Date().toISOString().slice(0, 10);
-    const allowlist = new Map();
+    const { allowlist, warnings } = parseAllowlist(text);
 
-    for (const entry of JSON.parse(text).entries ?? []) {
-      const valid =
-        /^GHSA-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}$/.test(entry?.id ?? '') &&
-        typeof entry.reason === 'string' &&
-        entry.reason.trim() !== '' &&
-        /^\d{4}-\d{2}-\d{2}$/.test(entry.until ?? '');
-
-      if (!valid) {
-        console.warn(`⚠ Ignoring an invalid audit allowlist entry: ${JSON.stringify(entry)}`);
-      } else if (entry.until < today) {
-        console.warn(`✗ The audit allowlist entry for ${entry.id} expired on ${entry.until}, so it applies no more.`);
-      } else {
-        allowlist.set(entry.id, `${entry.reason.trim()} (until ${entry.until})`);
-      }
+    for (const warning of warnings) {
+      console.warn(warning);
     }
 
     console.log(`Audit allowlist: ${source} (${allowlist.size} active)`);

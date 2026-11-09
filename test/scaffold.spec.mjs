@@ -699,6 +699,67 @@ test.describe('package installation', () => {
   });
 });
 
+test.describe('audit allowlist', () => {
+  const allowlistModule = pathToFileURL(path.join(repoRoot, 'scripts', 'audit-allowlist.js')).href;
+  const entry = (fields) => ({
+    id: 'GHSA-aaaa-bbbb-cccc',
+    reason: 'cannot be reached',
+    until: '2030-01-01',
+    ...fields,
+  });
+  const parse = async (entries, today = '2026-11-09') => {
+    const { parseAllowlist } = await import(allowlistModule);
+
+    return parseAllowlist(JSON.stringify({ entries }), today);
+  };
+
+  test('an entry with a GHSA id, a reason and a future day applies', offline, async () => {
+    const { allowlist, warnings } = await parse([entry({})]);
+
+    expect([...allowlist.keys()]).toEqual(['GHSA-aaaa-bbbb-cccc']);
+    expect(allowlist.get('GHSA-aaaa-bbbb-cccc')).toBe('cannot be reached (until 2030-01-01)');
+    expect(warnings).toEqual([]);
+  });
+
+  test('an entry applies through its until day and expires after it', offline, async () => {
+    const onTheDay = await parse([entry({ until: '2026-11-09' })]);
+    const dayAfter = await parse([entry({ until: '2026-11-08' })]);
+
+    expect(onTheDay.allowlist.size).toBe(1);
+    expect(dayAfter.allowlist.size).toBe(0);
+    expect(dayAfter.warnings.join('\n')).toContain('expired on 2026-11-08');
+  });
+
+  test('an until that is not a real day is rejected, not kept active', offline, async () => {
+    // "2026-99-99" passes a format check and sorts after today; it must not suppress anything
+    for (const until of ['2026-99-99', '2026-02-30', '2026-1-1', 'tomorrow', 20261231, undefined]) {
+      const { allowlist, warnings } = await parse([entry({ until })]);
+
+      expect(allowlist.size, `until=${String(until)}`).toBe(0);
+      expect(warnings.join('\n'), `until=${String(until)}`).toContain('invalid audit allowlist entry');
+    }
+  });
+
+  test('an entry without a GHSA id or without a reason is ignored', offline, async () => {
+    const { allowlist, warnings } = await parse([
+      entry({ id: 'CVE-2026-0001' }),
+      entry({ reason: '   ' }),
+      entry({ reason: undefined }),
+      entry({ id: 'GHSA-dddd-eeee-ffff' }),
+    ]);
+
+    expect([...allowlist.keys()]).toEqual(['GHSA-dddd-eeee-ffff']);
+    expect(warnings).toHaveLength(3);
+  });
+
+  test('a list without entries allowlists nothing', offline, async () => {
+    const { allowlist, warnings } = await parse(undefined);
+
+    expect(allowlist.size).toBe(0);
+    expect(warnings).toEqual([]);
+  });
+});
+
 test.describe('build scripts', () => {
   test('postbuild packs with npm even when another package manager runs the build', offline, async () => {
     test.setTimeout(120_000);
