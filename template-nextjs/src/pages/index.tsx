@@ -1,6 +1,7 @@
 import styles from '@/assets/pages/index.module.scss';
 import Image from 'next/image';
-import { ASSETS_PREFIX } from '@/constants';
+import ppDevLogo from '@/assets/img/pp-dev.svg';
+import nextLogo from '@/assets/img/next.svg';
 import RootLayout from '@/components/root-layout';
 import { useState } from 'react';
 import clsx from 'clsx';
@@ -14,7 +15,7 @@ export default function Home() {
       <div>
         <a href="https://www.npmjs.com/package/@metricinsights/pp-dev" target="_blank" rel="noopener noreferrer">
           <Image
-            src={`${ASSETS_PREFIX}/pp-dev.svg`}
+            src={ppDevLogo}
             className={styles.logo}
             alt="PPDev Logo"
             width={120}
@@ -25,7 +26,7 @@ export default function Home() {
         <a href="https://react.dev" target="_blank" rel="noopener noreferrer">
           <Image
             className={clsx(styles.logo, styles.logoNextJs)}
-            src={`${ASSETS_PREFIX}/next.svg`}
+            src={nextLogo}
             alt="Next.js Logo"
             width={180}
             height={37}

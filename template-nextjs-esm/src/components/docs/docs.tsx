@@ -1,6 +1,9 @@
 import styles from './docs.module.scss';
 import Image from 'next/image';
-import { ASSETS_PREFIX } from '@/constants';
+import ppDevLogo from '@/assets/img/pp-dev.svg';
+import nextLogo from '@/assets/img/next.svg';
+import reactLogo from '@/assets/img/react.svg';
+import metricInsightsLogo from '@/assets/img/metricinsights.svg';
 import clsx from 'clsx';
 
 export default function Docs() {
@@ -15,7 +18,7 @@ export default function Docs() {
         >
           <Image
             className={clsx(styles.docs__item__logo)}
-            src={`${ASSETS_PREFIX}/pp-dev.svg`}
+            src={ppDevLogo}
             width={150}
             height={50}
             alt={'PP Dev'}
@@ -27,7 +30,7 @@ export default function Docs() {
         <a className={styles.docs__item} href="https://nextjs.org" target="_blank" rel="noopener noreferrer">
           <Image
             className={clsx(styles.docs__item__logo, styles.invert__dark)}
-            src={`${ASSETS_PREFIX}/next.svg`}
+            src={nextLogo}
             width={150}
             height={50}
             alt={'Next.js'}
@@ -39,7 +42,7 @@ export default function Docs() {
         <a className={styles.docs__item} href="https://react.dev" target="_blank" rel="noopener noreferrer">
           <Image
             className={clsx(styles.docs__item__logo)}
-            src={`${ASSETS_PREFIX}/react.svg`}
+            src={reactLogo}
             width={150}
             height={50}
             alt={'React.js'}
@@ -56,7 +59,7 @@ export default function Docs() {
         >
           <Image
             className={clsx(styles.docs__item__logo, styles.invert)}
-            src={`${ASSETS_PREFIX}/metricinsights.svg`}
+            src={metricInsightsLogo}
             width={150}
             height={20}
             alt={'MetricInsights'}
