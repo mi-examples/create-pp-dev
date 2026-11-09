@@ -57,7 +57,7 @@ npm create @metricinsights/pp-dev@latest . -- --template react
 | `--install` / `--no-install`             | run the package manager's install after scaffolding                                | install                          |
 | `--cursor-rules` / `--no-cursor-rules`   | copy the MI Cursor rules into `.cursor/rules`                                      | no                               |
 | `--pp-components` / `--no-pp-components` | add `@metricinsights/pp-components` as a dependency                                | no                               |
-| `-y, --yes`                              | ask nothing: take the defaults above; a non-empty target directory keeps its files | —                                |
+| `-y, --yes`                              | ask nothing: take the defaults above; a non-empty target directory is accepted only when the template would overwrite none of its files | — |
 | `-h, --help`                             | print the usage                                                                    |                                  |
 | `-v, --version`                          | print the version                                                                  |                                  |
 
