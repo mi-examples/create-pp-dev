@@ -20,7 +20,7 @@ You can start editing the page by modifying `src/main.js` and `index.html`. The 
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more, take a look at the following resources:
 
 - [PP Dev Documentation](https://www.npmjs.com/package/@metricinsights/pp-dev) - learn about PP Dev features and API.
 - [Metric Insights Docs](https://help.metricinsights.com/) - learn about Metric Insights features and API.
@@ -38,7 +38,7 @@ export default defineConfig({
     /**
      * Metric Insights instance URL
      */
-    url: 'https://640.metricinsights.com',
+    url: 'https://example.metricinsights.com',
     mode: 'embedding',
     apiVersion: 7,
   },

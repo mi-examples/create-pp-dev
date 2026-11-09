@@ -24,7 +24,7 @@ You can start editing the page by modifying `src/app.tsx`. The page auto-updates
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more, take a look at the following resources:
 
 - [TypeScript Docs](https://www.typescriptlang.org/) - learn about TypeScript features and API.
 - [React.js Docs](https://react.dev) - learn about React features and API.
@@ -33,25 +33,24 @@ To learn more about Next.js, take a look at the following resources:
 
 ## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The template ships a flat config (`eslint.config.cjs`) built with `FlatCompat` from `eslint:recommended`, `plugin:@typescript-eslint/recommended` and `plugin:react-hooks/recommended`. If you are developing a production application, we recommend enabling type-aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+- Point the parser at your `tsconfig` files in `languageOptions`:
 
 ```js
-export default {
-  // other rules...
+// eslint.config.cjs
+languageOptions: {
+  parser: tsParser,
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
-};
+},
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Replace `plugin:@typescript-eslint/recommended` in `compat.extends(...)` with `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the same `compat.extends(...)` list
 
 ## PP Dev Helper configuration
 

@@ -1,6 +1,6 @@
 # Next.js + PP Dev
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`@metricinsights/create-pp-dev`](https://github.com/mi-examples/pp-dev-js/tree/main/packages/create-pp-dev).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`@metricinsights/create-pp-dev`](https://github.com/mi-examples/create-pp-dev).
 
 ## Getting Started
 
