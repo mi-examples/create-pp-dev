@@ -6,5 +6,5 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts", "pp-dev.config.ts"]
+  "include": ["pp-dev.config.ts"]
 }
