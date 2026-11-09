@@ -49,17 +49,17 @@ To scaffold in the current directory, use `.` as the project name:
 npm create @metricinsights/pp-dev@latest . -- --template react
 ```
 
-| Flag                                     | Answers                                                                                                                                 | Default with `--yes`             |
-| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
-| `[project-name]`                         | the directory to create (`.` for the current one)                                                                                       | `pp-project`                     |
-| `-t, --template <name>`                  | the template (see below)                                                                                                                | none: `--yes` needs `--template` |
-| `--package-name <name>`                  | `name` in the project's `package.json`                                                                                                  | derived from the directory name  |
-| `--install` / `--no-install`             | run the package manager's install after scaffolding                                                                                     | install                          |
-| `--cursor-rules` / `--no-cursor-rules`   | copy the MI Cursor rules into `.cursor/rules`                                                                                           | no                               |
-| `--pp-components` / `--no-pp-components` | add `@metricinsights/pp-components` as a dependency                                                                                     | no                               |
-| `-y, --yes`                              | ask nothing: take the defaults above; a non-empty target directory is accepted only when the template would overwrite none of its files | —                                |
-| `-h, --help`                             | print the usage                                                                                                                         |                                  |
-| `-v, --version`                          | print the version                                                                                                                       |                                  |
+| Flag                                     | Answers                                                                                                                                                    | Default with `--yes`             |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| `[project-name]`                         | the directory to create (`.` for the current one)                                                                                                          | `pp-project`                     |
+| `-t, --template <name>`                  | the template (see below)                                                                                                                                   | none: `--yes` needs `--template` |
+| `--package-name <name>`                  | `name` in the project's `package.json`                                                                                                                     | derived from the directory name  |
+| `--install` / `--no-install`             | run the package manager's install after scaffolding                                                                                                        | install                          |
+| `--cursor-rules` / `--no-cursor-rules`   | copy the MI Cursor rules into `.cursor/rules`                                                                                                              | no                               |
+| `--pp-components` / `--no-pp-components` | add `@metricinsights/pp-components` as a dependency                                                                                                        | no                               |
+| `-y, --yes`                              | ask nothing: take the defaults above; a non-empty target directory is accepted only when nothing in it would be overwritten (template files, Cursor rules) | —                                |
+| `-h, --help`                             | print the usage                                                                                                                                            |                                  |
+| `-v, --version`                          | print the version                                                                                                                                          |                                  |
 
 The package manager is the one that runs the CLI (`npm create` → npm, `yarn create` → yarn, `pnpm create` → pnpm).
 
