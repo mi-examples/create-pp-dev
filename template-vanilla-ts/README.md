@@ -20,7 +20,7 @@ You can start editing the page by modifying `src/main.ts` and `index.html`. The 
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more, take a look at the following resources:
 
 - [TypeScript Docs](https://www.typescriptlang.org/) - learn about TypeScript features and API.
 - [PP Dev Documentation](https://www.npmjs.com/package/@metricinsights/pp-dev) - learn about PP Dev features and API.
