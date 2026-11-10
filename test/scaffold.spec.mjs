@@ -699,6 +699,47 @@ test.describe('package installation', () => {
   });
 });
 
+test.describe('template dependency pins', () => {
+  const templates = fs
+    .readdirSync(repoRoot)
+    .filter((name) => name.startsWith('template-'))
+    .sort();
+
+  // npm reads `overrides`; yarn and pnpm ignore it and read `resolutions`. A pin in one field only
+  // closes an advisory for some package managers and leaves it open for the others.
+  for (const template of templates) {
+    test(`${template} pins the same versions for npm and for yarn / pnpm`, offline, () => {
+      const pkg = readJson(path.join(repoRoot, template, 'package.json'));
+
+      expect(pkg.resolutions ?? {}, 'resolutions (yarn, pnpm) must mirror overrides (npm)').toEqual(
+        pkg.overrides ?? {},
+      );
+    });
+  }
+
+  test('a scaffolded project carries both fields', offline, async () => {
+    await withTmpDir('pins', async (tmpRoot) => {
+      const targetDir = path.join(tmpRoot, 'pinned');
+      const run = scaffoldProject({
+        targetDir,
+        template: 'vanilla',
+        packageName: 'pinned',
+        install: false,
+        cursorRules: false,
+        ppComponents: false,
+      });
+
+      expect(run.status, `stderr: ${run.stderr}\nstdout: ${run.stdout}`).toBe(0);
+
+      const template = readJson(path.join(repoRoot, 'template-vanilla', 'package.json'));
+      const scaffolded = readJson(path.join(targetDir, 'package.json'));
+
+      expect(scaffolded.overrides).toEqual(template.overrides);
+      expect(scaffolded.resolutions).toEqual(template.resolutions);
+    });
+  });
+});
+
 test.describe('audit allowlist', () => {
   const allowlistModule = pathToFileURL(path.join(repoRoot, 'scripts', 'audit-allowlist.js')).href;
   const entry = (fields) => ({
