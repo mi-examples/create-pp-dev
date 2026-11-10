@@ -130,7 +130,7 @@ Releases use the shared workflows from [mi-examples-workflows](https://github.co
 - every push to `develop` with releasable commits publishes `X.Y.Z-beta.N` under the `beta` dist-tag (`npm create @metricinsights/pp-dev@beta`);
 - **Actions → Release → Run workflow** opens a release pull request into `main`; merging it publishes `latest` and opens the back-merge into `develop`;
 - versions come from [Conventional Commits](https://www.conventionalcommits.org/) (`feat` → minor; `fix`, `perf`, `revert` → patch; `!` or `BREAKING CHANGE:` → major);
-- `CHANGELOG.md` and the tags are written by the release workflow (from 1.1.8 on; older entries were written by semantic-release or by hand);
+- `CHANGELOG.md` and the tags are written by the release workflow (from 1.2.0 on; older entries were written by semantic-release or by hand);
 - publishing uses npm Trusted Publishing (OIDC) from `.github/workflows/release.yml`, so don't rename that file.
 
 ## License
