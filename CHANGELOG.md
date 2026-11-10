@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.8](https://github.com/mi-examples/create-pp-dev/compare/v1.1.7...v1.1.8) (2026-11-10)
+## [1.2.0](https://github.com/mi-examples/create-pp-dev/compare/v1.1.7...v1.2.0) (2026-11-10)
 
 ### Features
 
