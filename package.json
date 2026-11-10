@@ -38,6 +38,7 @@
     "prepack": "node scripts/clean-templates.js",
     "postbuild": "node scripts/postbuild.js",
     "typecheck": "tsc --noEmit",
+    "audit:all": "node scripts/audit-all.mjs",
     "pretest": "unbuild",
     "test": "playwright test"
   },
@@ -64,6 +65,9 @@
     "globals": "^17.13.0",
     "prettier": "^3.9.10",
     "unbuild": "^3.6.1"
+  },
+  "overrides": {
+    "minimatch": "^11.0.4"
   },
   "dependencies": {
     "@clack/prompts": "^1.8.1",

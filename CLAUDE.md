@@ -15,7 +15,9 @@ npm test               # builds, then the Playwright suite: scaffolds and instal
 npx playwright test --grep @offline   # the quick subset: no network, under half a minute
 ```
 
-The templates have no lockfiles in the repository (`.gitignore`, `scripts/clean-templates.js`). To audit one, copy its `package.json` to a temporary directory, run `npm install --package-lock-only` there and `npm audit`.
+The templates have no lockfiles in the repository (`.gitignore`, `scripts/clean-templates.js`), so a plain `npm audit` covers the package itself only. `npm run audit:all` audits the root and every template (each template is resolved in a temporary directory with `npm install --package-lock-only`); the shared CI runs it on pull requests and weekly. A high or critical advisory without a fix goes into the shared `audit-allowlist.json` in mi-examples-workflows with a reason and an `until` date, never into this repository.
+
+`overrides` in the root and in every template `package.json` pin transitive packages whose fixed version no dependency asks for yet: `minimatch` (GHSA-g3hv-75wg-m249, fixed in 11.0.1; eslint, typescript-eslint and glob still ask for 10.x) and, in the templates, `glob` (GHSA-3g3m-2fjr-6pw4, fixed in 14.0.2; svgicons2svgfont and cacache behind pp-dev ask for 10–13). A scaffolded project carries them. In the templates every pin is written twice, with the same value: `overrides` is what npm reads, `resolutions` is what yarn and pnpm read (each ignores the other field; checked with pnpm 10 and yarn 1.22, which resolve glob 10/11 and minimatch 10 without `resolutions`). Change both together; a test compares them. Dependabot maintains neither, so when a template dependency moves on, remove the entry from both and check that `npm run audit:all` stays clean.
 
 ## Layout
 
