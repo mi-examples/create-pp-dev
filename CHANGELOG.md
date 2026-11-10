@@ -1,5 +1,36 @@
 # Changelog
 
+## [1.1.8](https://github.com/mi-examples/create-pp-dev/compare/v1.1.7...v1.1.8) (2026-11-10)
+
+### Features
+
+- Added `--help` to print usage with every flag, the template list and examples, and `--version` to print the package version.
+- `--yes` now works and asks nothing: it uses the default project name, derives the package name from the directory, installs packages and skips Cursor rules and `@metricinsights/pp-components`. It requires `--template`.
+- The CLI can run without a terminal. It never prompts, and if any required flag is missing it exits with code 1 before writing anything, listing all of the missing flags.
+
+### Bug fixes
+
+- Unknown flags and flags missing a value now exit with code 1 and point to `--help`. Previously they were silently accepted.
+- An unknown template or an invalid `--package-name` is now reported before the target directory is touched, so existing files are no longer deleted.
+- A failed package install now exits with code 1 instead of reporting "Project created successfully!", and the scaffolded files are kept.
+- With `--yes`, a non-empty target directory is only accepted when nothing in it would be overwritten, including template files and existing `.cursor/rules/*.mdc` files; otherwise the run stops and lists the conflicting files.
+- Adding `@metricinsights/pp-components` no longer crashes when the registry is unreachable: the lookup times out, writes `^1.0.0` and prints a warning.
+- The registry warning and error text no longer print credentials embedded in the registry URL.
+- A filesystem root such as `C:\` as the target is no longer turned into the current directory.
+- The generated `.gitignore` now ignores `.env` and `.env.*` (keeping `.env.example`), so `MI_ACCESS_TOKEN` is no longer committed by accident; the Next.js templates also ignore `dist`, `dist-zip` and `backups`.
+- The Next.js templates now import their logos and favicon as static assets, so they load under both `pp-dev next` and the exported build instead of returning 404 in development.
+- The Next.js templates ship the `tsconfig.json` values Next 16 writes on first run, so a new project's `tsconfig.json` is no longer modified by `pp-dev next`.
+- The `vanilla-ts` template's `tsconfig.node.json` no longer references a `vite.config.ts` that doesn't exist.
+
+### Other changes
+
+- The Next.js templates now use `next` and `eslint-config-next` 16.4.5, which fixes two critical remote code execution advisories and a high-severity denial-of-service advisory present in 16.3.8.
+- The templates now require `@metricinsights/pp-dev` `^1.5.1`. With this version, `pp-dev generate-icon-font` needs `svgtofont` installed in the project (`npm install --save-dev svgtofont`).
+- The templates pin `minimatch` in both `overrides` and `resolutions` to clear a denial-of-service advisory with npm, yarn and pnpm alike.
+- Updated the template dependencies, including `react` and `react-dom` 19.3.1, `vite`, `@vitejs/plugin-react`, `eslint`, `prettier`, `globals` and `typescript-eslint`.
+- The MI Cursor rule copied into new projects now describes `pp-dev` 1.5 (commands, config sections with defaults, Next.js base paths and dev server) instead of an outdated copy of its README.
+- The package's `license` field now correctly says MIT.
+
 ## [1.1.7](https://github.com/mi-examples/create-pp-dev/compare/v1.1.6...v1.1.7) (2026-10-22)
 
 ### Bug fixes
