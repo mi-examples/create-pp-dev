@@ -22,7 +22,7 @@ Projects created with `npm create @metricinsights/pp-dev` already have the scrip
 | `build`   | `pp-dev build` (TypeScript templates: `tsc && pp-dev build`) | `pp-dev next-build` |
 | `preview` | `pp-dev preview` (react)                                     | —                   |
 
-CLI commands: `pp-dev [root]` (aliases `dev`, `serve`), `pp-dev next [root]` (`next-serve`, `next-dev`), `pp-dev build [root]`, `pp-dev next-build [root]`, `pp-dev preview [root]`, `pp-dev optimize [root]`, `pp-dev migrate [config]`, `pp-dev changelog [old] [new]`, `pp-dev generate-icon-font [source] [destination]`.
+CLI commands: `pp-dev [root]` (aliases `dev`, `serve`), `pp-dev next [root]` (`next-serve`, `next-dev`), `pp-dev build [root]`, `pp-dev next-build [root]`, `pp-dev preview [root]`, `pp-dev optimize [root]`, `pp-dev migrate [config]`, `pp-dev changelog [old] [new]`, `pp-dev generate-icon-font [source] [destination]` (needs `svgtofont` in the project since pp-dev 1.5.1: `npm install --save-dev svgtofont`).
 
 Global options: `-c, --config <file>`, `--base <path>`, `-l, --logLevel <info|warn|error|silent>`, `--clearScreen`, `--mode <development|production|test>`. Dev-server options: `--host [host]` (a bare `--host` listens on all addresses), `--port <port>` (default `3000`); `--open [path]` and `--strictPort` apply to `pp-dev` only. `pp-dev --help` and `pp-dev <command> --help` list everything.
 

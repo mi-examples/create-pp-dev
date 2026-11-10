@@ -22,7 +22,7 @@
     "@eslint/compat": "^2.1.1",
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
-    "@metricinsights/pp-dev": "^1.5.0",
+    "@metricinsights/pp-dev": "^1.5.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -38,11 +38,9 @@
     "vite": "^8.3.6"
   },
   "overrides": {
-    "glob": "^14.0.2",
     "minimatch": "^11.0.4"
   },
   "resolutions": {
-    "glob": "^14.0.2",
     "minimatch": "^11.0.4"
   }
 }
